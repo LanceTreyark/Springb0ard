@@ -94,12 +94,12 @@ sleep 1
 echo "Create Alias commands to run scripts in /home/$nonRootUsrName/ directory"
 cat >/home/$nonRootUsrName/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias goOne=". /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh"
-alias goTwo=". /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh"
+alias go=". /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh"
 EOF
 sleep 1
 echo "Enable the Alias file"
 sudo chmod +x /home/$nonRootUsrName/.bash_aliases
+echo "Assigning the HostName to the server"
 sudo hostname $myHostName
 hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
