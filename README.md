@@ -1,7 +1,7 @@
 
 # WARNING!
-# THIS CODE IS UNDER DEVELOPMENT
-# THIS CODE IS INCOMPLETE!!!
+# THIS CODE IS UNDER DEVELOPMENT & INCOMPLETE!
+# 
 
 <picture>
  <source media="(prefers-color-scheme: dark)" srcset="https://media.treyark.com/wp-content/uploads/2023/01/warno.jpg">
