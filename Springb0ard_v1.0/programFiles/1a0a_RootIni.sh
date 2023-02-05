@@ -1,15 +1,16 @@
 #!/bin/bash
-
-# ON 1/31/23 THIS SCRIPT WAS SUPERSEDED BY: C:\Users\treya\Desktop\GitHubRepo\0012_UnitTesting\013023_SpringBoard_i1\0_rootInit.shS
-# Was PhaseZeroZeroUnitTest.sh
-# Server Initialization Phase
 <<comment
-Process:
-1) create non sudo user
-2) copy keys to that user 
-3) curl phase zero, one, two -v.1.0 -Create a new public directory called experimental
-4) Set up UFW
-5) print all variables to text files in tmp and give ownership to $nonRootUsrName
+* TITLE:  1a0a_RootIni.sh
+* AUTHOR: Lance Pierson
+* EMAIL:  info@treyark.com
+* DATE:   2/5/23
+* EXECUTIVE SUMMARY: Root Initiaization Script
+-Process:
+1 create non sudo user
+2 copy keys to that user 
+3 curl phase zero, one, two -v.1.0 -Create a new public directory called experimental
+4 Set up UFW
+5 print all variables to text files in tmp and give ownership to $nonRootUsrName
 comment
 echo "The Script is Live"
 sleep 1
@@ -22,33 +23,24 @@ sudo snap install btop
 sleep 1
 read -p "Create a non-root user. What would you like to set as the new username?:  " nonRootUsrName
 read -p "Enter a hostname you want to use for this server:  " myHostname
-# The variables below need to be hard written outside this script as txt files in /tmp so they can be called into the other scripts
 read -p "Choose a file name for your first auto repo:  " autoRepo1
 read -p "What is the remote origin for this new repository?   " gitOrigin1
 read -p "What is your Git user email?  " gitEmail 
 read -p "What is your Git user name?  " gitName   
 read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
 # make txt files:
-mkdir /tmp/vArs
-#1
-touch /tmp/vArs/varAutoRepo1.txt
-echo "$autoRepo1" >> /tmp/vArs/varAutoRepo1.txt
-#2
-touch /tmp/vArs/varGitOrigin1.txt
-echo "$gitOrigin1" >> /tmp/vArs/varGitOrigin1.txt
-#3
-touch /tmp/vArs/varGitEmail.txt
-echo "$gitEmail" >> /tmp/vArs/varGitEmail.txt
-#4
-touch /tmp/vArs/varGitName.txt
-echo "$gitName" >> /tmp/vArs/varGitName.txt
-#5
-touch /tmp/vArs/varGitRepoName.txt
-echo "$GitRepoName" >> /tmp/vArs/varGitRepoName.txt
-#6
-touch /tmp/vArs/varnonRootUsrName.txt
-echo "$nonRootUsrName" >> /tmp/vArs/varnonRootUsrName.txt
-#
+touch /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
+echo "$autoRepo1" >> /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
+touch /tmp/Springb0ard_v1.0/vArs/varGitOrigin1.txt
+echo "$gitOrigin1" >> /tmp/Springb0ard_v1.0/vArs/varGitOrigin1.txt
+touch /tmp/Springb0ard_v1.0/vArs/varGitEmail.txt
+echo "$gitEmail" >> /tmp/Springb0ard_v1.0/vArs/varGitEmail.txt
+touch /tmp/Springb0ard_v1.0/vArs/varGitName.txt
+echo "$gitName" >> /tmp/Springb0ard_v1.0/vArs/varGitName.txt
+touch /tmp/Springb0ard_v1.0/vArs/varGitRepoName.txt
+echo "$GitRepoName" >> /tmp/Springb0ard_v1.0/vArs/varGitRepoName.txt
+touch /tmp/Springb0ard_v1.0/vArs/varnonRootUsrName.txt
+echo "$nonRootUsrName" >> /tmp/Springb0ard_v1.0/vArs/varnonRootUsrName.txt
 sleep 1
 echo "Creating new user"
 adduser $nonRootUsrName
@@ -62,23 +54,20 @@ echo "Installing Curl"
 sleep 1
 sudo apt install curl -y
 sleep 1
-echo "getting scripts ready for hand off"
-mkdir /tmp/iniScripts
-sleep 1
-curl -o /tmp/iniScripts/PhaseOneUnitTest.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/posOne.sh
-sleep 1
-curl -o /tmp/iniScripts/PhaseTwoUnitTest.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/posTwo.sh
-sleep 1
-#curl -o /tmp/iniScripts/x https://url
-#sleep 1
-#
-echo "Move scripts to $nonRootUsrName's home directory"
-sudo mv /tmp/iniScripts /home/$nonRootUsrName/
+#echo "getting scripts ready for hand off"  #These are now in the package 
+# /tmp/Springb0ard_v1.0/programFiles
+#echo "Move scripts to $nonRootUsrName's home directory"
+#sudo mv /tmp/iniScripts /home/$nonRootUsrName/
+sudo mv /tmp/Springb0ard_v1.0/ /etc/
+echo "setting ownership of program files to $nonRootUsrName"
+sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
-sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh
-sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
+#sudo chmod +x /etc/Springb0ard_v1.0/programFiles/y.sh
+# sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh
+# sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh
 sleep 1
 echo "Installing Firewall"
 apt install ufw -y
@@ -111,21 +100,6 @@ EOF
 sleep 1
 echo "Enable the Alias file"
 sudo chmod +x /home/$nonRootUsrName/.bash_aliases
-
-# PhaseZeroUnitTest.sh
-# Server Initialization Phase Zero
-<<comment
-TODO:
-0) DONE ! ZeroZero PreScript -Setup new user
-1) DONE ! Add your keys to a new non root user authorized users file
-2) DONE (in githubScript) ! Once you are using non root user you need to create ssh keys and display them & prompt the user to copy and paste them into github.
-3) DONE ! save the server IP to a variable called $myIP
-4) DONE ! Set the hostname, save the hostname to a variable called $myHostName
-# Pick up your trash tmp files!
-comment
-#
-# Set Hostname & Assign to a variable:
-#read -p "Enter a hostname you want to use for this server:  " $myHostname #Moved to top of page
 sudo hostname $myHostName
 hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
