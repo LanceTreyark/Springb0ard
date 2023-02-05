@@ -64,7 +64,7 @@ sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
-sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh #---------leftOffHere_2/5/23_@615am
 #sudo chmod +x /etc/Springb0ard_v1.0/programFiles/y.sh
 # sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh
 # sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh
