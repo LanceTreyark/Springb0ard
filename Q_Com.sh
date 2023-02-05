@@ -2,7 +2,7 @@
 #v.020523
 date_time="$(date +"%m.%d.%y %I:%M%p")"
 read -p "Enter an additional commit message (optional)   " var_commit
-echo " "
+echo "*"
 git commit -m "$date_time $var_commit"
 echo "*  *"
 echo "*  *  *"
