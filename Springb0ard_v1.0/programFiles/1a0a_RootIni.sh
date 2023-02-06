@@ -54,20 +54,17 @@ echo "Installing Curl"
 sleep 1
 sudo apt install curl -y
 sleep 1
-#echo "getting scripts ready for hand off"  #These are now in the package 
-# /tmp/Springb0ard_v1.0/programFiles
-#echo "Move scripts to $nonRootUsrName's home directory"
-#sudo mv /tmp/iniScripts /home/$nonRootUsrName/
+echo "getting scripts ready for hand off"  #Curl the package 
+#curl https://github.com/LanceTreyark/Springb0ard/tree/main/Springb0ard_v1.0
+# curl -o /tmp/Springb0ard https://github.com/LanceTreyark/Springb0ard/tree/main/Springb0ard_v1.0
+echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
 sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
-sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh #---------leftOffHere_2/5/23_@615am
-#sudo chmod +x /etc/Springb0ard_v1.0/programFiles/y.sh
-# sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh
-# sudo chmod +x /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
 sleep 1
 echo "Installing Firewall"
 apt install ufw -y
@@ -113,14 +110,9 @@ sudo rm -r /tmp/ipSort3r.txt
 echo "The IP address for this server is: $myIP"
 # Add Host data to the end of hosts file:
 sudo echo "$myIP $hostName" >> /etc/hosts    
-#
-echo "Setting Alias commands for current session..."
-sleep 1
-alias hi="sudo apt update && sudo apt upgrade"
-alias goOne=". /home/$nonRootUsrName/iniScripts/PhaseOneUnitTest.sh"
-alias goTwo=". /home/$nonRootUsrName/iniScripts/PhaseTwoUnitTest.sh"
-#
 echo "Switching over to $nonRootUsrName to complete the installations"
 sleep 1
+echo "Press Enter to continue..."
+read -s -p ""
 su $nonRootUsrName
 
