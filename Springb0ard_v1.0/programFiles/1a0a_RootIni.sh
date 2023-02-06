@@ -54,9 +54,16 @@ echo "Installing Curl"
 sleep 1
 sudo apt install curl -y
 sleep 1
-echo "getting scripts ready for hand off"  #Curl the package 
-#curl https://github.com/LanceTreyark/Springb0ard/tree/main/Springb0ard_v1.0
-curl -o /tmp/Springb0ard_v1.0.tar.gz https://github.com/LanceTreyark/Springb0ard/blob/main/Springb0ard_v1.0.tar.gz?raw=true
+echo "getting scripts ready for hand off"  #Curl & build the latest package 
+mkdir /tmp/Springb0ard_v1.0
+mkdir /tmp/Springb0ard_v1.0/vArs
+mkdir /tmp/Springb0ard_v1.0/programFiles
+mkdir /tmp/Springb0ard_v1.0/exampleDir
+cd /tmp/Springb0ard_v1.0/exampleDir #remember to return to the root dir after!
+curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com.sh"
+ls -n
+curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh"
+ls -n
 echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
