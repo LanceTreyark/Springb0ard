@@ -56,7 +56,7 @@ sudo apt install curl -y
 sleep 1
 echo "getting scripts ready for hand off"  #Curl the package 
 #curl https://github.com/LanceTreyark/Springb0ard/tree/main/Springb0ard_v1.0
-# curl -o /tmp/Springb0ard https://github.com/LanceTreyark/Springb0ard/tree/main/Springb0ard_v1.0
+curl -o /tmp/Springb0ard_v1.0.tar.gz https://github.com/LanceTreyark/Springb0ard/blob/main/Springb0ard_v1.0.tar.gz?raw=true
 echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
