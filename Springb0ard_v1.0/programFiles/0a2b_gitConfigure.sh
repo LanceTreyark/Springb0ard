@@ -131,7 +131,6 @@ sleep 1
 echo "Before change:"
 ls -a -1 /tmp
 sudo rm -r /tmp/gitHub
-#sudo rm -r /tmp/exampleRepo
 sleep 1
 echo "After change:"
 ls -a -1
@@ -140,9 +139,6 @@ echo "The script has concluded"
 sleep 1
 cd /home/$nonRootUsrName/
 pwd
-#
-#
-#TODO in PhaseZero we will need to addPhaseThree and make executable etc
 echo "End of script."
 echo "Begin Postfix installation script"
 sleep 1

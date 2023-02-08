@@ -1,4 +1,9 @@
 #!/bin/bash
+#nano 1a0a_RootIni.sh
+#sudo chmod +x 1a0a_RootIni.sh
+# UNIT TEST NUMBER: 020823_1
+# TEST RESULT:
+# STATE ISSUES:
 <<comment
 * TITLE:  1a0a_RootIni.sh
 * AUTHOR: Lance Pierson
