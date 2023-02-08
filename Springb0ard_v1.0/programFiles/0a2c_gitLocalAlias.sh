@@ -14,6 +14,3 @@ userID=$(id -u)
 sudo chown -R $userID:$userID $whereYat/microInit_i1.sh
 sudo chown -R $userID:$userID $whereYat/Q_Com.sh
 ./microInit_i1.sh
-
-#sudo chown -R 1000:1000 $whereYat/microInit_i1.sh
-#sudo chown -R 1000:1000 $whereYat/Q_Com.sh
