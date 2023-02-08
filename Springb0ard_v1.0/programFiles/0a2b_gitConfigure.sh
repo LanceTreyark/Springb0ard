@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# Add a git repo by running in any dir
+# "gitinit" for local or "gitroot" for root
 <<comment
 Author: LP
 Date: pre 2.2.23
@@ -52,20 +53,19 @@ sudo chown -R 1000:1000 /home/$nonRootUsrName/.bash_aliases
 sudo chown -R 1000:1000 /home/$nonRootUsrName/.ssh
 echo "After ownership change:"
 ls -a -1 /home/$nonRootUsrName/
-#-------------------------------------------------------------------- Change ownership of vArs to 1000
-sudo chown -R 1000:1000 /tmp/vars
 echo "Add Alias commands"
 sleep 1
 cd /home/$nonRootUsrName/
 pwd
 ls -a -1 /home/$nonRootUsrName/
 echo ""
-echo ""
 # Check for existence of the Alias file if it exists add these commands
 if [ -e /home/$nonRootUsrName/.bash_aliases ]; then
     #echo "alias hi='sudo apt update && sudo apt upgrade'" >> /home/$nonRootUsrName/.bash_aliases
-    echo "alias dude='./microInit_i1.sh'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias gitinit='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias gitroot='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias commitr='sudo git add . && sudo ./Q_Com.sh && sudo git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
 else
 # If the file does not exist, create it and add these commands, later we will make it executable and add it as a current source.
     touch /home/$nonRootUsrName/.bash_aliases
@@ -73,118 +73,14 @@ else
     echo "alias dude='./microInit_i1.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
 fi
-# TODO:
-# add the alias command for 0a2c_gitLocalAlias.sh
-# echo "alias gitini='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'"  >> /home/$nonRootUsrName/.bash_aliases
-# Make the command available in the current session 
-# alias gitini='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
-
-
-echo "Creating a gitHub directory in the home directory"
-mkdir /home/$nonRootUsrName/$GitRepoName
-
-<<comment
-#echo "Copy two repository handling scripts into /tmp then cp to home new dir gitHub"
-sleep 1
-ls -a -1 /tmp
-mkdir /tmp/exampleRepo
-ls -a -1 /tmp
-ls -a -1 /tmp/exampleRepo
-curl -o /tmp/exampleRepo/Q_Com.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/Q_Com.sh
-ls -a -1 /tmp/exampleRepo
-curl -o /tmp/exampleRepo/microInit_i1.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/microInit_i1.sh
-ls -a -1 /tmp/exampleRepo
-curl -o /tmp/exampleRepo/Q_Com_v0.0.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/Q_Com_v0.0.sh 
-ls -a -1 /tmp/exampleRepo
-curl -o /tmp/exampleRepo/microInit_v0.0.sh https://raw.githubusercontent.com/LanceTreyark/ExperimentalUnits/main/microInit_v0.0.sh 
-ls -a -1 /tmp/exampleRepo
-ls -a -1 /home/$nonRootUsrName/
-mkdir /home/$nonRootUsrName/$GitRepoName
-ls -a -1 /home/$nonRootUsrName/
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/
-cp -r /tmp/exampleRepo /home/$nonRootUsrName/$GitRepoName/
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/
-#--------------------------PHASE TWO
-#
-echo ""
-echo ""
-# userID=$(id -u)
-# echo "User ID is $userID"
-echo ""
-echo ""
-sleep 1
-# sudo chown -R $userID:$userID /home/$nonRootUsrName/$GitRepoName
-cd /home/$nonRootUsrName/$GitRepoName
-echo "In this Directory:"
-pwd
-echo "Here is a list of the contents before we make a change:"
-ls -a -1
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-cp -r /home/$nonRootUsrName/$GitRepoName/exampleRepo /home/$nonRootUsrName/$GitRepoName/$autoRepo1
-echo "Here is a list of the contents after the change"
-ls -a -1
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-echo "For the command scripts to work, sudo will be required to make them executable"
-sleep 1
-echo "In this Directory:"
-pwd
-echo "Here is a list of the contents before we make a change:"
-ls -a -1 /home/$nonRootUsrName/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-sudo chmod +x /home/$nonRootUsrName/.bash_aliases
-echo "Here is a list of the contents after the change"
-ls -a -1 /home/$nonRootUsrName/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-echo "In this Directory:"
-echo "/home/$nonRootUsrName/$GitRepoName/exampleRepo/"
-echo "Here is a list of the contents before we make a change:"
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/exampleRepo/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/exampleRepo/Q_Com.sh
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/exampleRepo/microInit_i1.sh
-echo "Here is a list of the contents after the change"
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/exampleRepo/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-echo "In this Directory:"
-echo "/home/$nonRootUsrName/$GitRepoName/$autoRepo1/"
-echo "Here is a list of the contents before we make a change:"
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/$autoRepo1/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/$autoRepo1/Q_Com.sh
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/$autoRepo1/microInit_i1.sh
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/$autoRepo1/Q_Com_v0.0.sh
-sudo chmod +x /home/$nonRootUsrName/$GitRepoName/$autoRepo1/microInit_v0.0.sh
-echo "Here is a list of the contents after the change"
-ls -a -1 /home/$nonRootUsrName/$GitRepoName/$autoRepo1/
-echo ""
-echo "-----------------------------------------------------------"
-echo ""
-sleep 1
-#--------------------------PHASE THREE
-#-------------------------------------------------------------------- 1
-comment
-
+echo "Making the alias commands available in the current session" 
+alias gitinit="sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
+alias gitroot="sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
+alias commit="git add . && ./Q_Com.sh && git push -u origin main"
+alias commitr="sudo git add . && sudo ./Q_Com.sh && sudo git push -u origin main"
+# TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# MAJOR CHANGE UNDO
+# WE NEED A FILE MADE for a first git repo so we can set global values
 echo "Initialize $autoRepo1 and declare global git ownership"
 sleep 1
 # check the server for an ssh key, if one does not exist offer to make one

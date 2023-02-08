@@ -8,6 +8,6 @@
         This script will set up a root repository
 comment
 whereYat=$(pwd) 
-cp /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh $whereYat/
-cp /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh $whereYat/
+sudo cp /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh $whereYat/
+sudo cp /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh $whereYat/
 ./microInit_v0.0.sh
