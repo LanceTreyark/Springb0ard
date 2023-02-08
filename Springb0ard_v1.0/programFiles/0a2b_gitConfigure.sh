@@ -73,6 +73,12 @@ else
     echo "alias dude='./microInit_i1.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
 fi
+# TODO:
+# add the alias command for 0a2c_gitLocalAlias.sh
+# echo "alias gitini='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'"  >> /home/$nonRootUsrName/.bash_aliases
+# Make the command available in the current session 
+# alias gitini='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
+
 
 echo "Creating a gitHub directory in the home directory"
 mkdir /home/$nonRootUsrName/$GitRepoName

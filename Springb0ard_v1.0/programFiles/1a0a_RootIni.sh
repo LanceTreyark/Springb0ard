@@ -61,8 +61,6 @@ mkdir /tmp/Springb0ard_v1.0/vArs
 mkdir /tmp/Springb0ard_v1.0/programFiles
 mkdir /tmp/Springb0ard_v1.0/exampleDir
 cd /tmp/Springb0ard_v1.0/exampleDir 
-#        0a2c_gitLocalAlias.sh #----------------------------------------CREATED 2.8.23
-#        0a2d_gitRootAlias.sh #-----------------------------------------CREATED 2.8.23
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com.sh"
 ls -n
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh"
@@ -77,10 +75,10 @@ curl -o /tmp/Springb0ard_v1.0/programFiles/0a2a_gitInstall.sh "https://raw.githu
 ls -n
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh"
 ls -n
-curl -o /tmp/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh #wait ""
-ls -n # wait
-curl -o /tmp/Springb0ard_v1.0/programFiles/0a2d_gitRootAlias.sh #wait ""
-ls -n # wait
+curl -o /tmp/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
+ls -n
+curl -o /tmp/Springb0ard_v1.0/programFiles/0a2d_gitRootAlias.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a2d_gitRootAlias.sh"
+ls -n
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh"
 ls -n
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a3b_setCrontab.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3b_setCrontab.sh"
@@ -110,8 +108,6 @@ sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
-#        0a2c_gitLocalAlias.sh #----------------------------------------CREATED 2.8.23
-#        0a2d_gitRootAlias.sh #-----------------------------------------CREATED 2.8.23
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com.sh
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_i1.sh
@@ -119,6 +115,8 @@ sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2a_gitInstall.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2d_gitRootAlias.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh 
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a3b_setCrontab.sh 
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a4a_configPostfix.sh 
