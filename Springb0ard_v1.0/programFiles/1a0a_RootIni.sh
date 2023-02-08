@@ -23,15 +23,18 @@ sudo snap install btop
 sleep 1
 read -p "Create a non-root user. What would you like to set as the new username?:  " nonRootUsrName
 read -p "Enter a hostname you want to use for this server:  " myHostname
-read -p "Choose a file name for your first auto repo:  " autoRepo1
+# read -p "Choose a file name for your first auto repo:  " autoRepo1 ## DEPRECIATED
 read -p "What is the remote origin for this new repository?   " gitOrigin1
 read -p "What is your Git user email?  " gitEmail 
 read -p "What is your Git user name?  " gitName   
-read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
+read -p "EMAIL STUFF  " EMAIL_VARIABLES # ADD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName # AUTOMATIC
+
+GitRepoName="gitRepo"
+
 # make txt files:
-# ARE WE MISSING ANYTHING?????
-touch /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
-echo "$autoRepo1" >> /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
+#touch /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt # DEPRECIATED
+#echo "$autoRepo1" >> /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt # DEPRECIATED
 touch /tmp/Springb0ard_v1.0/vArs/varGitOrigin1.txt
 echo "$gitOrigin1" >> /tmp/Springb0ard_v1.0/vArs/varGitOrigin1.txt
 touch /tmp/Springb0ard_v1.0/vArs/varGitEmail.txt

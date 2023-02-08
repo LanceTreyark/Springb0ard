@@ -33,24 +33,22 @@ read -p "What is your Git user email?  " gitEmail #lance@treyark.com
 read -p "What is your Git user name?  " gitName   #LanceTreyark
 read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
 comment
-# Call your vArs
-autoRepo1=$(cat /tmp/vArs/varAutoRepo1.txt)
-gitOrigin1=$(cat /tmp/vArs/varGitOrigin1.txt)
-gitEmail=$(cat /tmp/vArs/varGitEmail.txt)
-gitName=$(cat /tmp/vArs/varGitName.txt)
-GitRepoName=$(cat /tmp/vArs/varGitRepoName.txt)
-nonRootUsrName=$(cat /tmp/vArs/varnonRootUsrName.txt)
-echo "Declaring session Git Alias commands"
-alias dude="./microInit_i1.sh"
-alias commit="git add . && ./Q_Com.sh && git push -u origin main"
+# Call your vArs 
+#TODO UPDATE THE NEW DIRECTORY ON ALL vArs CALLS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+autoRepo1=$(cat /etc/Springb0ard_v1.0/vArs/varAutoRepo1.txt)
+gitOrigin1=$(cat /etc/Springb0ard_v1.0/vArs/varGitOrigin1.txt)
+gitEmail=$(cat /etc/Springb0ard_v1.0/vArs/varGitEmail.txt)
+gitName=$(cat /etc/Springb0ard_v1.0/vArs/varGitName.txt)
+GitRepoName=$(cat /etc/Springb0ard_v1.0/vArs/varGitRepoName.txt)
+nonRootUsrName=$(cat /etc/Springb0ard_v1.0/vArs/varnonRootUsrName.txt)
 sleep 1
 echo "Update ownership of the .ssh directory & .bash_aliases file"
 sleep 1
 echo "Before ownership change:"
 ls -a -1 /home/$nonRootUsrName/
-#-----------------------------------------------CHANGE 1000 to a variable based on a test function!!!!!!!!!!!!!!!!!
-sudo chown -R 1000:1000 /home/$nonRootUsrName/.bash_aliases
-sudo chown -R 1000:1000 /home/$nonRootUsrName/.ssh
+userID=$(id -u)
+sudo chown -R $userID:$userID /home/$nonRootUsrName/.bash_aliases
+sudo chown -R $userID:$userID /home/$nonRootUsrName/.ssh
 echo "After ownership change:"
 ls -a -1 /home/$nonRootUsrName/
 echo "Add Alias commands"
@@ -61,7 +59,6 @@ ls -a -1 /home/$nonRootUsrName/
 echo ""
 # Check for existence of the Alias file if it exists add these commands
 if [ -e /home/$nonRootUsrName/.bash_aliases ]; then
-    #echo "alias hi='sudo apt update && sudo apt upgrade'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias gitinit='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias gitroot='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
@@ -70,18 +67,21 @@ else
 # If the file does not exist, create it and add these commands, later we will make it executable and add it as a current source.
     touch /home/$nonRootUsrName/.bash_aliases
     echo "alias hi='sudo apt update && sudo apt upgrade'" >> /home/$nonRootUsrName/.bash_aliases
-    echo "alias dude='./microInit_i1.sh'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias gitinit='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias gitroot='sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
+    echo "alias commitr='sudo git add . && sudo ./Q_Com.sh && sudo git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
+
 fi
 echo "Making the alias commands available in the current session" 
 alias gitinit="sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
 alias gitroot="sh /etc/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh"
 alias commit="git add . && ./Q_Com.sh && git push -u origin main"
 alias commitr="sudo git add . && sudo ./Q_Com.sh && sudo git push -u origin main"
-# TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# MAJOR CHANGE UNDO
-# WE NEED A FILE MADE for a first git repo so we can set global values
-echo "Initialize $autoRepo1 and declare global git ownership"
+echo "Initialize exampleDir and declare global git ownership"
+cp /etc/Springb0ard_v1.0/exampleDir /home/$nonRootUsrName/gitHub/
+#make sure it's owned by the user
+sudo chown -R $userID:$userID /home/$nonRootUsrName/gitHub/exampleDir
 sleep 1
 # check the server for an ssh key, if one does not exist offer to make one
 # ask user if the key has been added to github if not the commit will not work.
@@ -115,7 +115,7 @@ fi
 echo "Press Enter to continue..."
 read -s -p ""
 #-------------------------------------------------------------------- 0
-cd /home/$nonRootUsrName/$GitRepoName/$autoRepo1
+cd /home/$nonRootUsrName/gitHub/exampleDir
 pwd
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitName"
@@ -131,7 +131,7 @@ sleep 1
 echo "Before change:"
 ls -a -1 /tmp
 sudo rm -r /tmp/gitHub
-sudo rm -r /tmp/exampleRepo
+#sudo rm -r /tmp/exampleRepo
 sleep 1
 echo "After change:"
 ls -a -1

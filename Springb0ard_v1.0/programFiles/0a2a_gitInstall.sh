@@ -12,17 +12,10 @@ Installation Phase -Install Git
 4 Extracts the contents of the archive and removes the archive
 5 Copies the extracted contents to the home directory
 6 Installs the following packages: aspell, libcurl4-openssl-dev, libexpat1-dev, gettext, tcl, make, gcc, libssl-dev, and zlib1g-dev using 'sudo apt install [package-name] -y'
-7 Changes the current directory to '~/gitHub/git-2.39.0' and builds and installs Git using 'make' and 'sudo make prefix=/usr/local install'
+7 Changes the current directory to '/home/$nonRootUsrName/gitHub/git-2.39.0' and builds and installs Git using 'make' and 'sudo make prefix=/usr/local install'
 8 Displays the version of Git using 'git --version'
 9 The script ends and the next part of the script "Begin Git configuration script" is displayed.
 comment
-# ON 2/1/23 THIS SCRIPT WAS SUPERSEDED BY: C:\Users\treya\Desktop\GitHubRepo\0012_UnitTesting\013023_SpringBoard_i1\1_sudoUsrInit.sh
-<<comment
-TODO:
-Pick up your trash tmp files!
-comment
-# Installation Phase
-# Install Git
 echo "Phase One Unit Test has started, "
 sleep 1
 echo "Verify 'curl' is installed"
@@ -34,8 +27,8 @@ echo "sudo curl -o /tmp/gitHub/git.tar.gz https://mirrors.edge.kernel.org/pub/so
 sudo curl -o /tmp/gitHub/git.tar.gz https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.39.0.tar.gz
 echo "cd /tmp/gitHub && sudo tar -xf git.tar.gz && sudo rm -r git.tar.gz && cd -"
 cd /tmp/gitHub && sudo tar -xf git.tar.gz && sudo rm -r git.tar.gz && cd -
-echo "cp -r /tmp/gitHub ~/"
-cp -r /tmp/gitHub ~/
+echo "cp -r /tmp/gitHub /home/$nonRootUsrName/"
+cp -r /tmp/gitHub /home/$nonRootUsrName/
 echo "install aspell"
 sudo apt install aspell -y 
 sleep 1
@@ -53,8 +46,8 @@ echo "sudo apt install libssl-dev -y"
 sudo apt install libssl-dev -y
 echo "sudo apt install zlib1g-dev -y"
 sudo apt install zlib1g-dev -y
-echo "cd ~/gitHub/git-2.39.0" 
-cd ~/gitHub/git-2.39.0
+echo "cd /home/$nonRootUsrName/gitHub/git-2.39.0" 
+cd /home/$nonRootUsrName/gitHub/git-2.39.0
 pwd
 echo "sudo make prefix=/usr/local all" 
 sudo make prefix=/usr/local all
