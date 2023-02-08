@@ -10,6 +10,4 @@ comment
 whereYat=$(pwd) 
 cp /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh $whereYat/
 cp /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh $whereYat/
-#sudo chown -R 1000:1000 $whereYat/microInit_i1.sh
-#sudo chown -R 1000:1000 $whereYat/Q_Com.sh
 ./microInit_v0.0.sh
