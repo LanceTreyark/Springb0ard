@@ -59,19 +59,50 @@ mkdir /tmp/Springb0ard_v1.0
 mkdir /tmp/Springb0ard_v1.0/vArs
 mkdir /tmp/Springb0ard_v1.0/programFiles
 mkdir /tmp/Springb0ard_v1.0/exampleDir
-cd /tmp/Springb0ard_v1.0/exampleDir #remember to return to the root dir after!
+cd /tmp/Springb0ard_v1.0/exampleDir 
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com.sh"
 ls -n
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh"
 ls -n
+curl -o /tmp/Springb0ard_v1.0/exampleDir/microInit_i1.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/microInit_i1.sh"
+ls -n 
+curl -o /tmp/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh"
+# NEEDED:
+# the whole dir structure even blank scripts, as we will add to those as needed.
+# 0a2b_gitConfigure.sh, 0a3a_installPostfix.sh, 0a3b_setCrontab.sh, 0a4a_configPostfix.sh, 0a5a_configDovecot.sh, 0a5b_Automation.sh, 0a5c_x.sh, 0a6a_allAlias.sh, 0a6b_x.sh, 0a6c_x.sh, 0a6d_x.sh
+ls -n # waiting
+curl -o /tmp/Springb0ard_v1.0/exampleDir/ # waiting
+ls -n # waiting
+curl -o /tmp/Springb0ard_v1.0/exampleDir/ # waiting
+ls -n # waiting
+curl -o /tmp/Springb0ard_v1.0/exampleDir/ # waiting
+ls -n # waiting
+curl -o /tmp/Springb0ard_v1.0/exampleDir/ # waiting
+ls -n # waiting
 echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
-sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
+# NO #sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
+# STRATEGY:
+# Set up this whole directory and move it to etc then move what you want to the 
+# regular user directory and change ownership once don't split it up prior to that.
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2a_gitInstall.sh
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/programFiles/ # waiting
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_i1.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh
+sudo chmod +x /etc/Springb0ard_v1.0/ # waiting
+cd - 
 sleep 1
 echo "Installing Firewall"
 apt install ufw -y
