@@ -24,51 +24,7 @@ Initial git configuration
 7 Adds alias commands to the .bash_aliases file
 8 Checks for the existence of the .bash_aliases file and if it exists, adds alias commands
 comment
-# ON 2/1/23 THIS SCRIPT WAS SUPERSEDED BY: C:\Users\treya\Desktop\GitHubRepo\0012_UnitTesting\013023_SpringBoard_i1\1_sudoUsrInit.sh
-<<comment
-TODO:
-Pick up your trash tmp files!
-comment
-
-# UnitTestTwo
-
-# Title: was copied over from C:\Users\treya\Desktop\gitHubRepo\0008_repoManPrivate\autoRepo_Installer_i1.0.sh
-# Code by, Lance Pierson
-# Treyark Media
-# Website: treyark.com | Twitter: @LanceTreyark
-# gitHub: https://gitHub.com/LanceTreyark
-
-# Please enter you comit message   1.17.23 653am typo github/gitHub and it already existed make a new filename
-
-<<comment # Multi Line Comment 
-#
-This script is designed to do the following: 
-
-Phase One
-adds an alias file with 3 commands:
-"hi"     This updates your system with a single command
-"dude"   This initializes a new git repository with any file containing this script >> "microInit_i1.sh"
-"commit" This prompts you for a commit message then commits the file you are in to gitHub.
-Then checks to see if it was created.
-#
-Phase Two
-creates a template/example repo in your /home/$nonRootUsrName/home directory that contains the scripts needed to 
-run your "dude" & "commit" commands.
-#
-Phase Three
-Sets up the first repo and sets up global ownership.
-#
-TODO:
-null
-comment
-#-------------------------------------------------------------------- 1
-#echo ""
-#sleep 1
-#echo "Press Enter to continue..."
-#read -s -p ""
-#-------------------------------------------------------------------- 0
-#--------------------------PHASE ONE
-#
+# TRIM THE FAT
 <<comment Added to Zero
 read -p "Choose a file name for your first auto repo:  " autoRepo1
 read -p "What is the remote origin for this new repository?   " gitOrigin1
@@ -76,27 +32,13 @@ read -p "What is your Git user email?  " gitEmail #lance@treyark.com
 read -p "What is your Git user name?  " gitName   #LanceTreyark
 read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
 comment
-
-#1
+# Call your vArs
 autoRepo1=$(cat /tmp/vArs/varAutoRepo1.txt)
-#2
 gitOrigin1=$(cat /tmp/vArs/varGitOrigin1.txt)
-#3
 gitEmail=$(cat /tmp/vArs/varGitEmail.txt)
-#4
 gitName=$(cat /tmp/vArs/varGitName.txt)
-#5
 GitRepoName=$(cat /tmp/vArs/varGitRepoName.txt)
-#6
 nonRootUsrName=$(cat /tmp/vArs/varnonRootUsrName.txt)
-#
-
-#if [ -z "$GitRepoName" ]; then
- #   GitRepoName="gitRepo"
-#fi
-
-#echo "File name: $GitRepoName"
-#---
 echo "Declaring session Git Alias commands"
 alias dude="./microInit_i1.sh"
 alias commit="git add . && ./Q_Com.sh && git push -u origin main"
@@ -131,9 +73,12 @@ else
     echo "alias dude='./microInit_i1.sh'" >> /home/$nonRootUsrName/.bash_aliases
     echo "alias commit='git add . && ./Q_Com.sh && git push -u origin main'" >> /home/$nonRootUsrName/.bash_aliases
 fi
-#
-#-------------------------------------------------------------------- 1
-echo "Curl two repository handling scripts into /tmp then cp to home new dir gitHub"
+
+echo "Creating a gitHub directory in the home directory"
+mkdir /home/$nonRootUsrName/$GitRepoName
+
+<<comment
+#echo "Copy two repository handling scripts into /tmp then cp to home new dir gitHub"
 sleep 1
 ls -a -1 /tmp
 mkdir /tmp/exampleRepo
@@ -157,12 +102,12 @@ ls -a -1 /home/$nonRootUsrName/$GitRepoName/
 #
 echo ""
 echo ""
-userID=$(id -u)
-echo "User ID is $userID"
+# userID=$(id -u)
+# echo "User ID is $userID"
 echo ""
 echo ""
 sleep 1
-sudo chown -R $userID:$userID /home/$nonRootUsrName/$GitRepoName
+# sudo chown -R $userID:$userID /home/$nonRootUsrName/$GitRepoName
 cd /home/$nonRootUsrName/$GitRepoName
 echo "In this Directory:"
 pwd
@@ -232,6 +177,8 @@ echo ""
 sleep 1
 #--------------------------PHASE THREE
 #-------------------------------------------------------------------- 1
+comment
+
 echo "Initialize $autoRepo1 and declare global git ownership"
 sleep 1
 # check the server for an ssh key, if one does not exist offer to make one

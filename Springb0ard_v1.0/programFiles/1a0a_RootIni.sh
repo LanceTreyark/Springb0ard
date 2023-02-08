@@ -29,6 +29,7 @@ read -p "What is your Git user email?  " gitEmail
 read -p "What is your Git user name?  " gitName   
 read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
 # make txt files:
+# ARE WE MISSING ANYTHING?????
 touch /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
 echo "$autoRepo1" >> /tmp/Springb0ard_v1.0/vArs/varAutoRepo1.txt
 touch /tmp/Springb0ard_v1.0/vArs/varGitOrigin1.txt
@@ -42,7 +43,7 @@ echo "$GitRepoName" >> /tmp/Springb0ard_v1.0/vArs/varGitRepoName.txt
 touch /tmp/Springb0ard_v1.0/vArs/varnonRootUsrName.txt
 echo "$nonRootUsrName" >> /tmp/Springb0ard_v1.0/vArs/varnonRootUsrName.txt
 sleep 1
-echo "Creating new user"
+echo "Creating new user, you will need to create password for this"
 adduser $nonRootUsrName
 sleep 1
 echo "Adding new user to sudo group"
@@ -60,6 +61,8 @@ mkdir /tmp/Springb0ard_v1.0/vArs
 mkdir /tmp/Springb0ard_v1.0/programFiles
 mkdir /tmp/Springb0ard_v1.0/exampleDir
 cd /tmp/Springb0ard_v1.0/exampleDir 
+#        0a2c_gitLocalAlias.sh #----------------------------------------CREATED 2.8.23
+#        0a2d_gitRootAlias.sh #-----------------------------------------CREATED 2.8.23
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com.sh"
 ls -n
 curl -o /tmp/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh"
@@ -74,6 +77,10 @@ curl -o /tmp/Springb0ard_v1.0/programFiles/0a2a_gitInstall.sh "https://raw.githu
 ls -n
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh"
 ls -n
+curl -o /tmp/Springb0ard_v1.0/programFiles/0a2c_gitLocalAlias.sh #wait ""
+ls -n # wait
+curl -o /tmp/Springb0ard_v1.0/programFiles/0a2d_gitRootAlias.sh #wait ""
+ls -n # wait
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh"
 ls -n
 curl -o /tmp/Springb0ard_v1.0/programFiles/0a3b_setCrontab.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3b_setCrontab.sh"
@@ -99,11 +106,12 @@ ls -n
 echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
-# NO - Add permissions settings to the autoRepo script. 
-# sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
+sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
+#        0a2c_gitLocalAlias.sh #----------------------------------------CREATED 2.8.23
+#        0a2d_gitRootAlias.sh #-----------------------------------------CREATED 2.8.23
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com.sh
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh
 sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_i1.sh
