@@ -54,7 +54,7 @@ echo "Installing Curl"
 sleep 1
 sudo apt install curl -y
 sleep 1
-echo "getting scripts ready for hand off"  #Curl & build the latest package ...
+echo "getting scripts ready for hand off"
 mkdir /tmp/Springb0ard_v1.0
 mkdir /tmp/Springb0ard_v1.0/vArs
 mkdir /tmp/Springb0ard_v1.0/programFiles
@@ -99,13 +99,15 @@ ls -n
 echo "Move scripts to /etc directory"
 sudo mv /tmp/Springb0ard_v1.0/ /etc/
 echo "setting ownership of program files to $nonRootUsrName"
-# NO #sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
+# NO - Add permissions settings to the autoRepo script. 
+# sudo chown -R 1000:1000 /etc/Springb0ard_v1.0
 sleep 1
 echo "Making Scripts Executable"
 sleep 1
-# STRATEGY:
-# Set up this whole directory and move it to etc then move what you want to the 
-# regular user directory and change ownership once don't split it up prior to that.
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_i1.sh
+sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2a_gitInstall.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a2b_gitConfigure.sh
@@ -120,10 +122,6 @@ sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a6b_x.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a6c_x.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/0a6d_x.sh
 sudo chmod +x /etc/Springb0ard_v1.0/programFiles/1a0a_RootIni.sh
-sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com.sh
-sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/Q_Com_v0.0.sh
-sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_i1.sh
-sudo chmod +x /etc/Springb0ard_v1.0/exampleDir/microInit_v0.0.sh
 cd - 
 sleep 1
 echo "Installing Firewall"
