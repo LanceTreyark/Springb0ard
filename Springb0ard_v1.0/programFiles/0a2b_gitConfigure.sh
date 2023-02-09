@@ -34,7 +34,6 @@ read -p "What is your Git user name?  " gitName   #LanceTreyark
 read -p "Enter a file name for your Git repository root folder (or press enter for default 'gitRepo'): " GitRepoName
 comment
 # Call your vArs 
-#TODO UPDATE THE NEW DIRECTORY ON ALL vArs CALLS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 autoRepo1=$(cat /etc/Springb0ard_v1.0/vArs/varAutoRepo1.txt)
 gitOrigin1=$(cat /etc/Springb0ard_v1.0/vArs/varGitOrigin1.txt)
 gitEmail=$(cat /etc/Springb0ard_v1.0/vArs/varGitEmail.txt)
@@ -127,6 +126,8 @@ git remote add origin $gitOrigin1
 git push -u origin main
 sleep 1
 echo "Removing temp files..."
+echo "Press Enter to continue..."
+read -s -p ""
 sleep 1
 echo "Before change:"
 ls -a -1 /tmp
@@ -139,9 +140,8 @@ echo "The script has concluded"
 sleep 1
 cd /home/$nonRootUsrName/
 pwd
-echo "End of script."
-echo "Begin Postfix installation script"
-sleep 1
-echo "Press Enter to continue..."
-read -s -p ""
-# ./PhaseThree....
+echo "End of script '0a2b_gitConfigure.sh'."
+#echo "Begin Postfix installation script"
+#sleep 1
+#echo "Press Enter to continue..."
+#read -s -p ""
