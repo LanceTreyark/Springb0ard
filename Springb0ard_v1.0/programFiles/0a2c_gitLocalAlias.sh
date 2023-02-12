@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 <<comment
 * TITLE: 0a2c_gitLocalAlias.sh
 * AUTHOR: LP

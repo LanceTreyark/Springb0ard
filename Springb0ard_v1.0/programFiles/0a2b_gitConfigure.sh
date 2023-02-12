@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+
 # Add a git repo by running in any dir
 # "gitinit" for local or "gitroot" for root
 <<comment
