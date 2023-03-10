@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# nano 0a3a_installPostfix.sh
+# sudo chmod +x 0a3a_installPostfix.sh
+# ./0a3a_installPostfix.sh
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 <<comment
@@ -68,6 +70,12 @@ else
 fi
 sleep 1
 echo "if statement is passed"
+echo "Opening required mail ports..."
+sudo ufw allow 25
+sudo ufw allow 143
+sudo ufw allow 110
+sudo ufw allow "WWW Full"
+sudo ufw status
 echo "Adding new user $regMailUser"
 read -p "Press enter to continue" xVar
 sleep 1
@@ -118,9 +126,9 @@ read -p "Press enter to continue" xVar
 echo "Configuring Postfix..."
 read -p "Press enter to continue" xVar
 sudo postconf -e 'home_mailbox = Maildir/'
-sudo postconf -e "mydomain = mail.$mailDomain"
+sudo postconf -e "mydomain = $mailDomain"
 # forgot to add cerbot install -may need to try preseeding this?
-# sudo apt install certbot -y
+sudo apt install certbot -y
 echo "creating standalone certificate for the email"
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 sudo certbot certonly --standalone -d mail.$mailDomain
@@ -141,29 +149,32 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
-sudo postconf -e 'virtual_alias_domains = $mydomain'
+# this threw an error for duplicate
+# Mar  9 19:20:48 mail postfix/trivial-rewrite[17813]: warning: do not list domain arkmail.im in BOTH mydestination and virtual_alias_domains
+#sudo postconf -e 'virtual_alias_domains = $mydomain'
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
+sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
+touch /tmp/sender_canonical
+echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
+sudo cp /tmp/sender_canonical /etc/postfix/
+sudo postmap /etc/postfix/sender_canonical
 touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
-echo "info@$mailDomain info" >> /tmp/virtual
-# Ownership \/ may ned to be explicitly set to root
 sudo cp /tmp/virtual /etc/postfix/ # <-delete tmp file later
 sudo postmap /etc/postfix/virtual
+#smtps     inet  n       -       y       -       -       smtpd
+sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a #smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix
-#Added dovecot install to the top to this would run, also added certbot
 sudo maildirmake.dovecot /etc/skel/Maildir
 sudo maildirmake.dovecot /etc/skel/Maildir/.Drafts
 sudo maildirmake.dovecot /etc/skel/Maildir/.Sent
 sudo maildirmake.dovecot /etc/skel/Maildir/.Trash
 sudo maildirmake.dovecot /etc/skel/Maildir/.Templates
 sudo cp -r /etc/skel/Maildir /home/$regMailUser/
-# Add a variable that determines the explicit id number for this other user NOT the current user.
 uid=$(id -u "$regMailUser")
-#sudo chown -R 1000:1000 /home/repomand/Maildir
 sudo chown -R $uid:$uid /home/$regMailUser/Maildir
 sudo chmod -R 700 /home/$regMailUser/Maildir
-# sudo chmod -R 700 /home/repomand/Maildir
 sudo adduser $regMailUser mail
 echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
 sleep 1
@@ -183,7 +194,9 @@ echo "auth_mechanisms = plain login"
 sleep 1
 # The following command adds the line "disable_plaintext_auth = yes" to the file "/etc/dovecot/conf.d/10-auth.conf" 
 # right after the line that starts with "#auth_allow_cleartext".
-sudo sed -i "/#auth_allow_cleartext/a disable_plaintext_auth = yes/" /etc/dovecot/conf.d/10-auth.conf
+# PROBLEM The line "#auth_allow_cleartext" did not exist so it was not added.
+sudo sed -i "/#disable_plaintext_auth = yes/a disable_plaintext_auth = yes" /etc/dovecot/conf.d/10-auth.conf
+#sudo sed -i "/#auth_allow_cleartext/a disable_plaintext_auth = yes" /etc/dovecot/conf.d/10-auth.conf
 # comment out this line
 sudo sed -i "s/auth_mechanisms = plain/#auth_mechanisms = plain/" /etc/dovecot/conf.d/10-auth.conf
 # Add this line right below it
@@ -201,10 +214,18 @@ echo ""
 sudo sed -i "s/#port = 143/port = 143/" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "s/#port = 110/port = 110/" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "s/#unix_listener \/var\/spool\/postfix\/private\/auth {/unix_listener \/var\/spool\/postfix\/private\/auth {/" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/unix_listener \/var\/spool\/postfix\/private\/auth {/a mode = 0660 #i7/" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/mode = 0660 #i7/a group = postfix #i7/" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/group = postfix #i7/a user = postfix #i7/" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/user = postfix #i7/a }" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/unix_listener \/var\/spool\/postfix\/private\/auth {/a #i7" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a }" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a user = postfix" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a group = postfix" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a mode = 0660" /etc/dovecot/conf.d/10-master.conf
+# I created a distinct identifier "#i7" and I add lines below this in reverse order so that each
+# new line pushes the previous line down and in the end I have the correct order without adding extra characters
+
+#sudo sed -i "/unix_listener \/var\/spool\/postfix\/private\/auth {/a mode = 0660 #i7" /etc/dovecot/conf.d/10-master.conf
+#sudo sed -i "/mode = 0660 #i7/a group = postfix #i7" /etc/dovecot/conf.d/10-master.conf
+#sudo sed -i "/group = postfix #i7/a user = postfix #i7" /etc/dovecot/conf.d/10-master.conf
+#sudo sed -i "/user = postfix #i7/a }" /etc/dovecot/conf.d/10-master.conf
 sleep 1
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
@@ -212,7 +233,14 @@ echo ""
 echo "sudo nano /etc/dovecot/conf.d/10-ssl.conf"
 echo ""
 sleep 1
+# from
+# #ssl_min_protocol = TLSv1
+# to
+# ssl_min_protocol = TLSv1
+sudo sed -i "s/#ssl_min_protocol = TLSv1/ssl_min_protocol = TLSv1/" /etc/dovecot/conf.d/10-ssl.conf
+#
 sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
 sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
 sleep 1
@@ -226,6 +254,7 @@ echo ""
 echo "Restart dovecot"
 echo ""
 sudo systemctl restart dovecot
+sudo systemctl restart postfix
 sleep 1
 echo ""
 echo "Install mailutils"
@@ -237,13 +266,8 @@ echo "Additional security options"
 echo ""
 echo "Skipping for now..."
 echo ""
-echo "Open port 25 to allow smtp"
-sudo ufw allow 25
-sudo ufw allow 143
-sudo ufw allow 110
-sudo ufw status
 sleep 1
+sudo systemctl restart postfix
 echo "Everything should be set up, to test the mailserver"
 echo "type the command "mail someone@email.com" to send a test email hit control+d to send it."
 read -p "Press enter to exit the script" xVar
-read -p "Press enter to continue" xVar

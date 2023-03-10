@@ -1,6 +1,7 @@
 #!/bin/bash
-#nano 1b0a_minorRootIni.sh
-#sudo chmod +x 1b0a_minorRootIni.sh
+# nano 1b0a_minorRootIni.sh
+# sudo chmod +x 1b0a_minorRootIni.sh
+# ./1b0a_minorRootIni.sh 
 # UNIT TEST NUMBER: 020823_1
 # TEST RESULT:
 # STATE ISSUES:
@@ -45,7 +46,7 @@ sudo apt install snapd -y
 sudo snap install core
 sudo snap install btop
 sleep 1
-read -p "Create a non-root "sudo user". What would you like to set as the new username?:  " sudoUser
+read -p "Create a non-root 'sudo user'. What would you like to set as the new username?:  " sudoUser
 echo "Creating new user, you will need to create password for this"
 adduser $sudoUser
 sleep 1
