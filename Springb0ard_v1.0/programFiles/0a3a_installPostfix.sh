@@ -38,7 +38,7 @@ echo "---------------------------------------------------------"
 echo "Here is the etc directory before the change:"
 echo "---------------------------------------------------------"
 echo ""
-sudo ls -n /etc
+sudo ls /etc
 sudo mkdir /etc/springboard
 # Give ownership of springboard to my regular user
 userID=$(id -u)
@@ -48,11 +48,11 @@ echo ""
 echo "Here is the etc directory after the change:"
 echo "---------------------------------------------------------"
 echo ""
-sudo ls -n /etc
+sudo ls /etc
 echo "---------------------------------------------------------"
 echo ""
 read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
-read -p "We are going to create a new non sudo user. Please enter a name for your new virtual inbound email address:   " regMailUser
+read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
 mkdir /etc/springboard/vArs
 touch /etc/springboard/vArs/mailDomain.txt
 echo "$mailDomain" >> /etc/springboard/vArs/mailDomain.txt
@@ -60,7 +60,6 @@ touch /etc/springboard/vArs/regMailUser.txt
 echo "$regMailUser" >> /etc/springboard/vArs/regMailUser.txt
 sleep 1
 echo "verifying if the variables were stored correctly..."
-read -p "There is an untested if statemend here, Press enter to continue" xVar
 if [ "$(cat /etc/springboard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springboard/vArs/regMailUser.txt)" = "$regMailUser" ]
 then
   echo "Great, the variables were stored correctly"
@@ -69,11 +68,11 @@ else
   read -p "would you like to continue?" xVar
 fi
 sleep 1
-echo "if statement is passed"
 echo "Opening required mail ports..."
 sudo ufw allow 25
 sudo ufw allow 143
 sudo ufw allow 110
+sudo ufw allow 554
 sudo ufw allow "WWW Full"
 sudo ufw status
 echo "Adding new user $regMailUser"
