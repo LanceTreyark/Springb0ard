@@ -123,7 +123,6 @@ read -p "Press enter to continue" xVar
 # mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
 # regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
 echo "Configuring Postfix..."
-read -p "Press enter to continue" xVar
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
 # forgot to add cerbot install -may need to try preseeding this?
@@ -148,6 +147,8 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
+sudo postconf -e 'mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost'
+sudo postconf -e 'myhostname = localhost'
 # this threw an error for duplicate
 # Mar  9 19:20:48 mail postfix/trivial-rewrite[17813]: warning: do not list domain arkmail.im in BOTH mydestination and virtual_alias_domains
 #sudo postconf -e 'virtual_alias_domains = $mydomain'
