@@ -5,11 +5,13 @@
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 <<comment
-* TITLE: 
-* AUTHOR: LP
-* DATE:
+* TITLE: 0a3a_installPostfix.sh
+* AUTHOR: Lance Pierson
+* DATE: 3/11/2023
 
 PURPOSE:
+
+This is an automatic SMTP email server installer
 
 As of 3.8.23
 My plan is to set this to be able to run independently as it's own program.
