@@ -91,7 +91,7 @@ $myIPv4
 EOF
 myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 echo "The IP address for this server is: $myIP"
-read -p "Press enter to remove the scrap tmp file we just made" xVar
+# removing tmp file
 sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
 sudo echo "$myIP $hostName" >> /etc/hosts    
@@ -115,6 +115,9 @@ sleep 2
 echo "verify contents"
 cat /var/cache/debconf/postfix.seed
 sleep 2
+########################
+# Postfix Installation #
+########################
 echo "Install & Preconfigure Postfix"
 sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
@@ -149,9 +152,6 @@ sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
 sudo postconf -e 'mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost'
 sudo postconf -e 'myhostname = localhost'
-# this threw an error for duplicate
-# Mar  9 19:20:48 mail postfix/trivial-rewrite[17813]: warning: do not list domain arkmail.im in BOTH mydestination and virtual_alias_domains
-#sudo postconf -e 'virtual_alias_domains = $mydomain'
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 touch /tmp/sender_canonical
@@ -161,10 +161,10 @@ sudo postmap /etc/postfix/sender_canonical
 touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
+echo "info@$mailDomain info" >> /tmp/virtual
 sudo cp /tmp/virtual /etc/postfix/ # <-delete tmp file later
 sudo postmap /etc/postfix/virtual
-#smtps     inet  n       -       y       -       -       smtpd
-sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a #smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
+sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix
 sudo maildirmake.dovecot /etc/skel/Maildir
 sudo maildirmake.dovecot /etc/skel/Maildir/.Drafts
@@ -180,6 +180,9 @@ echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/p
 sleep 1
 echo "Phase 1 Postfix configuration is complete"
 sleep 1
+########################
+# Dovecot Installation #
+########################
 echo "Starting Dovecot Installation..."
 sleep 1
 echo "Press Enter to continue..."
@@ -192,11 +195,7 @@ echo "disable_plaintext_auth = yes"
 echo "..."
 echo "auth_mechanisms = plain login"
 sleep 1
-# The following command adds the line "disable_plaintext_auth = yes" to the file "/etc/dovecot/conf.d/10-auth.conf" 
-# right after the line that starts with "#auth_allow_cleartext".
-# PROBLEM The line "#auth_allow_cleartext" did not exist so it was not added.
 sudo sed -i "/#disable_plaintext_auth = yes/a disable_plaintext_auth = yes" /etc/dovecot/conf.d/10-auth.conf
-#sudo sed -i "/#auth_allow_cleartext/a disable_plaintext_auth = yes" /etc/dovecot/conf.d/10-auth.conf
 # comment out this line
 sudo sed -i "s/auth_mechanisms = plain/#auth_mechanisms = plain/" /etc/dovecot/conf.d/10-auth.conf
 # Add this line right below it
@@ -206,7 +205,6 @@ echo ""
 echo "Instruct the mail directory to use the same format as Postfix."
 echo "Editing /etc/dovecot/conf.d/10-mail.conf..."
 echo ""
-sudo sed -i "s/#mail_location = /mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
 sleep 1
 echo ""
 echo "Configure the IMAP and POP3 protocols for email clients in the master.conf file "
@@ -216,16 +214,9 @@ sudo sed -i "s/#port = 110/port = 110/" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "s/#unix_listener \/var\/spool\/postfix\/private\/auth {/unix_listener \/var\/spool\/postfix\/private\/auth {/" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/unix_listener \/var\/spool\/postfix\/private\/auth {/a #i7" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a }" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/#i7/a user = postfix" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/#i7/a group = postfix" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/#i7/a mode = 0660" /etc/dovecot/conf.d/10-master.conf
-# I created a distinct identifier "#i7" and I add lines below this in reverse order so that each
-# new line pushes the previous line down and in the end I have the correct order without adding extra characters
-
-#sudo sed -i "/unix_listener \/var\/spool\/postfix\/private\/auth {/a mode = 0660 #i7" /etc/dovecot/conf.d/10-master.conf
-#sudo sed -i "/mode = 0660 #i7/a group = postfix #i7" /etc/dovecot/conf.d/10-master.conf
-#sudo sed -i "/group = postfix #i7/a user = postfix #i7" /etc/dovecot/conf.d/10-master.conf
-#sudo sed -i "/user = postfix #i7/a }" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a     user = postfix" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a     group = postfix" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#i7/a     mode = 0660" /etc/dovecot/conf.d/10-master.conf
 sleep 1
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
@@ -233,18 +224,15 @@ echo ""
 echo "sudo nano /etc/dovecot/conf.d/10-ssl.conf"
 echo ""
 sleep 1
-# from
-# #ssl_min_protocol = TLSv1
-# to
-# ssl_min_protocol = TLSv1
 sudo sed -i "s/#ssl_min_protocol = TLSv1/ssl_min_protocol = TLSv1/" /etc/dovecot/conf.d/10-ssl.conf
-#
 sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
+# or if thats not there do this
 sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
 sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
 sleep 1
 echo ""
+sudo sed -i "s/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
 echo "Check the Dovecot configuration"
 echo ""
 sleep 1
@@ -269,5 +257,11 @@ echo ""
 sleep 1
 sudo systemctl restart postfix
 echo "Everything should be set up, to test the mailserver"
-echo "type the command "mail someone@email.com" to send a test email hit control+d to send it."
+echo ""
+echo "Add this SPF record to your dns settings:"
+echo "----------------------------------------------------"
+echo "TYPE   HOST           ANSWER"
+echo ""
+echo "TXT     @      v=spf1 ip4:$myIP -all"
+echo "----------------------------------------------------"
 read -p "Press enter to exit the script" xVar
