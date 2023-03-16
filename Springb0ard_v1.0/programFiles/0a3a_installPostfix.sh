@@ -162,10 +162,11 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
-sudo postconf -e "mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost"
+sudo postconf -e 'mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost'
 sudo postconf -e "myhostname = mail.$mailDomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
+sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
 touch /tmp/sender_canonical
 echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
 sudo cp /tmp/sender_canonical /etc/postfix/
@@ -174,7 +175,8 @@ touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
 echo "info@$mailDomain info" >> /tmp/virtual
-sudo cp /tmp/virtual /etc/postfix/ # <-delete tmp file later
+sudo cp /tmp/virtual /etc/postfix/ 
+# /\ delete tmp file later
 sudo postmap /etc/postfix/virtual
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix

@@ -21,16 +21,27 @@ regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
 
 echo "The script is live!"
 sleep 1
-<<comment
 
+sudo apt install opendkim opendkim-tools -y
+
+sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
+
+sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
+sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
+sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
+
+###
+<<comment
 "
 #smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU) #<<no good
 smtpd_banner = $myhostname ESMTP $mail_name
+so:
+sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
 "
 
 "
 sudo apt install opendkim opendkim
-sudo apt install opendkim opendkim-tools
+sudo apt install opendkim opendkim-tools -y
 sudo nano /etc/opendkim.conf
 "
 
@@ -55,8 +66,9 @@ sudo /usr/sbin/opendkim-genkey -b 2048 -d formlogic.com -s default
 sudo cat ~/default.txt
 
 "
-
 comment
+###
+
 
 sleep 1
 echo "the script has concluded."
