@@ -21,7 +21,42 @@ regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
 
 echo "The script is live!"
 sleep 1
+<<comment
 
+"
+#smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU) #<<no good
+smtpd_banner = $myhostname ESMTP $mail_name
+"
+
+"
+sudo apt install opendkim opendkim
+sudo apt install opendkim opendkim-tools
+sudo nano /etc/opendkim.conf
+"
+
+"
+Domain                  forml0gic.com
+Selector                2020
+KeyFile         /etc/dkimkeys/example.private
+
+"
+"
+Canonicalization        relaxed/simple
+Mode                    v
+Mode                    sv
+#SubDomains             no
+OversignHeaders         From
+
+"
+
+"
+sudo /usr/sbin/opendkim-genkey -b 2048 -d formlogic.com -s default
+
+sudo cat ~/default.txt
+
+"
+
+comment
 
 sleep 1
 echo "the script has concluded."
