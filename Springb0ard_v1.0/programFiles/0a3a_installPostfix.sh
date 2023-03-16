@@ -162,8 +162,8 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
-sudo postconf -e 'mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost'
-sudo postconf -e 'myhostname = localhost'
+sudo postconf -e "mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost"
+sudo postconf -e "myhostname = mail.$mailDomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 touch /tmp/sender_canonical
