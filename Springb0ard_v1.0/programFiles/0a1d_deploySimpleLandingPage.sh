@@ -2,9 +2,9 @@
 
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-# nano 0a1c_configBasicWebServer.sh
-# sudo chmod +x 0a1c_configBasicWebServer.sh
-# ./0a1c_configBasicWebServer.sh
+# nano 0a1d_deploySimpleLandingPage.sh
+# sudo chmod +x 0a1d_deploySimpleLandingPage.sh
+# ./0a1d_deploySimpleLandingPage.sh
 
 <<comment
 * TITLE:  0a1c_configBasicWebServer.sh
@@ -38,4 +38,3 @@ sudo cp -a /tmp/htmlSamplePage/. /var/www/$yourDomain/public_html/
 sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
 echo "bye"
-

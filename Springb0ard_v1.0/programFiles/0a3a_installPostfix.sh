@@ -19,17 +19,6 @@ My plan is to set this to be able to run independently as it's own program.
 
 This is the initial Postfix configuration
 
-1 Read input and store as var_MailDomain and var_nonSudoUser.
-  A) in order to do this we need to create a program directory. If it already exists it will just be skipped.
-2 Create files to store input variables in the /etc/springboard/ directory: var_MailDomain.txt and var_nonSudoUser.txt.
-3 Add new user with the name var_nonSudoUser.
-4 Set hostname to mail.$mailDomain. also set IP using the code we already wrote...
-5 Display the current hostname.
-6 Create a file named postfix.seed in the /tmp/ directory.
-7 Move postfix.seed to /var/cache/debconf/ directory.
-8 Display the contents of /var/cache/debconf/postfix.seed.
-9 Preconfigure Postfix with the contents of /var/cache/debconf/postfix.seed.
-10 Install Postfix.
 
 comment
 echo "The script is live!"
