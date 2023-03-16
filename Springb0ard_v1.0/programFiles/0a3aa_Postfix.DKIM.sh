@@ -33,7 +33,6 @@ echo "The IP address for this server is: $myIP"
 # removing tmp file
 sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
-#sudo echo "$myIP $hostName" >> /etc/hosts     # this failed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FAIL
 sleep 1
 echo "We are going to add the domain name to the hosts file"
 sleep 1
@@ -43,8 +42,6 @@ echo "------------------------------------------------------"
 sudo cat /etc/hosts
 echo "------------------------------------------------------"
 read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
-#sudo sed -i "s/127.0.0.1/#127.0.0.1 localhost/" /etc/hosts
-#sudo sed -i "/#127.0.0.1 localhost/a 127.0.0.1 localhost mail.$mailDomain" /etc/hosts
 sudo sed -i "/127.0.0.1/a $myIP mail.$mailDomain" /etc/hosts
 echo ""
 sleep 1

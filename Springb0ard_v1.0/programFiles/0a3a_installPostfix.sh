@@ -77,26 +77,6 @@ hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
 #
 # added \/ 3.16.23
-echo "We are going to add the domain name to the hosts file"
-sleep 1
-echo "here is the file currently:"
-sleep 1
-echo "------------------------------------------------------"
-sudo cat /etc/hosts
-echo "------------------------------------------------------"
-read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
-sudo sed -i "s/127.0.0.1 localhost/#127.0.0.1 localhost/" /etc/hosts
-sudo sed -i "/#127.0.0.1 localhost/a 127.0.0.1 localhost mail.$mailDomain" /etc/hosts
-echo ""
-sleep 1
-echo "Okay here is the amended file:"
-echo "------------------------------------------------------"
-sudo cat /etc/hosts
-echo "------------------------------------------------------"
-echo ""
-sleep 1
-# added /\ 3.16.23
-#
 # Assign IP to variable:
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
@@ -107,7 +87,26 @@ echo "The IP address for this server is: $myIP"
 # removing tmp file
 sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
-sudo echo "$myIP $hostName" >> /etc/hosts     # this failed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FAIL
+sleep 1
+echo "We are going to add the domain name to the hosts file"
+sleep 1
+echo "here is the file currently:"
+sleep 1
+echo "------------------------------------------------------"
+sudo cat /etc/hosts
+echo "------------------------------------------------------"
+read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
+sudo sed -i "/127.0.0.1/a $myIP mail.$mailDomain" /etc/hosts
+echo ""
+sleep 1
+echo "Okay here is the amended file:"
+echo "------------------------------------------------------"
+sudo cat /etc/hosts
+echo "------------------------------------------------------"
+echo ""
+sleep 1
+# added /\ 3.16.23
+#
 echo "setting up Pre-Seeding Parameters for automatic postfix installation..."
 sleep 1
 echo "before seed file in /tmp"
