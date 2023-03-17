@@ -18,58 +18,53 @@ comment
 #call vArs
 mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
-
+sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
 echo "The script is live!"
 sleep 1
 
-sudo apt install opendkim opendkim-tools -y
+#sudo apt install opendkim opendkim-tools -y
+#sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
+#sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
+#sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
+#sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
+cd /home/$sudoUser
+#sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
+echo "----------------------------------------"
+sudo cat /home/$sudoUser/default.txt
+echo "----------------------------------------"
+#
+echo ""
+echo ""
+echo "converting DKIM to dns txt file format..."
+echo ""
+sudoUserID=$(id -u $sudoUser)
+sudo cp default.txt defaultx.txt
+#make sure ownership is readable w/o sudo
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
+# Define file paths
+src_file=~/defaultx.txt
+dest_file=~/defaultMod.txt
 
-sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
+# Read contents of source file and modify format
+content=$(cat $src_file | sed 's/\(.*\)/"\1"/' | tr '\n' ' ' | sed 's/ "/"/g' | sed 's/"/\\"/g' | sed 's/;/"; /g')
 
-sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
-sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
-sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
+# Create new file with modified content
+echo -e "$content" > $dest_file
 
+# Print success message
+echo "Contents of $src_file have been copied to $dest_file and modified for DNS TXT record format."
+echo "----------------------------------------"
+cat $dest_file
+echo "----------------------------------------"
 ###
 <<comment
-"
-#smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU) #<<no good
-smtpd_banner = $myhostname ESMTP $mail_name
-so:
-sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
-"
+ADD A VAR
+# echo "variable" >> /etc/springboard/vArs/variable.txt
 
-"
-sudo apt install opendkim opendkim
-sudo apt install opendkim opendkim-tools -y
-sudo nano /etc/opendkim.conf
-"
-
-"
-Domain                  forml0gic.com
-Selector                2020
-KeyFile         /etc/dkimkeys/example.private
-
-"
-"
-Canonicalization        relaxed/simple
-Mode                    v
-Mode                    sv
-#SubDomains             no
-OversignHeaders         From
-
-"
-
-"
-sudo /usr/sbin/opendkim-genkey -b 2048 -d formlogic.com -s default
-
-sudo cat ~/default.txt
-
-"
+CALL A VAR
+# variable=$(cat /etc/springboard/vArs/variable.txt)
 comment
 ###
-
-
 sleep 1
 echo "the script has concluded."
 echo "bye"
