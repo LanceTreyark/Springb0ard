@@ -32,17 +32,15 @@ cd /home/$sudoUser
 
 
 
-#sudoUserID=$(id -u $sudoUser)
-#sudo cp default.txt defaultx.txt
+sudoUserID=$(id -u $sudoUser)
+sudo cp default.txt defaultXyz.txt
 
 ##make sure ownership is readable w/o sudo
-#sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
-
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultXyz.txt
 
 #----------------------------------------------------------
-
-
-
+# THIS CODE IS NOT GOOD YET
+#----------------------------------------------------------
 
 # Read the contents of defaultx.txt into a variable
 contents=$(cat defaultx.txt)
@@ -54,7 +52,7 @@ contents=${contents//$'\n'/' '}
 contents=$(echo $contents | tr -s '[:blank:]' ' ')
 
 # Insert a newline character every 64 characters
-contents=$(echo $contents | fold -w 64 -s | sed 's/^/  "/;s/$/"/')
+contents=$(echo $contents | fold -w 64 -s | sed 's/^/  "/;s/$/"/')      
 
 # Add the DNS record prefix
 #contents="default._domainkey  IN  TXT   (\n$contents\n)"
@@ -62,13 +60,31 @@ contents=$(echo $contents | fold -w 64 -s | sed 's/^/  "/;s/$/"/')
 # Output the reformatted contents
 echo -e $contents
 
-
-sleep 1
-echo "the script has concluded."
-echo "bye"
+#--------------------
+# ./DKIM.sh
 
 
-#---------------------------------------------------------
+
+# read input file into variable
+input=$(cat new_mod.txt)
+
+# remove newlines and replace with space
+input=${input//$'\n'/ }
+
+# insert quotes at beginning and end of input
+input="\"$input\""
+
+# insert newlines every 255 characters
+output=$(echo "$input" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
+
+# write output to file
+echo "$output" > new_mod2.txt
+
+cat new_mod2.txt
+
+
+
+
 
 <<comment
 #----------------------------------------------------------
