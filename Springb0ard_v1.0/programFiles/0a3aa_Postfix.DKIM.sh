@@ -41,10 +41,10 @@ sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaults.txt
 
 
 # read the contents of defaults.txt into a variable
-defaults=$(cat ~/default.txt)
+defaults=$(cat ~/defaults.txt)
 
 # remove leading and trailing whitespace
-defaults=$(echo "${default}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+defaults=$(echo "${defaults}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 
 # replace double quotes with escaped double quotes
 defaults=$(echo "${defaults}" | sed 's/"/\\\"/g')
