@@ -33,62 +33,62 @@ cd /home/$sudoUser
 
 
 sudoUserID=$(id -u $sudoUser)
-sudo cp default.txt defaults.txt
+sudo cp default.txt defaultx.txt
 
 #make sure ownership is readable w/o sudo
-sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaults.txt
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
 
 
+#----------------------------------------------------------
 
-# read the contents of defaults.txt into a variable
-defaults=$(cat ~/defaults.txt)
+#!/bin/bash
 
-# remove leading and trailing whitespace
-defaults=$(echo "${defaults}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+# Read the contents of defaultx.txt into a variable
+contents=$(cat defaultx.txt)
 
-# replace double quotes with escaped double quotes
-defaults=$(echo "${defaults}" | sed 's/"/\\\"/g')
+# Replace line breaks with a space
+contents=${contents//$'\n'/' '}
 
-# replace newlines with escaped quotes and newline characters
-defaults=$(echo "${defaults}" | sed ':a;N;$!ba;s/\n/"\n  "/g')
+# Remove extra spaces and tabs
+contents=$(echo $contents | tr -s '[:blank:]' ' ')
 
-# create the new file with the modified content
-echo "default._domainkey  IN  TXT   (\"${defaults}\")  ; ----- DKIM key default for caspardata.com" > ~/defaultsMod.txt
+# Insert a newline character every 64 characters
+contents=$(echo $contents | fold -w 64 -s)
 
+# Add the DNS record prefix
+contents="default._domainkey IN TXT ($contents) ; ----- DKIM key default for caspardata.com"
+
+# Output the reformatted contents
+echo $contents
 
 
 sleep 1
 echo "the script has concluded."
 echo "bye"
 
+
+#---------------------------------------------------------
+
 <<comment
-echo "----------------------------------------"
-sudo cat /home/$sudoUser/default.txt
-echo "----------------------------------------"
-#
-echo ""
-echo ""
-echo "converting DKIM to dns txt file format..."
-echo ""
-sudoUserID=$(id -u $sudoUser)
-sudo cp default.txt defaultx.txt
-#make sure ownership is readable w/o sudo
-sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
-# Define file paths
-src_file=~/defaultx.txt
-dest_file=~/defaultMod.txt
+#----------------------------------------------------------
 
-# Read contents of source file and modify format
-content=$(cat $src_file | sed 's/\(.*\)/"\1"/' | tr '\n' ' ' | sed 's/ "/"/g' | sed 's/"/\\"/g' | sed 's/;/"; /g')
 
-# Create new file with modified content
-echo -e "$content" > $dest_file
+# Read the contents of the file into a variable
+dkim=$(cat defaultx.txt)
 
-# Print success message
-echo "Contents of $src_file have been copied to $dest_file and modified for DNS TXT record format."
-echo "----------------------------------------"
-cat $dest_file
-echo "----------------------------------------"
+# Remove any newlines from the variable
+dkim=${dkim//$'\n'/}
+
+# Insert a newline character after every 255 characters
+dkim=$(echo $dkim | sed 's/.\{255\}/&\n/g')
+
+# Add double quotes around the DKIM record
+dkim='"'$dkim'"'
+
+# Print the reformatted DKIM record
+echo "default._domainkey  IN  TXT   ($dkim)"
+
+#----------------------------------------------------------
 comment
 ###
 
