@@ -29,6 +29,39 @@ sleep 1
 #sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
 cd /home/$sudoUser
 #sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
+
+
+
+sudoUserID=$(id -u $sudoUser)
+sudo cp default.txt defaults.txt
+
+#make sure ownership is readable w/o sudo
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaults.txt
+
+
+
+# read the contents of defaults.txt into a variable
+defaults=$(cat ~/default.txt)
+
+# remove leading and trailing whitespace
+defaults=$(echo "${default}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+# replace double quotes with escaped double quotes
+defaults=$(echo "${defaults}" | sed 's/"/\\\"/g')
+
+# replace newlines with escaped quotes and newline characters
+defaults=$(echo "${defaults}" | sed ':a;N;$!ba;s/\n/"\n  "/g')
+
+# create the new file with the modified content
+echo "default._domainkey  IN  TXT   (\"${defaults}\")  ; ----- DKIM key default for caspardata.com" > ~/defaultsMod.txt
+
+
+
+sleep 1
+echo "the script has concluded."
+echo "bye"
+
+<<comment
 echo "----------------------------------------"
 sudo cat /home/$sudoUser/default.txt
 echo "----------------------------------------"
@@ -56,14 +89,15 @@ echo "Contents of $src_file have been copied to $dest_file and modified for DNS 
 echo "----------------------------------------"
 cat $dest_file
 echo "----------------------------------------"
-###
-<<comment
-ADD A VAR
-# echo "variable" >> /etc/springboard/vArs/variable.txt
-
-CALL A VAR
-# variable=$(cat /etc/springboard/vArs/variable.txt)
 comment
+###
+
+#ADD A VAR
+# echo "#variable" >> /etc/springboard/vArs/variable.txt
+#
+#CALL A VAR
+# #variable=$(cat /etc/springboard/vArs/variable.txt)
+
 ###
 sleep 1
 echo "the script has concluded."
