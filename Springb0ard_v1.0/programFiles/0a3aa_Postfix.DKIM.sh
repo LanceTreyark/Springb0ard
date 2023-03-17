@@ -32,16 +32,17 @@ cd /home/$sudoUser
 
 
 
-sudoUserID=$(id -u $sudoUser)
-sudo cp default.txt defaultx.txt
+#sudoUserID=$(id -u $sudoUser)
+#sudo cp default.txt defaultx.txt
 
-#make sure ownership is readable w/o sudo
-sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
+##make sure ownership is readable w/o sudo
+#sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultx.txt
 
 
 #----------------------------------------------------------
 
-#!/bin/bash
+
+
 
 # Read the contents of defaultx.txt into a variable
 contents=$(cat defaultx.txt)
@@ -53,13 +54,13 @@ contents=${contents//$'\n'/' '}
 contents=$(echo $contents | tr -s '[:blank:]' ' ')
 
 # Insert a newline character every 64 characters
-contents=$(echo $contents | fold -w 64 -s)
+contents=$(echo $contents | fold -w 64 -s | sed 's/^/  "/;s/$/"/')
 
 # Add the DNS record prefix
-contents="default._domainkey IN TXT ($contents) ; ----- DKIM key default for caspardata.com"
+#contents="default._domainkey  IN  TXT   (\n$contents\n)"
 
 # Output the reformatted contents
-echo $contents
+echo -e $contents
 
 
 sleep 1
