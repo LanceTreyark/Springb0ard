@@ -75,39 +75,68 @@ input=$(cat new_mod.txt)
 # # \/ This removes newlines and replace with space
 input=${input//$'\n'/ }
 
-# insert quotes at beginning and end of input
+# # \/ This inserts quotes at beginning and end of input
 input="\"$input\""
 
-# insert newlines every 255 characters
+# # \/ This inserts newlines every 255 characters
 output=$(echo "$input" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
 
-# write output to file
+# # \/ This writes output to file
 echo "$output" > new_mod2.txt
 
+# # \/ This prints the contents of the new_mod2.txt file
 cat new_mod2.txt
 
+#___________________________________________________
+
+# # # This command 
+sudo sed -i 's/\(\w\{9\}\)\s\{2\}/\1/' mod.txt
+sudo sed -i 's/\(\w\{9\}\)\s\{2\}/\1/' new_mod.txt
+
+# \/\/ This command takes the contents of the file mod.txt, 
+#      removes all newline characters from it, and then writes 
+#      the resulting output to a new file named new_mod.txt.
+cat mod.txt | tr -d '\n' > new_mod.txt
+
+# # # This command 
+# gold
+sed 's/\s//g' mod.txt > new_mod.txt
+
+# # # This command 
 
 
+# # # This command 
 
+
+# # # This command 
+
+
+# # # This command 
+
+
+# # # This command 
+
+
+# # # This command 
 
 <<comment
 #----------------------------------------------------------
 
 
-# Read the contents of the file into a variable
-dkim=$(cat defaultx.txt)
+# # \/ This Reads the contents of the file into a variable
+# dkim=$(cat defaultx.txt)
 
-# Remove any newlines from the variable
-dkim=${dkim//$'\n'/}
+# # \/ This Removes any newlines from the variable
+# dkim=${dkim//$'\n'/}
 
-# Insert a newline character after every 255 characters
-dkim=$(echo $dkim | sed 's/.\{255\}/&\n/g')
+# # \/ This Inserts a newline character after every 255 characters
+# dkim=$(echo $dkim | sed 's/.\{255\}/&\n/g')
 
-# Add double quotes around the DKIM record
-dkim='"'$dkim'"'
+# # \/ This Adds double quotes around the DKIM record
+# dkim='"'$dkim'"'
 
-# Print the reformatted DKIM record
-echo "default._domainkey  IN  TXT   ($dkim)"
+# # \/ This Prints the reformatted DKIM record
+# echo "default._domainkey  IN  TXT   ($dkim)"
 
 #----------------------------------------------------------
 comment
