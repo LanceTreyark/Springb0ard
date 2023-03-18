@@ -48,19 +48,26 @@ sudoUserID=$(id -u $sudoUser)
 
 # \/ This copies the keys to a working file that we can modify or 
 #    delete without messing with the system
-sudo cp default.txt defaultX1.txt
+#sudo cp default.txt defaultX1.txt
 
 ### \/ This makes sure our working file is writable for the corrent
 #       user because the original file is owned by root.
-sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultX1.txt
+#sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultX1.txt
 
-# PHASE 2) we pluck out the key from the header and footer
-#!/bin/bash
-
-#sed -i '1s/^default._domainkey\s\+IN\s\+TXT\s\+(\s*"v=DKIM1; h=sha256; k=rsa; "\s*"p=[^"]*"\s*)\s*;\s*----- DKIM key default for caspardata.com\s*//' defaultX1.txt
-sed -i '/^default\._domainkey.*$/ {N; s/^[^\n]*\n[^\n]*"//}' defaultX1.txt
-
-
+# PHASE 2) Pluck out the key from the header and footer
+awk '/default\._domainkey.*\(/ {flag=1; next} /)/ {flag=0} flag && /p=/ {sub(/.*p=/, "p=", $0); sub(/".*/, "", $0); print $0; exit}' defaultX1.txt > DKIM_Top.txt
+awk -F'"' '/default._domainkey/{getline; getline; print $2}' defaultX1.txt > DKIM_bottom.txt
+# read input file into variable
+DKIM_Top=$(cat DKIM_Top.txt)
+DKIM_bottom=$(cat DKIM_bottom.txt)
+# PHASE 4) Combine into a single string then reak up into 64 char lines and wrap in quotes
+echo $DKIM_Top$DKIM_bottom > DKIM_Full.txt
+cat DKIM_Full.txt
+DKIM_Full=$(cat DKIM_Full.txt)
+# insert new quoted lines every 64 characters 
+linoel=$(echo "$DKIM_Full" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
+# write output to file
+echo "$linoel" > DKIM_Segmented.txt
 
 
 # PHASE 3) remove quotes, spaces and new lines
