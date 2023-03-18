@@ -28,36 +28,40 @@ sleep 1
 #sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
 #sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
 cd /home/$sudoUser
+
+# \/ This
 #sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
 
 
-
+# \/ This
 sudoUserID=$(id -u $sudoUser)
+
+# \/ This
 sudo cp default.txt defaultXyz.txt
 
-##make sure ownership is readable w/o sudo
+### \/ This makes sure ownership is readable w/o sudo
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultXyz.txt
 
 #----------------------------------------------------------
 # THIS CODE IS NOT GOOD YET
 #----------------------------------------------------------
 
-# Read the contents of defaultx.txt into a variable
+# # \/ This Reads the contents of defaultx.txt into a variable
 contents=$(cat defaultx.txt)
 
-# Replace line breaks with a space
+# # \/ This Replacse line breaks with a space
 contents=${contents//$'\n'/' '}
 
-# Remove extra spaces and tabs
+# # \/ This Removes extra spaces and tabs
 contents=$(echo $contents | tr -s '[:blank:]' ' ')
 
-# Insert a newline character every 64 characters
+# # \/ This Inserts a newline character every 64 characters
 contents=$(echo $contents | fold -w 64 -s | sed 's/^/  "/;s/$/"/')      
 
-# Add the DNS record prefix
+# # \/ This Adds the DNS record prefix
 #contents="default._domainkey  IN  TXT   (\n$contents\n)"
 
-# Output the reformatted contents
+# # \/ This Outputs the reformatted contents
 echo -e $contents
 
 #--------------------
@@ -65,10 +69,10 @@ echo -e $contents
 
 
 
-# read input file into variable
+# # \/ This reads input file into variable
 input=$(cat new_mod.txt)
 
-# remove newlines and replace with space
+# # \/ This removes newlines and replace with space
 input=${input//$'\n'/ }
 
 # insert quotes at beginning and end of input
