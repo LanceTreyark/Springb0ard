@@ -19,6 +19,17 @@ comment
 mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
+# at some point hard set this IP into a written vArs entry:
+# Assign IP to variable:
+myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
+cat >/tmp/ipSort3r.txt <<EOF
+$myIPv4
+EOF
+myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
+#echo "The IP address for this server is: $myIP"
+# removing tmp file
+sudo rm -r /tmp/ipSort3r.txt
+#
 echo "The script is live!"
 sleep 1
 
@@ -82,7 +93,24 @@ header="\"default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)
 # This outputs the reformatted contents to DKIMwithHeader.txt
 echo -e "$header" > DKIMwithHeader.txt
 
+#cat DKIMwithHeader.txt
+echo "Here are your email DNS Records:"
+echo "TYPE.........HOST.............ANSWER........................TTL......PRIO"
+echo "TXT            @              v=spf1 ip4:$myIP -all         300       N/A"  
+echo "TXT            @              >paste DKIM keys here<        300       N/A"  
+echo "TXT  _dmarc.forml0gic.com    >paste DMARC Record here<      300       N/A"
+
+echo "Copy and paste this into the ANSWER field for your DKIM Keys:"
+echo "------------------------------------------------------"
 cat DKIMwithHeader.txt
+echo "------------------------------------------------------"
+echo ""
+echo ""
+echo "Copy and paste this into the ANSWER field for your DMARC Record:"
+echo "------------------------------------------------------"
+echo "v=DMARC1; p=quarantine; rua=mailto:$regMailUser@$mailDomain; ruf=mailto:$regMailUser@$mailDomain; sp=none; aspf=r; adkim=r; pct=100;"
+echo "------------------------------------------------------"
+
 
 sleep 1
 echo "the script has concluded."
