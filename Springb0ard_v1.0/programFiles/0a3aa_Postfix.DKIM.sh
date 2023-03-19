@@ -84,65 +84,6 @@ echo -e "$header" > DKIMwithHeader.txt
 
 cat DKIMwithHeader.txt
 
-
-#----------------------cut \/
-# PHASE 4) add DNS header
-# # \/ This Reads the contents of defaultx.txt into a variable
-#header=$(cat DKIM_Segmented.txt)    
-
-# # \/ This Adds the DNS record prefix
-#header="default._domainkey  IN  TXT   (\n$header\n)"
-
-# # \/ This Outputs the reformatted contents
-#echo $contents > DKIMwithHeader.txt
-
-#cat DKIMwithHeader.txt
-
-
-# PHASE 3) remove quotes, spaces and new lines
-
-# \/\/ This command takes the contents of the file defaultX1.txt, 
-#      removes all newline characters from it, and then writes 
-#      the resulting output to a new file named defaultX2.txt.
-#cat defaultX1.txt | tr -d '\n' > defaultX2.txt
-
-# # # This command takes the data defaultX2.txt & replaces all
-# occurrences of whitespace (spaces and tabs) with nothing.
-# then saves the output in a new file named "defaultX3.txt".
-#sed 's/\s//g' defaultX2.txt > defaultX3.txt
-
-# PHASE 4) break up into 64 char lines and wrap in quotes
-
-# read input file into variable
-#input=$(cat defaultX3.txt)
-
-# remove newlines and replace with space
-#input=${input//$'\n'/ }
-
-# # \/ This Removes extra spaces and tabs
-#input=$(echo $input | tr -s '[:blank:]' ' ')
-
-
-# insert new quoted lines every 64 characters 
-#output=$(echo "$input" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
-
-# write output to file
-#echo "$output" > defaultX4.txt
-
-
-# PHASE 6) add DNS header
-# # \/ This Reads the contents of defaultx.txt into a variable
-#contents=$(cat defaultX4.txt)
-    
-
-# # \/ This Adds the DNS record prefix
-#contents="default._domainkey  IN  TXT   (\n$contents\n)"
-
-# # \/ This Outputs the reformatted contents
-#echo $contents > defaultX5.txt
-
-#cat defaultX5.txt
-###
 sleep 1
 echo "the script has concluded."
 echo "bye"
