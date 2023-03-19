@@ -32,7 +32,7 @@ sleep 1
 cd /home/$sudoUser
 
 # \/ This Creates our DKIM Keys
-#sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
+sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
 
 
 # \/ This creates a variable to hold the current users id # ie 1001
@@ -48,11 +48,11 @@ sudoUserID=$(id -u $sudoUser)
 
 # \/ This copies the keys to a working file that we can modify or 
 #    delete without messing with the system
-#sudo cp default.txt defaultX1.txt
+sudo cp default.txt defaultX1.txt
 
 ### \/ This makes sure our working file is writable for the corrent
 #       user because the original file is owned by root.
-#sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultX1.txt
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/defaultX1.txt
 
 # PHASE 2) Pluck out the key from the header and footer
 awk '/default\._domainkey.*\(/ {flag=1; next} /)/ {flag=0} flag && /p=/ {sub(/.*p=/, "p=", $0); sub(/".*/, "", $0); print $0; exit}' defaultX1.txt > DKIM_Top.txt
@@ -60,14 +60,43 @@ awk -F'"' '/default._domainkey/{getline; getline; print $2}' defaultX1.txt > DKI
 # read input file into variable
 DKIM_Top=$(cat DKIM_Top.txt)
 DKIM_bottom=$(cat DKIM_bottom.txt)
-# PHASE 4) Combine into a single string then reak up into 64 char lines and wrap in quotes
+# PHASE 3) Combine into a single string then reak up into 64 char lines and wrap in quotes
 echo $DKIM_Top$DKIM_bottom > DKIM_Full.txt
-cat DKIM_Full.txt
+#cat DKIM_Full.txt
 DKIM_Full=$(cat DKIM_Full.txt)
 # insert new quoted lines every 64 characters 
 linoel=$(echo "$DKIM_Full" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
 # write output to file
 echo "$linoel" > DKIM_Segmented.txt
+
+
+#!/bin/bash
+# PHASE 4) add DNS header
+# 
+# This reads the contents of DKIM_Segmented.txt into a variable
+header=$(cat DKIM_Segmented.txt)
+
+# This adds the DNS record prefix
+header="\"default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)\""  
+
+# This outputs the reformatted contents to DKIMwithHeader.txt
+echo -e "$header" > DKIMwithHeader.txt
+
+cat DKIMwithHeader.txt
+
+
+#----------------------cut \/
+# PHASE 4) add DNS header
+# # \/ This Reads the contents of defaultx.txt into a variable
+#header=$(cat DKIM_Segmented.txt)    
+
+# # \/ This Adds the DNS record prefix
+#header="default._domainkey  IN  TXT   (\n$header\n)"
+
+# # \/ This Outputs the reformatted contents
+#echo $contents > DKIMwithHeader.txt
+
+#cat DKIMwithHeader.txt
 
 
 # PHASE 3) remove quotes, spaces and new lines
