@@ -65,6 +65,9 @@ sudo ufw allow 143
 sudo ufw allow 110
 sudo ufw allow 554
 sudo ufw allow "WWW Full"
+sudo ufw allow 993
+sudo ufw allow 995
+sudo ufw allow 587
 sudo ufw status
 echo "Adding new user $regMailUser"
 read -p "Press enter to continue" xVar
@@ -84,6 +87,7 @@ $myIPv4
 EOF
 myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 echo "The IP address for this server is: $myIP"
+echo $myIP > /etc/springboard/vArs/myIP.txt
 # removing tmp file
 sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
@@ -209,7 +213,7 @@ echo "disable_plaintext_auth = yes"
 echo "..."
 echo "auth_mechanisms = plain login"
 sleep 1
-sudo sed -i "/#disable_plaintext_auth = yes/a disable_plaintext_auth = yes" /etc/dovecot/conf.d/10-auth.conf
+sudo sed -i "/#disable_plaintext_auth = yes/a disable_plaintext_auth = no" /etc/dovecot/conf.d/10-auth.conf
 # comment out this line
 sudo sed -i "s/auth_mechanisms = plain/#auth_mechanisms = plain/" /etc/dovecot/conf.d/10-auth.conf
 # Add this line right below it
@@ -231,6 +235,14 @@ sudo sed -i "/#i7/a }" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     user = postfix" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     group = postfix" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     mode = 0660" /etc/dovecot/conf.d/10-master.conf
+# \/ ADDED 3.20.23 to enable email client login:
+sudo sed -i "/unix_listener lmtp {/a      mode = 0666" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/inet_listener submission {/a      port = 587" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/inet_listener pop3s {/a      ssl = yes" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/inet_listener pop3s {/a      port = 995" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/inet_listener imaps {/a      ssl = yes" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/inet_listener imaps {/a      port = 993" /etc/dovecot/conf.d/10-master.conf
+sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
 sleep 1
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"

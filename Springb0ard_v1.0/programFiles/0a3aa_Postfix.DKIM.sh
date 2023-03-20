@@ -19,28 +19,28 @@ comment
 mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
-#myIP=$(cat /etc/springboard/vArs/myIP.txt) # This has not been created yet  TODO!
-
-# at some point hard set this IP into a written vArs entry:
+myIP=$(cat /etc/springboard/vArs/myIP.txt) 
+#
+# This IP was hard set into a written vArs entry in 0a3a_installPostfix.sh:
 # Assign IP to variable:
-myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
-cat >/tmp/ipSort3r.txt <<EOF
-$myIPv4
-EOF
-myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
+#myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
+#cat >/tmp/ipSort3r.txt <<EOF
+#$myIPv4
+#EOF
+#myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 #echo "The IP address for this server is: $myIP"
-echo $myIP > /etc/springboard/vArs/myIP.txt
+#echo $myIP > /etc/springboard/vArs/myIP.txt
 # removing tmp file
-sudo rm -r /tmp/ipSort3r.txt
+#sudo rm -r /tmp/ipSort3r.txt
 #
 echo "The script is live!"
 sleep 1
 
-#sudo apt install opendkim opendkim-tools -y
-#sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
-#sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
-#sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
-#sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
+sudo apt install opendkim opendkim-tools -y
+sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
+sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
+sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
+sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
 
 # Make sure you are in the proper directory
 cd /home/$sudoUser

@@ -14,14 +14,14 @@
 * EXECUTIVE SUMMARY: 
 * UNIT TEST RESULT: 
 comment
-
+yourDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
 echo "The script is live..."
 sleep 1
 echo ""
 echo "The following script deploys a basic landing page for your site"
-echo "It is assumed that you have already run '0a1c_configBasicWebServer.sh' and the site is enabled w/ a proper directory"
-read -p "Press enter to proceed with the script" fgVar
-read -p "what is the domain we are creating the sample page for?" yourDomain 
+#echo "It is assumed that you have already run '0a1c_configBasicWebServer.sh' and the site is enabled w/ a proper directory"
+#read -p "Press enter to proceed with the script" fgVar
+#read -p "what is the domain we are creating the sample page for?" yourDomain 
 sleep 1
 echo "Creating a temp directory and using curl to copy the sample files"
 echo " installing dependencies, these should already be installed..."

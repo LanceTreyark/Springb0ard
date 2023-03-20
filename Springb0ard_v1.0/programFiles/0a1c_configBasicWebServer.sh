@@ -15,6 +15,21 @@
 * UNIT TEST RESULT: 
 comment
 
+
+#call vArs
+mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springboard/vArs/myIP.txt) 
+
+
+webAdminEmail=$(cat /etc/springboard/vArs/webAdminEmail.txt) 
+webDomainName=$(cat /etc/springboard/vArs/mailDomain.txt)
+
+
+
+
+
 echo "The script is live..."
 sleep 1
 echo ""
@@ -23,28 +38,28 @@ echo "for a given domain name you provide, in addition it provides an SSL."
 echo "certificate."
 sleep 2
 echo ""
-read -p "Please enter the domain name to use for this new site, Don't add the 'www':   " webDomainName
-echo " "
-read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
-echo " "
-echo " "
-echo "If you have an existing subdomain for this same domain like 'mail.example.com', you can" 
-echo "enter that here to group everything under the same certificate"
-echo ""
-read -p "Do you have an existing subdomain with SSL certificate? [y/n] " has_ssl
+#read -p "Please enter the domain name to use for this new site, Don't add the 'www':   " webDomainName
+#echo " "
+#read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+#echo " "
+#echo " "
+#echo "If you have an existing subdomain for this same domain like 'mail.example.com', you can" 
+#echo "enter that here to group everything under the same certificate"
+#echo ""
+#read -p "Do you have an existing subdomain with SSL certificate? [y/n] " has_ssl
 
-if [[ $has_ssl =~ ^[Yy]$ ]]; then
+#if [[ $has_ssl =~ ^[Yy]$ ]]; then
   # If user has SSL, ask for the subdomain name
-  read -p "Enter existing subdomain name: " existing_subdomain
+#  read -p "Enter existing subdomain name: " existing_subdomain
 
   # Set variables accordingly
-  d="-d"
-  existingSubDomain="$existing_subdomain"
-else
+#  d="-d"
+#  existingSubDomain="$existing_subdomain"
+#else
   # If user doesn't have SSL, set variables to empty
-  d=""
-  existingSubDomain=""
-fi
+#  d=""
+#  existingSubDomain=""
+#fi
 #
 # Use variables in your script as needed
 #echo "d=$d"
@@ -86,6 +101,10 @@ sudo systemctl restart apache2
 sleep 1
 echo " "
 echo "Obtain SSL Certificate"
+#
+d="-d"
+existingSubDomain="mail.$webDomainName"
+#
 sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
 sleep 1
 echo " "
