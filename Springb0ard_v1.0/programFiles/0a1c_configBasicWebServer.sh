@@ -17,14 +17,14 @@ comment
 
 
 #call vArs
-mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
-myIP=$(cat /etc/springboard/vArs/myIP.txt) 
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt) 
 
 
-webAdminEmail=$(cat /etc/springboard/vArs/webAdminEmail.txt) 
-webDomainName=$(cat /etc/springboard/vArs/mailDomain.txt)
+webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt) 
+webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 
 
 

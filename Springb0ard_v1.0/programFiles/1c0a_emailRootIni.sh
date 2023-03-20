@@ -12,6 +12,20 @@
 
 
 
+
+#TODO
+# make sure all the aliases we need are declared and saved here
+# add curl scripts to be placed into programFiles then make the m executable
+# add echo at the top of each script to identify what stage of execution we are in ie 1/6, 2/6, 5/6 etc..
+# add commands at the bottom of each script to move on to the next script
+# remove any "press enter to continue things that will hault the script more than neccessary"
+# 
+#
+
+
+
+
+
 <<comment
 * TITLE:  1c0a_emailRootIni.sh
 * AUTHOR: Lance Pierson
@@ -43,6 +57,12 @@ sudo snap install btop
 sleep 1
 read -p "Create a non-root 'sudo user'. What would you like to set as the new username?:  " sudoUser
 echo "Creating new user, you will need to create password for this"
+
+
+
+
+
+
 adduser $sudoUser
 sleep 1
 echo "Adding new user to sudo group"
@@ -56,7 +76,12 @@ sleep 1
 sudo apt install curl -y
 sleep 1
 mkdir /home/$sudoUser/vArs 
-echo "$sudoUser" >> /home/$sudoUser/vArs/varsudoUser.txt
+echo "$sudoUser" >> /etc/springb0ard/vArs/sudoUser.txt
+echo "$webAdminEmail" >> /etc/springb0ard/vArs/webAdminEmail.txt
+
+
+
+
 sleep 1
 echo "Installing Firewall"
 apt install ufw -y
@@ -88,7 +113,7 @@ EOF
 sleep 1
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
-sudo chmod +x /etc/springboard/vArs/programFiles/0a3a_installPostfix.sh
+sudo chmod +x /etc/springb0ard/vArs/programFiles/0a3a_installPostfix.sh
 sudo chmod +x
 sudo chmod +x
 sudo chmod +x

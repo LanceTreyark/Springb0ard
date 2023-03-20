@@ -16,10 +16,10 @@ This code installs DKIM keys and provides the user with all of the required emai
 comment
 
 #call vArs
-mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springboard/vArs/sudoUser.txt)
-myIP=$(cat /etc/springboard/vArs/myIP.txt) 
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt) 
 #
 # This IP was hard set into a written vArs entry in 0a3a_installPostfix.sh:
 # Assign IP to variable:
@@ -29,7 +29,7 @@ myIP=$(cat /etc/springboard/vArs/myIP.txt)
 #EOF
 #myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 #echo "The IP address for this server is: $myIP"
-#echo $myIP > /etc/springboard/vArs/myIP.txt
+#echo $myIP > /etc/springb0ard/vArs/myIP.txt
 # removing tmp file
 #sudo rm -r /tmp/ipSort3r.txt
 #

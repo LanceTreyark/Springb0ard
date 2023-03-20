@@ -23,17 +23,17 @@ This is the initial Postfix configuration
 comment
 echo "The script is live!"
 sleep 1
-echo "Creating the Springboard program directory in the /etc directory"
+echo "Creating the springb0ard program directory in the /etc directory"
 echo ""
 echo "---------------------------------------------------------"
 echo "Here is the etc directory before the change:"
 echo "---------------------------------------------------------"
 echo ""
 sudo ls /etc
-sudo mkdir /etc/springboard
-# Give ownership of springboard to my regular user
+sudo mkdir /etc/springb0ard
+# Give ownership of springb0ard to my regular user
 userID=$(id -u)
-sudo chown -R $userID:$userID /etc/springboard
+sudo chown -R $userID:$userID /etc/springb0ard
 echo "---------------------------------------------------------"
 echo ""
 echo "Here is the etc directory after the change:"
@@ -44,14 +44,14 @@ echo "---------------------------------------------------------"
 echo ""
 read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
 read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
-mkdir /etc/springboard/vArs
-touch /etc/springboard/vArs/mailDomain.txt
-echo "$mailDomain" >> /etc/springboard/vArs/mailDomain.txt
-touch /etc/springboard/vArs/regMailUser.txt
-echo "$regMailUser" >> /etc/springboard/vArs/regMailUser.txt
+mkdir /etc/springb0ard/vArs
+touch /etc/springb0ard/vArs/mailDomain.txt
+echo "$mailDomain" >> /etc/springb0ard/vArs/mailDomain.txt
+touch /etc/springb0ard/vArs/regMailUser.txt
+echo "$regMailUser" >> /etc/springb0ard/vArs/regMailUser.txt
 sleep 1
 echo "verifying if the variables were stored correctly..."
-if [ "$(cat /etc/springboard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springboard/vArs/regMailUser.txt)" = "$regMailUser" ]
+if [ "$(cat /etc/springb0ard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springb0ard/vArs/regMailUser.txt)" = "$regMailUser" ]
 then
   echo "Great, the variables were stored correctly"
 else
@@ -87,7 +87,8 @@ $myIPv4
 EOF
 myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 echo "The IP address for this server is: $myIP"
-echo $myIP > /etc/springboard/vArs/myIP.txt
+#save IP as a hard variable 
+echo $myIP > /etc/springb0ard/vArs/myIP.txt
 # removing tmp file
 sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
@@ -139,8 +140,8 @@ sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
 read -p "Press enter to continue" xVar
 # If I wanted to split this into another script add this part so the variables are imported:
-# mailDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
-# regMailUser=$(cat /etc/springboard/vArs/regMailUser.txt)
+# mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+# regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
