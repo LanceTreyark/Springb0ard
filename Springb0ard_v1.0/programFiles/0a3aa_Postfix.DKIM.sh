@@ -92,25 +92,25 @@ echo "$linoel" > /tmp/DKIM_Segmented.txt
 header=$(cat /tmp/DKIM_Segmented.txt)
 
 # This adds the DNS record prefix
-header="\"default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)\""  
+header="default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)"  
 
 # This outputs the reformatted contents to DKIMwithHeader.txt
 echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
 
 #cat DKIMwithHeader.txt
 echo "Here are your email DNS Records:"
-echo "TYPE.........HOST.............ANSWER........................TTL......PRIO"
+echo "TYPE.........HOST.............ANSWER................................TTL......PRIO"
 echo "TXT            @              v=spf1 ip4:$myIP -all         300       N/A"  
-echo "TXT            @              >paste DKIM keys here<        300       N/A"  
-echo "TXT  _dmarc.forml0gic.com    >paste DMARC Record here<      300       N/A"
+echo "TXT            @              >paste DKIM keys here<                300       N/A"  
+echo "TXT          _dmarc          >paste DMARC Record here<              300       N/A"
+echo "---------------------------------------------------------------------------------"
 
-echo "Copy and paste this into the ANSWER field for your DKIM Keys:"
+echo "        Copy and paste this into the ANSWER field for your DKIM Keys:"
 echo "------------------------------------------------------"
 cat /home/$sudoUser/DKIMwithHeader.txt
 echo "------------------------------------------------------"
 echo ""
-echo ""
-echo "Copy and paste this into the ANSWER field for your DMARC Record:"
+echo "      Copy and paste this into the ANSWER field for your DMARC Record:"
 echo "------------------------------------------------------"
 echo "v=DMARC1; p=quarantine; rua=mailto:$regMailUser@$mailDomain; ruf=mailto:$regMailUser@$mailDomain; sp=none; aspf=r; adkim=r; pct=100;"
 echo "------------------------------------------------------"
