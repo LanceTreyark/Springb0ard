@@ -98,23 +98,29 @@ header="default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)"
 echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
 
 #cat DKIMwithHeader.txt
-echo "Here are your email DNS Records:"
-echo "TYPE.........HOST.............ANSWER................................TTL......PRIO"
-echo "TXT            @              v=spf1 ip4:$myIP -all         300       N/A"  
-echo "TXT            @              >paste DKIM keys here<                300       N/A"  
-echo "TXT          _dmarc          >paste DMARC Record here<              300       N/A"
-echo "---------------------------------------------------------------------------------"
-
-echo "        Copy and paste this into the ANSWER field for your DKIM Keys:"
-echo "------------------------------------------------------"
+echo "| Here are your email DNS Records:                                                  |"
+echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"
+echo "| A              @               $myIP                        300       N/A |"
+echo "| A             mail             $myIP                        300       N/A |"
+echo "| MX             @               mail.$mailDomain                  300       N/A |" 
+echo "| TXT            @               v=spf1 ip4:$myIP -all        300       N/A |"  
+echo "| TXT            @              >paste DKIM keys here<                300       N/A |"  
+echo "| TXT          _dmarc          >paste DMARC Record here<              300       N/A |"
+echo "-------------------------------------------------------------------------------------"
+echo "|         Copy and paste this into the ANSWER field for your DKIM Keys:             |"
+echo "-------------------------------------------------------------------------------------"
 cat /home/$sudoUser/DKIMwithHeader.txt
-echo "------------------------------------------------------"
-echo ""
-echo "      Copy and paste this into the ANSWER field for your DMARC Record:"
-echo "------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------"
+echo "|        Copy and paste this into the ANSWER field for your DMARC Record:           |"
+echo "-------------------------------------------------------------------------------------"
 echo "v=DMARC1; p=quarantine; rua=mailto:$regMailUser@$mailDomain; ruf=mailto:$regMailUser@$mailDomain; sp=none; aspf=r; adkim=r; pct=100;"
-echo "------------------------------------------------------"
-
+echo "-------------------------------------------------------------------------------------"
+echo "|                                   NOTE:                                           |"
+echo "|      You need to set reverse DNS (PTR) on your server's host admin portal         |"
+echo "-------------------------------------------------------------------------------------"
+echo "| IP ADDRESS...............REVERSE DNS NAME.................ATTACHED TO             |"
+echo "| $myIP            mail.$mailDomain          mail.$mailDomain         |"
+echo "-------------------------------------------------------------------------------------"
 rm /tmp/DKIM_Segmented.txt
 rm /tmp/DKIM_Full.txt
 rm /tmp/DKIM_bottom.txt
