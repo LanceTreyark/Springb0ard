@@ -1,11 +1,9 @@
 #!/bin/bash
 
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 # nano 0a1b_basicWebServer.sh
 # sudo chmod +x 0a1b_basicWebServer.sh
 # ./0a1b_basicWebServer.sh
-
 <<comment
 * TITLE:  0a1b_basicWebServer.sh
 * AUTHOR: Lance Pierson
@@ -14,7 +12,6 @@
 * EXECUTIVE SUMMARY: 
 * UNIT TEST RESULT: 
 comment
-
 echo "The script is live!"
 
 #Call your vArs!
@@ -22,16 +19,15 @@ yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-
 
 sleep 1
 echo ""
 echo "The following script installs an Apache webserver, a UFW Firewall, opens the necessary WWW ports"
 echo "& installs Certbot a SSL Certificate generator."
 echo ""
-#read -p "Press enter to proceed with the installation." xcfg
 sleep 2
 echo ""
 echo "Installing Uncomplicated Firewall, this may already be installed..."

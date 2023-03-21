@@ -15,21 +15,6 @@
 * UNIT TEST RESULT: 
 comment
 
-
-#call vArs
-mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-myIP=$(cat /etc/springb0ard/vArs/myIP.txt) 
-
-
-webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt) 
-webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
-
-
-
-
 echo "The script is live!"
 
 #Call your vArs!
@@ -37,9 +22,9 @@ yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 
 sleep 1
 echo ""
@@ -48,6 +33,10 @@ echo "for a given domain name you provide, in addition it provides an SSL."
 echo "certificate."
 sleep 2
 echo ""
+#
+d="-d"
+existingSubDomain="mail.$webDomainName"
+#
 #read -p "Please enter the domain name to use for this new site, Don't add the 'www':   " webDomainName
 #echo " "
 #read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
@@ -111,10 +100,6 @@ sudo systemctl restart apache2
 sleep 1
 echo " "
 echo "Obtain SSL Certificate"
-#
-d="-d"
-existingSubDomain="mail.$webDomainName"
-#
 sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
 sleep 1
 echo " "

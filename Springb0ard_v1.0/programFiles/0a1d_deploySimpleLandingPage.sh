@@ -22,9 +22,9 @@ yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-
 
 sleep 1
 echo ""

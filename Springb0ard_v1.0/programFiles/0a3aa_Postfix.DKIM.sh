@@ -15,20 +15,6 @@ This is an addendum to the automatic SMTP email server installer
 This code installs DKIM keys and provides the user with all of the required email DNS records
 comment
 
- 
-#
-# This IP was hard set into a written vArs entry in 0a3a_installPostfix.sh:
-# Assign IP to variable:
-#myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
-#cat >/tmp/ipSort3r.txt <<EOF
-#$myIPv4
-#EOF
-#myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
-#echo "The IP address for this server is: $myIP"
-#echo $myIP > /etc/springb0ard/vArs/myIP.txt
-# removing tmp file
-#sudo rm -r /tmp/ipSort3r.txt
-#
 echo "The script is live!"
 
 #Call your vArs!
@@ -36,9 +22,9 @@ yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-
 
 sleep 1
 
@@ -89,21 +75,11 @@ linoel=$(echo "$DKIM_Full" | fold -w 64 -s | sed 's/^/"/; s/$/"/')
 # write output to file 
 # We keep this in ~/ Dir
 echo "$linoel" > /tmp/DKIM_Segmented.txt
-
-
-#!/bin/bash
-# PHASE 4) add DNS header
-# 
-# This reads the contents of DKIM_Segmented.txt into a variable
 header=$(cat /tmp/DKIM_Segmented.txt)
-
 # This adds the DNS record prefix
 header="default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)"  
-
 # This outputs the reformatted contents to DKIMwithHeader.txt
 echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
-
-#cat DKIMwithHeader.txt
 echo "| Here are your email DNS Records:                                                  |"
 echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"
 echo "| A              @               $myIP                        300       N/A |"
@@ -133,7 +109,6 @@ rm /tmp/DKIM_Full.txt
 rm /tmp/DKIM_bottom.txt
 rm /tmp/DKIM_Top.txt
 rm /tmp/defaultX1.txt
-
 sleep 1
 echo "the script has concluded."
 echo "bye"

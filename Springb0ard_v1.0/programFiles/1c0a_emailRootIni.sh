@@ -34,6 +34,16 @@ We ask all the questions here once then the server installs the required softwar
 once the root is initialized we log into the sudo user and run an alias command "deploy"
 comment
 echo "The Script is Live"
+
+#Call your vArs!
+# yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+# mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+# regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+# sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+# sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
+# myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
+# webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+
 sleep 1
 echo "Updating the server..."
 sleep 1
@@ -55,6 +65,7 @@ sleep 1
 mkdir -p /tmp/springb0ard/programFiles
 mkdir  /tmp/springb0ard/vArs
 mkdir  /tmp/springb0ard/exampleDir
+# IP -In
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
 $myIPv4
@@ -62,29 +73,20 @@ EOF
 myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 echo "The IP address for this server is: $myIP"
 sudo rm -r /tmp/ipSort3r.txt
+# IP -Out
 sleep 1
-read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
+#read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
+sudoUser="spencer"
 echo ""
-read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+#read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+webAdminEmail="info@treyark.com"
 echo ""
-read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
+#read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
+mailDomain="springb0ard.com"
 echo ""
-read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
+#read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
+regMailUser="admin"
 echo ""
-echo "$sudoUser" > /tmp/springb0ard/vArs/sudoUser.txt
-echo "$webAdminEmail" > /tmp/springb0ard/vArs/webAdminEmail.txt
-echo "$regMailUser" > /etc/springb0ard/vArs/regMailUser.txt
-echo "$mailDomain" > /etc/springb0ard/vArs/mailDomain.txt
-echo "$myIP" > /tmp/springb0ard/vArs/myIP.txt
-
-
-
-
-
-
-
-
-
 echo "Creating new user, you will need to create password for this"
 adduser $sudoUser
 sleep 1
@@ -92,14 +94,19 @@ echo "Adding new user to sudo group"
 sleep 1
 usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
+#
+echo "$sudoUser" > /tmp/springb0ard/vArs/sudoUser.txt
+echo "$sudoUserID" > /tmp/springb0ard/vArs/sudoUserID.txt
+echo "$webAdminEmail" > /tmp/springb0ard/vArs/webAdminEmail.txt
+echo "$regMailUser" > /etc/springb0ard/vArs/regMailUser.txt
+echo "$mailDomain" > /etc/springb0ard/vArs/mailDomain.txt
+echo "$myIP" > /tmp/springb0ard/vArs/myIP.txt
+#
 echo "Installing dependencies"
 sleep 1
 echo "Installing Curl"
 sleep 1
 sudo apt install curl -y
-sleep 1
-
-
 sleep 1
 echo "Installing Firewall"
 apt install ufw -y
@@ -126,48 +133,29 @@ sleep 1
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="sh /etc/
+alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh
 EOF
 sleep 1
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
-
-
-# \/ This creates a variable to hold the specified users id # ie 1001
-sudoUserID=$(id -u $sudoUser)
-
-sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/vArs
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
-
-
-
-
-
 echo "Installing Springb0ard"
-curl -o /tmp/springb0ard/programFiles/0a1a_sudoUsrIni.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1a_sudoUsrIni.sh"
 curl -o /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1b_basicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1c_configBasicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1d_deploySimpleLandingPage.sh"
 curl -o /tmp/springb0ard/programFiles/0a3a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh"
 curl -o /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3aa_Postfix.DKIM.sh"
-
-sudo chmod +x /tmp/springb0ard/programFiles/0a1a_sudoUsrIni.sh
+sudo chmod +x /tmp/springb0ard/programFiles/0a3a_installPostfix.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh
-sudo chmod +x /tmp/springb0ard/programFiles/0a3a_installPostfix.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
-
-
-
+sudo mv -r /tmp/springb0ard /etc/
 # after all variables are added & sudo user created move springboard and give ownership to sudo user 
 # Give ownership of springb0ard to my regular user
 #userID=$(id -u)
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
-
-
-
 echo "This script has concluded"
 sleep 1
 

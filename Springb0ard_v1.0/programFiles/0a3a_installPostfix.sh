@@ -26,10 +26,9 @@ yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-
-
 
 sleep 1
 echo "Creating the springb0ard program directory in the /etc directory"
@@ -302,11 +301,14 @@ echo ""
 sleep 1
 sudo systemctl restart postfix
 echo "Everything should be set up, to test the mailserver"
-echo ""
-echo "Add this SPF record to your dns settings:"
-echo "----------------------------------------------------"
-echo "TYPE   HOST           ANSWER"
-echo ""
-echo "TXT     @      v=spf1 ip4:$myIP -all"
-echo "----------------------------------------------------"
-read -p "Press enter to exit the script" xVar
+#echo ""
+#echo "Add this SPF record to your dns settings:"
+#echo "----------------------------------------------------"
+#echo "TYPE   HOST           ANSWER"
+#echo ""
+#echo "TXT     @      v=spf1 ip4:$myIP -all"
+#echo "----------------------------------------------------"
+#read -p "Press enter to exit the script" xVar
+echo "Initiating webserver installer 0a1b"
+sleep 2
+sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh
