@@ -107,3 +107,4 @@ echo "Restarting Apache..."
 sudo systemctl restart apache2
 echo "The script has concluded."
 echo "bye"
+sh /etc/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh

@@ -48,3 +48,4 @@ sudo cp -a /tmp/htmlSamplePage/. /var/www/$yourDomain/public_html/
 sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
 echo "bye"
+sh /etc/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh

@@ -72,3 +72,4 @@ echo "Installing apache pligin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
 echo "The script has concluded. Bye"
+sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh

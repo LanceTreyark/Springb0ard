@@ -65,7 +65,7 @@ sleep 1
 mkdir -p /tmp/springb0ard/programFiles
 mkdir  /tmp/springb0ard/vArs
 mkdir  /tmp/springb0ard/exampleDir
-# IP -In
+# IP -In #
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
 $myIPv4
@@ -73,17 +73,17 @@ EOF
 myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
 echo "The IP address for this server is: $myIP"
 sudo rm -r /tmp/ipSort3r.txt
-# IP -Out
+# IP -Out #
 sleep 1
 #read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
 sudoUser="spencer"
-echo ""
+#echo ""
 #read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
 webAdminEmail="info@treyark.com"
-echo ""
+#echo ""
 #read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
 mailDomain="springb0ard.com"
-echo ""
+#echo ""
 #read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
 regMailUser="admin"
 echo ""
@@ -128,7 +128,7 @@ echo $adminPubKeyString >> /home/$sudoUser/.ssh/authorized_keys
 sleep 1
 ls /home/$sudoUser/.ssh/
 sleep 1
-cat /home/$sudoUser/.ssh/authorized_keys
+#cat /home/$sudoUser/.ssh/authorized_keys
 sleep 1
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
@@ -151,12 +151,15 @@ sudo chmod +x /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
-sudo mv -r /tmp/springb0ard /etc/
 # after all variables are added & sudo user created move springboard and give ownership to sudo user 
 # Give ownership of springb0ard to my regular user
-#userID=$(id -u)
+sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 echo "This script has concluded"
 sleep 1
-
+echo "Switching to $sudoUser"
+echo "after logging in type the command 'deploy' to continue with the installation"
+sleep 1
+read -p "Press enter when you are ready" meh
+su $sudoUser
 
