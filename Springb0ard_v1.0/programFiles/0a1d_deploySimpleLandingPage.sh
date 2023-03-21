@@ -14,8 +14,18 @@
 * EXECUTIVE SUMMARY: 
 * UNIT TEST RESULT: 
 comment
-yourDomain=$(cat /etc/springboard/vArs/mailDomain.txt)
-echo "The script is live..."
+
+echo "The script is live!"
+
+#Call your vArs!
+yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+
+
 sleep 1
 echo ""
 echo "The following script deploys a basic landing page for your site"

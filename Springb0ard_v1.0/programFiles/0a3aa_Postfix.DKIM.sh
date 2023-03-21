@@ -15,11 +15,7 @@ This is an addendum to the automatic SMTP email server installer
 This code installs DKIM keys and provides the user with all of the required email DNS records
 comment
 
-#call vArs
-mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-myIP=$(cat /etc/springb0ard/vArs/myIP.txt) 
+ 
 #
 # This IP was hard set into a written vArs entry in 0a3a_installPostfix.sh:
 # Assign IP to variable:
@@ -34,6 +30,16 @@ myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 #sudo rm -r /tmp/ipSort3r.txt
 #
 echo "The script is live!"
+
+#Call your vArs!
+yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+
+
 sleep 1
 
 sudo apt install opendkim opendkim-tools -y
@@ -49,7 +55,7 @@ cd /home/$sudoUser
 sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
 
 
-# \/ This creates a variable to hold the current users id # ie 1001
+# \/ This creates a variable to hold the specified users id # ie 1001
 sudoUserID=$(id -u $sudoUser)
 
 
@@ -101,6 +107,7 @@ echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
 echo "| Here are your email DNS Records:                                                  |"
 echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"
 echo "| A              @               $myIP                        300       N/A |"
+echo "| A             WWW              $myIP                        300       N/A |"
 echo "| A             mail             $myIP                        300       N/A |"
 echo "| MX             @               mail.$mailDomain                  300       N/A |" 
 echo "| TXT            @               v=spf1 ip4:$myIP -all        300       N/A |"  

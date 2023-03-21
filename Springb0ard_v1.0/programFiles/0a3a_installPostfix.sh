@@ -18,10 +18,19 @@ My plan is to set this to be able to run independently as it's own program.
 
 
 This is the initial Postfix configuration
-
-
 comment
 echo "The script is live!"
+
+#Call your vArs!
+yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+
+
+
 sleep 1
 echo "Creating the springb0ard program directory in the /etc directory"
 echo ""
@@ -29,11 +38,12 @@ echo "---------------------------------------------------------"
 echo "Here is the etc directory before the change:"
 echo "---------------------------------------------------------"
 echo ""
-sudo ls /etc
-sudo mkdir /etc/springb0ard
+#sudo ls /etc
+#sudo mkdir /etc/springb0ard
+
 # Give ownership of springb0ard to my regular user
-userID=$(id -u)
-sudo chown -R $userID:$userID /etc/springb0ard
+#userID=$(id -u)
+#sudo chown -R $userID:$userID /etc/springb0ard
 echo "---------------------------------------------------------"
 echo ""
 echo "Here is the etc directory after the change:"
@@ -42,22 +52,22 @@ echo ""
 sudo ls /etc
 echo "---------------------------------------------------------"
 echo ""
-read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
-read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
-mkdir /etc/springb0ard/vArs
-touch /etc/springb0ard/vArs/mailDomain.txt
-echo "$mailDomain" >> /etc/springb0ard/vArs/mailDomain.txt
-touch /etc/springb0ard/vArs/regMailUser.txt
-echo "$regMailUser" >> /etc/springb0ard/vArs/regMailUser.txt
-sleep 1
-echo "verifying if the variables were stored correctly..."
-if [ "$(cat /etc/springb0ard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springb0ard/vArs/regMailUser.txt)" = "$regMailUser" ]
-then
-  echo "Great, the variables were stored correctly"
-else
-  echo "There is a problem with a mismatch between the contents of this programs text files and the variables.."
-  read -p "would you like to continue?" xVar
-fi
+#read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
+#read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
+#mkdir /etc/springb0ard/vArs
+#touch /etc/springb0ard/vArs/mailDomain.txt
+#echo "$mailDomain" >> /etc/springb0ard/vArs/mailDomain.txt
+#touch /etc/springb0ard/vArs/regMailUser.txt
+#echo "$regMailUser" >> /etc/springb0ard/vArs/regMailUser.txt
+#sleep 1
+#echo "verifying if the variables were stored correctly..."
+#if [ "$(cat /etc/springb0ard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springb0ard/vArs/regMailUser.txt)" = "$regMailUser" ]
+#then
+#  echo "Great, the variables were stored correctly"
+#else
+#  echo "There is a problem with a mismatch between the contents of this programs text files and the variables.."
+#  read -p "would you like to continue?" xVar
+#fi
 sleep 1
 echo "Opening required mail ports..."
 sudo ufw allow 25
@@ -70,7 +80,7 @@ sudo ufw allow 995
 sudo ufw allow 587
 sudo ufw status
 echo "Adding new user $regMailUser"
-read -p "Press enter to continue" xVar
+#read -p "Press enter to continue" xVar
 sleep 1
 sudo adduser $regMailUser
 sleep 1
@@ -79,18 +89,19 @@ sudo hostname mail.$mailDomain
 hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
 #
+# Replaced by: myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 # added \/ 3.16.23
 # Assign IP to variable:
-myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
-cat >/tmp/ipSort3r.txt <<EOF
-$myIPv4
-EOF
-myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
-echo "The IP address for this server is: $myIP"
+#myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
+#cat >/tmp/ipSort3r.txt <<EOF
+#$myIPv4
+#EOF
+#myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
+#echo "The IP address for this server is: $myIP"
 #save IP as a hard variable 
-echo $myIP > /etc/springb0ard/vArs/myIP.txt
+#echo $myIP > /etc/springb0ard/vArs/myIP.txt
 # removing tmp file
-sudo rm -r /tmp/ipSort3r.txt
+#sudo rm -r /tmp/ipSort3r.txt
 echo "Add Host data to the end of hosts file:"
 sleep 1
 echo "We are going to add the domain name to the hosts file"
@@ -100,11 +111,12 @@ sleep 1
 echo "------------------------------------------------------"
 sudo cat /etc/hosts
 echo "------------------------------------------------------"
-read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
+echo "Ammending to '127.0.0.1 localhost mail.$mailDomain'"
+#read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
 sudo sed -i "/127.0.0.1/a $myIP mail.$mailDomain" /etc/hosts
 echo ""
 sleep 1
-echo "Okay here is the amended file:"
+echo "Here is the amended file:"
 echo "------------------------------------------------------"
 sudo cat /etc/hosts
 echo "------------------------------------------------------"
@@ -138,22 +150,29 @@ sleep 2
 echo "Install & Preconfigure Postfix"
 sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
-read -p "Press enter to continue" xVar
+#read -p "Press enter to continue" xVar
 # If I wanted to split this into another script add this part so the variables are imported:
 # mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 # regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
-# forgot to add cerbot install -may need to try preseeding this?
 sudo apt install certbot -y
 echo "creating standalone certificate for the email"
+echo ""
+echo "your DNS needs to look like the following before proceeding:"
+echo "Where I use '@' below you will see $mailDomain when It's been entered correctly into DNS"
+echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"
+echo "| A              @               $myIP                        300       N/A |"
+echo "| A             WWW              $myIP                        300       N/A |"
+echo "| A             mail             $myIP                        300       N/A |"
+echo "| MX             @               mail.$mailDomain                  300       N/A |" 
+echo "-------------------------------------------------------------------------------------"
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 sudo certbot certonly --standalone -d mail.$mailDomain
 sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/mail.$mailDomain/fullchain.pem"
 sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/mail.$mailDomain/privkey.pem"
 echo "installing Dovecot"
-read -p "Press enter to continue" xVar
 sudo apt install dovecot-common dovecot-imapd dovecot-pop3d -y 
 sudo postconf -e 'smtpd_sasl_type = dovecot'
 sudo postconf -e 'smtpd_sasl_path = private/auth'
@@ -180,8 +199,7 @@ touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
 echo "info@$mailDomain info" >> /tmp/virtual
-sudo cp /tmp/virtual /etc/postfix/ 
-# /\ delete tmp file later
+sudo mv /tmp/virtual /etc/postfix/ 
 sudo postmap /etc/postfix/virtual
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix

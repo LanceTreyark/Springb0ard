@@ -15,13 +15,23 @@
 * UNIT TEST RESULT: 
 comment
 
-echo "The script is live..."
+echo "The script is live!"
+
+#Call your vArs!
+yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
+myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+
+
 sleep 1
 echo ""
 echo "The following script installs an Apache webserver, a UFW Firewall, opens the necessary WWW ports"
 echo "& installs Certbot a SSL Certificate generator."
 echo ""
-read -p "Press enter to proceed with the installation." xcfg
+#read -p "Press enter to proceed with the installation." xcfg
 sleep 2
 echo ""
 echo "Installing Uncomplicated Firewall, this may already be installed..."
