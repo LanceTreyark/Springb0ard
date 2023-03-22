@@ -39,7 +39,10 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
-
+#
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#
 
 sleep 1
 echo ""
@@ -62,5 +65,5 @@ echo "Moving the files to the web directory"
 sudo cp -a /tmp/htmlSamplePage/. /var/www/$yourDomain/public_html/
 sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
-echo "bye"
-sh /etc/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
+echo "Next,"
+echo "sh /etc/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh"

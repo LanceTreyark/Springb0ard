@@ -36,7 +36,12 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
-
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 
 sleep 1
 echo ""
@@ -60,6 +65,12 @@ echo " "
 echo "Installing Apache Webserver..."
 sudo apt install apache2 -y
 sleep 1
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo " "
 echo "Installing dependencies for certbot"
 sleep 1
@@ -75,6 +86,12 @@ echo " "
 echo "Refresh Snap Core"
 sudo snap refresh core
 sleep 1
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo " "
 echo "Installing Certbot"
 sudo snap install --classic certbot
@@ -83,8 +100,14 @@ echo " "
 echo "Adding symbolic link for Certbot"
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sleep 1
-echo "Installing apache pligin..."
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
+echo "Installing apache plugin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
-echo "The script has concluded. Bye"
-sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh
+echo "Next,"
+echo "sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh"

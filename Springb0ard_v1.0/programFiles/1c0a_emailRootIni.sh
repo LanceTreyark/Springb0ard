@@ -45,17 +45,17 @@ echo "The Script is Live"
 # webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 # webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 
-echo "           vArs Test:"
-echo "-----------------------------"
-echo "yourDomain=$yourDomain"
-echo "mailDomain=$mailDomain"
-echo "regMailUser=$regMailUser"
-echo "sudoUser=$sudoUser"
-echo "sudoUserID=$sudoUserID"
-echo "myIP=$myIP"
-echo "webAdminEmail=$webAdminEmail"
-echo "webDomainName=$webDomainName"
-echo "-----------------------------"
+#echo "           vArs Test:"
+#echo "-----------------------------"
+#echo "yourDomain=$yourDomain"
+#echo "mailDomain=$mailDomain"
+#echo "regMailUser=$regMailUser"
+#echo "sudoUser=$sudoUser"
+#echo "sudoUserID=$sudoUserID"
+#echo "myIP=$myIP"
+#echo "webAdminEmail=$webAdminEmail"
+#echo "webDomainName=$webDomainName"
+#echo "-----------------------------"
 #----------------------------------------------------
 sleep 1
 echo "Updating the server..."
@@ -154,6 +154,12 @@ sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 echo "Installing Springb0ard"
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 curl -o /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1b_basicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1c_configBasicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1d_deploySimpleLandingPage.sh"
@@ -166,8 +172,20 @@ sudo chmod +x /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh
 sudo chmod +x /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
 # after all variables are added & sudo user created move springboard and give ownership to sudo user 
 # Give ownership of springb0ard to my regular user
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo "This script has concluded"
 sleep 1
 echo "Switching to $sudoUser"

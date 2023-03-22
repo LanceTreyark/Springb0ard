@@ -27,6 +27,9 @@ myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 
+d="-d"
+existingSubDomain="mail.$webDomainName"
+
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -39,7 +42,12 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
-
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 sleep 1
 echo ""
 echo "The following script configures an Apache webserver "
@@ -48,8 +56,12 @@ echo "certificate."
 sleep 2
 echo ""
 #
-d="-d"
-existingSubDomain="mail.$webDomainName"
+#
+echo "From here to the next break are comments, if there is an error these need to get removed..."
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
 #
 #read -p "Please enter the domain name to use for this new site, Don't add the 'www':   " webDomainName
 #echo " "
@@ -78,13 +90,20 @@ existingSubDomain="mail.$webDomainName"
 #echo "d=$d"
 #echo "existingSubDomain=$existingSubDomain"
 #
-
+#
+#
+echo "          Comment swamp has been crossed"
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo "Creating a site directory for $webDomainName"
 sudo mkdir -p /var/www/$webDomainName/public_html
 sleep 1
 echo " "
 echo "Create Apache2 configuration file"
-#cat >/etc/apache2/sites-available/$webDomainName.conf <<EOF
+
 cat >/tmp/$webDomainName.conf <<EOF
 <VirtualHost *:80>
     ServerAdmin $webAdminEmail
@@ -98,12 +117,40 @@ cat >/tmp/$webDomainName.conf <<EOF
   </Directory>
 </VirtualHost>
 EOF
+
+echo "verify that config file was created in tmp dir:"
+echo "--------------------------------------------"
+cat /tmp/$webDomainName.conf
+echo "--------------------------------------------"
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
+echo "Moving config file to /etc/apache2/sites-available/"
 sudo mv /tmp/$webDomainName.conf /etc/apache2/sites-available/
+echo "config file check in /etc/apache2/sites-available"
+echo "--------------------------------------------"
+sudo ls /etc/apache2/sites-available
+echo "--------------------------------------------"
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 sleep 1
 echo " "
 echo "Configure permissions for the Web directory"
 sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
 sleep 1
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo " "
 echo "Enable Website and Obtain SSL Certificate"
 sudo a2ensite $webDomainName.conf
@@ -113,6 +160,12 @@ echo "Restart Apache"
 sudo systemctl restart apache2
 sleep 1
 echo " "
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo "Obtain SSL Certificate"
 sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
 sleep 1
@@ -120,5 +173,5 @@ echo " "
 echo "Restarting Apache..."
 sudo systemctl restart apache2
 echo "The script has concluded."
-echo "bye"
-sh /etc/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh
+echo "Next,"
+echo "sh /etc/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh"
