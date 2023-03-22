@@ -193,4 +193,3 @@ echo "after logging in type the command 'deploy' to continue with the installati
 sleep 1
 read -p "Press enter when you are ready" meh
 su $sudoUser
-
