@@ -25,6 +25,20 @@ sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
 sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+
+echo "           vArs Test:"
+echo "-----------------------------"
+echo "yourDomain=$yourDomain"
+echo "mailDomain=$mailDomain"
+echo "regMailUser=$regMailUser"
+echo "sudoUser=$sudoUser"
+echo "sudoUserID=$sudoUserID"
+echo "myIP=$myIP"
+echo "webAdminEmail=$webAdminEmail"
+echo "webDomainName=$webDomainName"
+echo "-----------------------------"
+#----------------------------------------------------
 
 sleep 1
 echo ""

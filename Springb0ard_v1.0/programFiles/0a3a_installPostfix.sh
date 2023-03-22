@@ -29,6 +29,20 @@ sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
 sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
+webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+
+echo "           vArs Test:"
+echo "-----------------------------"
+echo "yourDomain=$yourDomain"
+echo "mailDomain=$mailDomain"
+echo "regMailUser=$regMailUser"
+echo "sudoUser=$sudoUser"
+echo "sudoUserID=$sudoUserID"
+echo "myIP=$myIP"
+echo "webAdminEmail=$webAdminEmail"
+echo "webDomainName=$webDomainName"
+echo "-----------------------------"
+#----------------------------------------------------
 
 sleep 1
 echo "Creating the springb0ard program directory in the /etc directory"
@@ -198,7 +212,7 @@ touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
 echo "info@$mailDomain info" >> /tmp/virtual
-sudo mv /tmp/virtual /etc/postfix/ 
+sudo cp /tmp/virtual /etc/postfix/ 
 sudo postmap /etc/postfix/virtual
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix
@@ -221,7 +235,7 @@ sleep 1
 ########################
 echo "Starting Dovecot Installation..."
 sleep 1
-echo "Press Enter to continue..."
+#echo "Press Enter to continue..."
 echo "Editing /etc/dovecot/conf.d/10-auth.conf..."
 sleep 1
 echo "Disable the plaintext authentication & enable the login authentication mechanism"
