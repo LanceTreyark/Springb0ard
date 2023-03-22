@@ -39,10 +39,7 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
-#
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#
+###
 
 sleep 1
 echo ""
@@ -67,5 +64,5 @@ sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh"
-read -p "Press Enter to continue" meh
+#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh

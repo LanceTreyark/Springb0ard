@@ -39,29 +39,20 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
-#
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#
+###
 sleep 1
 sudo apt install opendkim opendkim-tools -y
 sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
 sudo sed -i "/#Domain/a Domain                 $mailDomain" /etc/opendkim.conf
 sudo sed -i "/#Selector/a Selector               2020" /etc/opendkim.conf
 sudo sed -i "/#KeyFile/a KeyFile                /etc/dkimkeys/example.private" /etc/opendkim.conf
-#
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#
+###
 # Make sure you are in the proper directory
 cd /home/$sudoUser
 
 echo "Create DKIM Keys"
 sudo /usr/sbin/opendkim-genkey -b 2048 -d $mailDomain -s default
-#
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#
+###
 #----------------------------------------------------------
 # Begin with DNS Syntaxing
 #----------------------------------------------------------
@@ -96,10 +87,7 @@ header=$(cat /tmp/DKIM_Segmented.txt)
 # This adds the DNS record prefix
 header="default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)"  
 # This outputs the reformatted contents to DKIMwithHeader.txt
-#
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#
+###
 echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
 echo "| Here are your email DNS Records:                                                  |"
 echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"

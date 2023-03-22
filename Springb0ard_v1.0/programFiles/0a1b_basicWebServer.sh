@@ -37,12 +37,6 @@ echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
-
 sleep 1
 echo ""
 echo "The following script installs an Apache webserver, a UFW Firewall, opens the necessary WWW ports"
@@ -66,11 +60,6 @@ echo "Installing Apache Webserver..."
 sudo apt install apache2 -y
 sleep 1
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo " "
 echo "Installing dependencies for certbot"
 sleep 1
@@ -87,11 +76,6 @@ echo "Refresh Snap Core"
 sudo snap refresh core
 sleep 1
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo " "
 echo "Installing Certbot"
 sudo snap install --classic certbot
@@ -101,15 +85,10 @@ echo "Adding symbolic link for Certbot"
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sleep 1
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "Installing apache plugin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh"
-read -p "Press Enter to continue" meh
+#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh

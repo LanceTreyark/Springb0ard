@@ -44,11 +44,6 @@ echo "webDomainName=$webDomainName"
 echo "-----------------------------"
 #----------------------------------------------------
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "making sure we own the springb0ard directory..."
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 sleep 1
@@ -61,7 +56,6 @@ echo ""
 ls /etc/springb0ard
 echo "----------------------------------------------------------"
 #sudo mkdir /etc/springb0ard
-
 # Give ownership of springb0ard to my regular user
 #userID=$(id -u)
 #sudo chown -R $userID:$userID /etc/springb0ard
@@ -73,12 +67,6 @@ echo ""
 sudo ls /etc
 echo "---------------------------------------------------------"
 echo ""
-echo "inbound comment swamp"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 #read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
 #read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
@@ -96,12 +84,6 @@ read -p "Check for errors then hit enter to continue" meh
 #  echo "There is a problem with a mismatch between the contents of this programs text files and the variables.."
 #  read -p "would you like to continue?" xVar
 #fi
-echo "comment swamp crossed"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 sleep 1
 echo "Opening required mail ports..."
@@ -115,7 +97,6 @@ sudo ufw allow 995
 sudo ufw allow 587
 sudo ufw status
 echo "Adding new user $regMailUser"
-#read -p "Press enter to continue" xVar
 sleep 1
 sudo adduser $regMailUser
 sleep 1
@@ -125,12 +106,6 @@ hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
 echo ""
 echo "inbound comment swamp"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 #
 # Replaced by: myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 # added \/ 3.16.23
@@ -147,11 +122,6 @@ read -p "Check for errors then hit enter to continue" meh
 #sudo rm -r /tmp/ipSort3r.txt
 echo "comment swamp crossed"
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "Add Host data to the end of hosts file:"
 sleep 1
 echo "We are going to add the domain name to the hosts file"
@@ -162,7 +132,6 @@ echo "------------------------------------------------------"
 sudo cat /etc/hosts
 echo "------------------------------------------------------"
 echo "Ammending to '127.0.0.1 localhost mail.$mailDomain'"
-#read -p "press enter to ammend it to '127.0.0.1 localhost mail.$mailDomain'" meh
 sudo sed -i "/127.0.0.1/a $myIP mail.$mailDomain" /etc/hosts
 echo ""
 sleep 1
@@ -173,12 +142,6 @@ echo "------------------------------------------------------"
 echo ""
 sleep 1
 # added /\ 3.16.23
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 #
 echo "setting up Pre-Seeding Parameters for automatic postfix installation..."
 sleep 1
@@ -205,11 +168,6 @@ sleep 2
 ########################
 echo "Install & Preconfigure Postfix"
 echo " in just a sec..."
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
@@ -256,11 +214,6 @@ sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
 touch /tmp/sender_canonical
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
 sudo cp /tmp/sender_canonical /etc/postfix/
 sudo postmap /etc/postfix/sender_canonical
@@ -272,11 +225,6 @@ sudo cp /tmp/virtual /etc/postfix/
 sudo postmap /etc/postfix/virtual
 echo "                  ! ATTENTION !"
 echo "we had an issue here last time with postmapping the virtual.db file, did it pass?"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix
@@ -293,11 +241,6 @@ sudo adduser $regMailUser mail
 echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
 sleep 1
 echo "Phase 1 Postfix configuration is complete"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 sleep 1
 ########################
@@ -327,11 +270,6 @@ echo "Editing /etc/dovecot/conf.d/10-mail.conf..."
 echo ""
 sleep 1
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo ""
 echo "Configure the IMAP and POP3 protocols for email clients in the master.conf file "
 echo ""
@@ -352,11 +290,6 @@ sudo sed -i "/inet_listener imaps {/a      ssl = yes" /etc/dovecot/conf.d/10-mas
 sudo sed -i "/inet_listener imaps {/a      port = 993" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
 sleep 1
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
@@ -386,11 +319,6 @@ sudo systemctl restart postfix
 sleep 1
 echo ""
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "Install mailutils"
 echo ""
 sudo apt install mailutils -y 
@@ -415,5 +343,5 @@ echo "Initiating webserver installer 0a1b"
 sleep 2
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh"
-read -p "Press Enter to continue" meh
+#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh

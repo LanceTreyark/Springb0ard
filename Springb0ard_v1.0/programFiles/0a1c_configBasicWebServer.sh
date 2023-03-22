@@ -32,11 +32,6 @@ echo "$d"
 echo "-----------------------------"
 #----------------------------------------------------
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" mEh
-#                 ---Pump The Brakes---"
-#
 echo ""
 echo "The following script configures an Apache webserver "
 echo "for a given domain name you provide, in addition it provides an SSL."
@@ -50,11 +45,6 @@ echo "-----------------------------------------------"
 ls /var/www/$webDomainName
 echo "-----------------------------------------------"
 echo " "
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 echo "Create Apache2 configuration file"
 cat > /tmp/$webDomainName.conf <<EOF
@@ -75,11 +65,6 @@ echo "--------------------------------------------"
 cat /tmp/$webDomainName.conf
 echo "--------------------------------------------"
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "Moving config file to /etc/apache2/sites-available/"
 sudo mv /tmp/$webDomainName.conf /etc/apache2/sites-available/
 echo "config file check in /etc/apache2/sites-available"
@@ -87,21 +72,11 @@ echo "--------------------------------------------"
 sudo ls /etc/apache2/sites-available
 echo "--------------------------------------------"
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 #sleep 1
 echo " "
 echo "Configure permissions for the Web directory"
 sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
 #sleep 1
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 echo " "
 echo "Enable Website and Obtain SSL Certificate"
@@ -113,11 +88,6 @@ sudo systemctl restart apache2
 #sleep 1
 echo " "
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 echo "Obtain SSL Certificate"
 sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
 #sleep 1
@@ -127,5 +97,5 @@ sudo systemctl restart apache2
 echo "The script has concluded."
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh"
-read -p "Press Enter to continue" meh
+#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh

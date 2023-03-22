@@ -5,23 +5,7 @@
 # UNIT TEST NUMBER: 020823_1
 # TEST RESULT:
 # STATE ISSUES:
-
-
-
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-#TODO
-# make sure all the aliases we need are declared and saved here
-# make sure all the variables we need are declared and saved here
-# add curl scripts to be placed into programFiles then make the m executable
-# add echo at the top of each script to identify what stage of execution we are in ie 1/6, 2/6, 5/6 etc..
-# add commands at the bottom of each script to move on to the next script
-# remove any "press enter to continue things that will hault the script more than neccessary"
-# 
-
 <<comment
 * TITLE:  1c0a_emailRootIni.sh
 * AUTHOR: Lance Pierson
@@ -60,14 +44,6 @@ echo "The Script is Live"
 sleep 1
 echo "Updating the server..."
 sleep 1
-echo "."
-echo "."
-sleep 1
-echo ".."
-echo ".."
-sleep 1
-echo "..."
-echo "..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install snapd -y
 sudo snap install core
@@ -147,6 +123,8 @@ echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
 alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh"
+alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
+alias maillog="sudo nano /var/log/mail.log"
 EOF
 sleep 1
 echo "Enable the Alias file"
@@ -154,11 +132,6 @@ sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 echo "Installing Springb0ard"
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 curl -o /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1b_basicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1c_configBasicWebServer.sh"
@@ -173,23 +146,13 @@ sudo chmod +x /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
 # after all variables are added & sudo user created move springboard and give ownership to sudo user 
 # Give ownership of springb0ard to my regular user
 #
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
-#
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
-#
-#                 ---Pump The Brakes---"
-echo "            ---Pump The Brakes---"
-read -p "Check for errors then hit enter to continue" meh
-#                 ---Pump The Brakes---"
 #
 echo "This script has concluded"
 sleep 1
 echo "Switching to $sudoUser"
-echo "after logging in type the command 'deploy' to continue with the installation"
+echo "Type the command 'deploy' to continue with the installation"
 sleep 1
-read -p "Press enter when you are ready" meh
+#read -p "Press enter when you are ready" meh
 su $sudoUser
