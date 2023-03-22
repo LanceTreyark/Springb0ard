@@ -15,7 +15,7 @@ myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 d="-d"
-existingSubDomain="mail.$webDomainName"
+existingSubDomain="mail.$mailDomain"
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -26,42 +26,58 @@ echo "sudoUserID=$sudoUserID"
 echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
+echo ""
+echo "$existingSubDomain"
+echo "$d"
 echo "-----------------------------"
 #----------------------------------------------------
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" mEh
+#                 ---Pump The Brakes---"
+#
+echo ""
+echo "The following script configures an Apache webserver "
+echo "for a given domain name you provide, in addition it provides an SSL."
+echo "certificate."
+echo ""
+echo "Creating a site directory for $mailDomain"
+sudo mkdir /var/www/$mailDomain/
+ls /var/www/
+echo " "
 #
 #                 ---Pump The Brakes---"
 echo "            ---Pump The Brakes---"
 read -p "Check for errors then hit enter to continue" meh
 #                 ---Pump The Brakes---"
 #
-#sleep 1
-echo ""
-echo "The following script configures an Apache webserver "
-echo "for a given domain name you provide, in addition it provides an SSL."
-echo "certificate."
-#sleep 2
-echo ""
-echo "Creating a site directory for $webDomainName"
-sudo mkdir -p /var/www/$webDomainName/public_html
-#sleep 1
+sudo mkdir /var/www/$mailDomain/public_html
+ls /var/www/$mailDomain
 echo " "
+#
+#                 ---Pump The Brakes---"
+echo "            ---Pump The Brakes---"
+read -p "Check for errors then hit enter to continue" meh
+#                 ---Pump The Brakes---"
+#
 echo "Create Apache2 configuration file"
-cat >/tmp/$webDomainName.conf <<EOF
+cat > /tmp/$mailDomain.conf <<EOF
 <VirtualHost *:80>
     ServerAdmin $webAdminEmail
-    ServerName $webDomainName
-    ServerAlias www.$webDomainName
-    DocumentRoot /var/www/$webDomainName/public_html
+    ServerName $mailDomain
+    ServerAlias www.$mailDomain
+    DocumentRoot /var/www/$mailDomain/public_html
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-  <Directory /var/www/$webDomainName/public_html/>
+  <Directory /var/www/$mailDomain/public_html/>
           AllowOverride All
   </Directory>
 </VirtualHost>
 EOF
 echo "verify that config file was created in tmp dir:"
 echo "--------------------------------------------"
-cat /tmp/$webDomainName.conf
+cat /tmp/$mailDomain.conf
 echo "--------------------------------------------"
 #
 #                 ---Pump The Brakes---"
@@ -70,7 +86,7 @@ read -p "Check for errors then hit enter to continue" meh
 #                 ---Pump The Brakes---"
 #
 echo "Moving config file to /etc/apache2/sites-available/"
-sudo mv /tmp/$webDomainName.conf /etc/apache2/sites-available/
+sudo mv /tmp/$mailDomain.conf /etc/apache2/sites-available/
 echo "config file check in /etc/apache2/sites-available"
 echo "--------------------------------------------"
 sudo ls /etc/apache2/sites-available
@@ -84,7 +100,7 @@ read -p "Check for errors then hit enter to continue" meh
 #sleep 1
 echo " "
 echo "Configure permissions for the Web directory"
-sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
+sudo chown -R www-data:www-data /var/www/$mailDomain/public_html
 #sleep 1
 #
 #                 ---Pump The Brakes---"
@@ -94,7 +110,7 @@ read -p "Check for errors then hit enter to continue" meh
 #
 echo " "
 echo "Enable Website and Obtain SSL Certificate"
-sudo a2ensite $webDomainName.conf
+sudo a2ensite $mailDomain.conf
 #sleep 1
 echo " "
 echo "Restart Apache"
@@ -108,7 +124,7 @@ read -p "Check for errors then hit enter to continue" meh
 #                 ---Pump The Brakes---"
 #
 echo "Obtain SSL Certificate"
-sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
+sudo certbot --apache $d $existingSubDomain -d $mailDomain -d www.$mailDomain
 #sleep 1
 echo " "
 echo "Restarting Apache..."
