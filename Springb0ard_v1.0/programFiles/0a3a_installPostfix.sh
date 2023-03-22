@@ -415,3 +415,5 @@ echo "Initiating webserver installer 0a1b"
 sleep 2
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh"
+read -p "Press Enter to continue" meh
+sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh
