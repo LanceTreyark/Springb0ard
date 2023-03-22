@@ -14,10 +14,8 @@ sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
 d="-d"
 existingSubDomain="mail.$webDomainName"
-
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -48,7 +46,6 @@ sudo mkdir -p /var/www/$webDomainName/public_html
 #sleep 1
 echo " "
 echo "Create Apache2 configuration file"
-
 cat >/tmp/$webDomainName.conf <<EOF
 <VirtualHost *:80>
     ServerAdmin $webAdminEmail
@@ -62,7 +59,6 @@ cat >/tmp/$webDomainName.conf <<EOF
   </Directory>
 </VirtualHost>
 EOF
-
 echo "verify that config file was created in tmp dir:"
 echo "--------------------------------------------"
 cat /tmp/$webDomainName.conf
