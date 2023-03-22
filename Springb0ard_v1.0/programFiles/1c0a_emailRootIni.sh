@@ -98,8 +98,8 @@ sudoUserID=$(id -u $sudoUser)
 echo "$sudoUser" > /tmp/springb0ard/vArs/sudoUser.txt
 echo "$sudoUserID" > /tmp/springb0ard/vArs/sudoUserID.txt
 echo "$webAdminEmail" > /tmp/springb0ard/vArs/webAdminEmail.txt
-echo "$regMailUser" > /etc/springb0ard/vArs/regMailUser.txt
-echo "$mailDomain" > /etc/springb0ard/vArs/mailDomain.txt
+echo "$regMailUser" > /tmp/springb0ard/vArs/regMailUser.txt
+echo "$mailDomain" > /tmp/springb0ard/vArs/mailDomain.txt
 echo "$myIP" > /tmp/springb0ard/vArs/myIP.txt
 #
 echo "Installing dependencies"
@@ -133,7 +133,7 @@ sleep 1
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh
+alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh"
 EOF
 sleep 1
 echo "Enable the Alias file"
