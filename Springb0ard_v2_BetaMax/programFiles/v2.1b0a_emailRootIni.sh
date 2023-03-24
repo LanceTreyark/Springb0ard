@@ -64,17 +64,17 @@ echo "The IP address for this server is: $myIP"
 sudo rm -r /tmp/ipSort3r.txt
 # IP -Out #
 sleep 1
-#read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
-sudoUser="angelo"
-#echo ""
-#read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
-webAdminEmail="info@treyark.com"
-#echo ""
-#read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
-mailDomain="springb0ard.com"
-#echo ""
-#read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
-regMailUser="admin"
+read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
+#sudoUser="userName"
+echo ""
+read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+#webAdminEmail="name@example.com"
+echo ""
+read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
+#mailDomain="example.com"
+echo ""
+read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
+#regMailUser="admin"
 echo ""
 echo "Creating new user, you will need to create password for this"
 adduser $sudoUser
@@ -125,6 +125,8 @@ alias hi="sudo apt update && sudo apt upgrade"
 alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh"
 alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
 alias maillog="sudo nano /var/log/mail.log"
+alias springb0ard="cat /home/$sudoUser/.bash_aliases"
+alias springboard="cat /home/$sudoUser/.bash_aliases"
 EOF
 sleep 1
 echo "Enable the Alias file"
