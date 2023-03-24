@@ -1,26 +1,9 @@
 #!/bin/bash
-# nano 0a3a_installPostfix.sh
-# sudo chmod +x 0a3a_installPostfix.sh
-# ./0a3a_installPostfix.sh
+# nano v2.0a2a_installPostfix.sh
+# sudo chmod +x v2.0a2a_installPostfix.sh
+# ./v2.0a2a_installPostfix.sh
 #!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-<<comment
-* TITLE: 0a3a_installPostfix.sh
-* AUTHOR: Lance Pierson
-* DATE: 3/16/2023
-
-PURPOSE:
-
-This is an automatic SMTP email server installer
-
-As of 3.8.23
-My plan is to set this to be able to run independently as it's own program.
-
-
-This is the initial Postfix configuration
-comment
 echo "The script is live!"
-
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
@@ -30,7 +13,6 @@ sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -42,23 +24,15 @@ echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
-#----------------------------------------------------
-#
+
 echo "making sure we own the springb0ard directory..."
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 sleep 1
 echo "Checking the springb0ard program directory in the /etc directory"
 echo ""
 echo "---------------------------------------------------------"
-#echo "Here is the etc directory before the change:"
-#echo "---------------------------------------------------------"
 echo ""
 ls /etc/springb0ard
-echo "----------------------------------------------------------"
-#sudo mkdir /etc/springb0ard
-# Give ownership of springb0ard to my regular user
-#userID=$(id -u)
-#sudo chown -R $userID:$userID /etc/springb0ard
 echo "---------------------------------------------------------"
 echo ""
 echo "Here is the etc directory after the change:"
@@ -67,24 +41,6 @@ echo ""
 sudo ls /etc
 echo "---------------------------------------------------------"
 echo ""
-#
-#read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
-#read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
-#mkdir /etc/springb0ard/vArs
-#touch /etc/springb0ard/vArs/mailDomain.txt
-#echo "$mailDomain" >> /etc/springb0ard/vArs/mailDomain.txt
-#touch /etc/springb0ard/vArs/regMailUser.txt
-#echo "$regMailUser" >> /etc/springb0ard/vArs/regMailUser.txt
-#sleep 1
-#echo "verifying if the variables were stored correctly..."
-#if [ "$(cat /etc/springb0ard/vArs/mailDomain.txt)" = "$mailDomain" ] && [ "$(cat /etc/springb0ard/vArs/regMailUser.txt)" = "$regMailUser" ]
-#then
-#  echo "Great, the variables were stored correctly"
-#else
-#  echo "There is a problem with a mismatch between the contents of this programs text files and the variables.."
-#  read -p "would you like to continue?" xVar
-#fi
-#
 sleep 1
 echo "Opening required mail ports..."
 sudo ufw allow 25
@@ -105,24 +61,6 @@ sudo hostname mail.$mailDomain
 hostName=$(hostname)
 echo "The Hostname for this server is set to $hostName"
 echo ""
-echo "inbound comment swamp"
-#
-# Replaced by: myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
-# added \/ 3.16.23
-# Assign IP to variable:
-#myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
-#cat >/tmp/ipSort3r.txt <<EOF
-#$myIPv4
-#EOF
-#myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
-#echo "The IP address for this server is: $myIP"
-#save IP as a hard variable 
-#echo $myIP > /etc/springb0ard/vArs/myIP.txt
-# removing tmp file
-#sudo rm -r /tmp/ipSort3r.txt
-echo "comment swamp crossed"
-#
-echo "Add Host data to the end of hosts file:"
 sleep 1
 echo "We are going to add the domain name to the hosts file"
 sleep 1
@@ -141,8 +79,6 @@ sudo cat /etc/hosts
 echo "------------------------------------------------------"
 echo ""
 sleep 1
-# added /\ 3.16.23
-#
 echo "setting up Pre-Seeding Parameters for automatic postfix installation..."
 sleep 1
 echo "before seed file in /tmp"
@@ -168,13 +104,8 @@ sleep 2
 ########################
 echo "Install & Preconfigure Postfix"
 echo " in just a sec..."
-#
 sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
-#read -p "Press enter to continue" xVar
-# If I wanted to split this into another script add this part so the variables are imported:
-# mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-# regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
@@ -213,7 +144,6 @@ sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
 touch /tmp/sender_canonical
-#
 echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
 sudo cp /tmp/sender_canonical /etc/postfix/
 sudo postmap /etc/postfix/sender_canonical
@@ -223,9 +153,6 @@ echo "root@$mailDomain root" >> /tmp/virtual
 echo "info@$mailDomain info" >> /tmp/virtual
 sudo cp /tmp/virtual /etc/postfix/ 
 sudo postmap /etc/postfix/virtual
-echo "                  ! ATTENTION !"
-echo "we had an issue here last time with postmapping the virtual.db file, did it pass?"
-#
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
 sudo systemctl restart postfix
 sudo maildirmake.dovecot /etc/skel/Maildir
@@ -241,14 +168,12 @@ sudo adduser $regMailUser mail
 echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
 sleep 1
 echo "Phase 1 Postfix configuration is complete"
-#
 sleep 1
 ########################
 # Dovecot Installation #
 ########################
 echo "Starting Dovecot Installation..."
 sleep 1
-#echo "Press Enter to continue..."
 echo "Editing /etc/dovecot/conf.d/10-auth.conf..."
 sleep 1
 echo "Disable the plaintext authentication & enable the login authentication mechanism"
@@ -259,9 +184,7 @@ echo "..."
 echo "auth_mechanisms = plain login"
 sleep 1
 sudo sed -i "/#disable_plaintext_auth = yes/a disable_plaintext_auth = no" /etc/dovecot/conf.d/10-auth.conf
-# comment out this line
 sudo sed -i "s/auth_mechanisms = plain/#auth_mechanisms = plain/" /etc/dovecot/conf.d/10-auth.conf
-# Add this line right below it
 sudo sed -i "/#auth_mechanisms = plain/a auth_mechanisms = plain login" /etc/dovecot/conf.d/10-auth.conf
 sleep 1
 echo ""
@@ -269,8 +192,6 @@ echo "Instruct the mail directory to use the same format as Postfix."
 echo "Editing /etc/dovecot/conf.d/10-mail.conf..."
 echo ""
 sleep 1
-#
-echo ""
 echo "Configure the IMAP and POP3 protocols for email clients in the master.conf file "
 echo ""
 sudo sed -i "s/#port = 143/port = 143/" /etc/dovecot/conf.d/10-master.conf
@@ -281,7 +202,6 @@ sudo sed -i "/#i7/a }" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     user = postfix" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     group = postfix" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#i7/a     mode = 0660" /etc/dovecot/conf.d/10-master.conf
-# \/ ADDED 3.20.23 to enable email client login:
 sudo sed -i "/unix_listener lmtp {/a      mode = 0666" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener submission {/a      port = 587" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener pop3s {/a      ssl = yes" /etc/dovecot/conf.d/10-master.conf
@@ -290,7 +210,6 @@ sudo sed -i "/inet_listener imaps {/a      ssl = yes" /etc/dovecot/conf.d/10-mas
 sudo sed -i "/inet_listener imaps {/a      port = 993" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
 sleep 1
-#
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
 echo ""
@@ -318,7 +237,6 @@ sudo systemctl restart dovecot
 sudo systemctl restart postfix
 sleep 1
 echo ""
-#
 echo "Install mailutils"
 echo ""
 sudo apt install mailutils -y 
@@ -331,17 +249,8 @@ echo ""
 sleep 1
 sudo systemctl restart postfix
 echo "Everything should be set up, to test the mailserver"
-#echo ""
-#echo "Add this SPF record to your dns settings:"
-#echo "----------------------------------------------------"
-#echo "TYPE   HOST           ANSWER"
-#echo ""
-#echo "TXT     @      v=spf1 ip4:$myIP -all"
-#echo "----------------------------------------------------"
-#read -p "Press enter to exit the script" xVar
 echo "Initiating webserver installer 0a1b"
 sleep 2
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/v2.0a3a_basicWebServer.sh"
-#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/v2.0a3a_basicWebServer.sh

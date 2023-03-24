@@ -1,19 +1,8 @@
 #!/bin/bash
-
-#!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# nano 0a1b_basicWebServer.sh
-# sudo chmod +x 0a1b_basicWebServer.sh
-# ./0a1b_basicWebServer.sh
-<<comment
-* TITLE:  0a1b_basicWebServer.sh
-* AUTHOR: Lance Pierson
-* EMAIL:  info@treyark.com
-* DATE:   2/14/23
-* EXECUTIVE SUMMARY: 
-* UNIT TEST RESULT: 
-comment
+# nano v2.0a3a_basicWebServer.sh
+# sudo chmod +x v2.0a3a_basicWebServer.sh
+# ./v2.0a3a_basicWebServer.sh
 echo "The script is live!"
-
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
@@ -23,7 +12,6 @@ sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -35,8 +23,6 @@ echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
-#----------------------------------------------------
-#
 sleep 1
 echo ""
 echo "The following script installs an Apache webserver, a UFW Firewall, opens the necessary WWW ports"
@@ -59,7 +45,6 @@ echo " "
 echo "Installing Apache Webserver..."
 sudo apt install apache2 -y
 sleep 1
-#
 echo " "
 echo "Installing dependencies for certbot"
 sleep 1
@@ -75,7 +60,6 @@ echo " "
 echo "Refresh Snap Core"
 sudo snap refresh core
 sleep 1
-#
 echo " "
 echo "Installing Certbot"
 sudo snap install --classic certbot
@@ -84,11 +68,9 @@ echo " "
 echo "Adding symbolic link for Certbot"
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sleep 1
-#
 echo "Installing apache plugin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh"
-#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh

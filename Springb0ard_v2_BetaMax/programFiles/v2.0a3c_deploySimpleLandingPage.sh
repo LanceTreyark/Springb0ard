@@ -1,22 +1,8 @@
 #!/bin/bash
-
-#!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-# nano 0a1d_deploySimpleLandingPage.sh
-# sudo chmod +x 0a1d_deploySimpleLandingPage.sh
-# ./0a1d_deploySimpleLandingPage.sh
-
-<<comment
-* TITLE:  0a1c_configBasicWebServer.sh
-* AUTHOR: Lance Pierson
-* EMAIL:  info@treyark.com
-* DATE:   3/14/23
-* EXECUTIVE SUMMARY: 
-* UNIT TEST RESULT: 
-comment
-
+# nano v2.0a3c_deploySimpleLandingPage.sh
+# sudo chmod +x v2.0a3c_deploySimpleLandingPage.sh
+# ./v2.0a3c_deploySimpleLandingPage.sh
 echo "The script is live!"
-
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
@@ -26,7 +12,6 @@ sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -38,13 +23,10 @@ echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
-#----------------------------------------------------
-###
-
 sleep 1
 echo ""
 echo "The following script deploys a basic landing page for your site"
-#echo "It is assumed that you have already run '0a1c_configBasicWebServer.sh' and the site is enabled w/ a proper directory"
+#echo "It is assumed that you have already run 'v2.0a3b_configBasicWebServer.sh' and the site is enabled w/ a proper directory"
 #read -p "Press enter to proceed with the script" fgVar
 #read -p "what is the domain we are creating the sample page for?" yourDomain 
 sleep 1
@@ -64,5 +46,4 @@ sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
 echo "Next,"
 echo "sh /etc/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh"
-#read -p "Press Enter to continue" meh
 sh /etc/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh

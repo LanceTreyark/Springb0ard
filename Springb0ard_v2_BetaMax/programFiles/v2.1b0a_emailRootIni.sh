@@ -1,24 +1,8 @@
 #!/bin/bash
-# nano 1c0a_emailRootIni.sh
-# sudo chmod +x 1c0a_emailRootIni.sh
-# ./1c0a_emailRootIni.sh
-# UNIT TEST NUMBER: 020823_1
-# TEST RESULT:
-# STATE ISSUES:
-#!!!!!!!!!!!!!!!!!!!!   KEEP IN MIND THIS IS A PUBLIC REPO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-<<comment
-* TITLE:  1c0a_emailRootIni.sh
-* AUTHOR: Lance Pierson
-* EMAIL:  info@treyark.com
-* DATE:   2/5/23
-* EXECUTIVE SUMMARY: Email Root Initiaization Script
--Purpose
-This script fast tracks an email server deployment.
-We ask all the questions here once then the server installs the required software and preconfigurations.
-once the root is initialized we log into the sudo user and run an alias command "deploy"
-comment
+# nano v2.1b0a_emailRootIni.sh
+# sudo chmod +x v2.1b0a_emailRootIni.sh
+# ./v2.1b0a_emailRootIni.sh
 echo "The Script is Live"
-
 #Call your vArs!
 # yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 # mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
@@ -28,7 +12,6 @@ echo "The Script is Live"
 # myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
 # webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
 # webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-
 #echo "           vArs Test:"
 #echo "-----------------------------"
 #echo "yourDomain=$yourDomain"
@@ -40,7 +23,6 @@ echo "The Script is Live"
 #echo "webAdminEmail=$webAdminEmail"
 #echo "webDomainName=$webDomainName"
 #echo "-----------------------------"
-#----------------------------------------------------
 sleep 1
 echo "Updating the server..."
 sleep 1
@@ -83,14 +65,12 @@ echo "Adding new user to sudo group"
 sleep 1
 usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
-#
 echo "$sudoUser" > /tmp/springb0ard/vArs/sudoUser.txt
 echo "$sudoUserID" > /tmp/springb0ard/vArs/sudoUserID.txt
 echo "$webAdminEmail" > /tmp/springb0ard/vArs/webAdminEmail.txt
 echo "$regMailUser" > /tmp/springb0ard/vArs/regMailUser.txt
 echo "$mailDomain" > /tmp/springb0ard/vArs/mailDomain.txt
 echo "$myIP" > /tmp/springb0ard/vArs/myIP.txt
-#
 echo "Installing dependencies"
 sleep 1
 echo "Installing Curl"
@@ -144,8 +124,6 @@ sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
-# after all variables are added & sudo user created move springboard and give ownership to sudo user 
-# Give ownership of springb0ard to my regular user
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 echo "This script has concluded"
@@ -153,5 +131,4 @@ sleep 1
 echo "Switching to $sudoUser"
 echo "Type the command 'deploy' to continue with the installation"
 sleep 1
-#read -p "Press enter when you are ready" meh
 su $sudoUser
