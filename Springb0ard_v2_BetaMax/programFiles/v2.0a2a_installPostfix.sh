@@ -342,6 +342,6 @@ echo "Everything should be set up, to test the mailserver"
 echo "Initiating webserver installer 0a1b"
 sleep 2
 echo "Next,"
-echo "sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh"
+echo "sh /etc/springb0ard/programFiles/v2.0a3a_basicWebServer.sh"
 #read -p "Press Enter to continue" meh
-sh /etc/springb0ard/programFiles/0a1b_basicWebServer.sh
+sh /etc/springb0ard/programFiles/v2.0a3a_basicWebServer.sh

@@ -122,7 +122,7 @@ sleep 1
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="sh /etc/springb0ard/programFiles/0a3a_installPostfix.sh"
+alias deploy="sh /etc/springb0ard/programFiles/v2.0a2a_installPostfix.sh"
 alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
 alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
@@ -134,23 +134,20 @@ sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 echo "Installing Springb0ard"
-#
-curl -o /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1b_basicWebServer.sh"
-curl -o /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1c_configBasicWebServer.sh"
-curl -o /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a1d_deploySimpleLandingPage.sh"
-curl -o /tmp/springb0ard/programFiles/0a3a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3a_installPostfix.sh"
-curl -o /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v1.0/programFiles/0a3aa_Postfix.DKIM.sh"
-sudo chmod +x /tmp/springb0ard/programFiles/0a3a_installPostfix.sh
-sudo chmod +x /tmp/springb0ard/programFiles/0a1b_basicWebServer.sh
-sudo chmod +x /tmp/springb0ard/programFiles/0a1c_configBasicWebServer.sh
-sudo chmod +x /tmp/springb0ard/programFiles/0a1d_deploySimpleLandingPage.sh
-sudo chmod +x /tmp/springb0ard/programFiles/0a3aa_Postfix.DKIM.sh
+curl -o /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3a_basicWebServer.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3c_deploySimpleLandingPage.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_installPostfix.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2b_Postfix.DKIM.sh"
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
 # after all variables are added & sudo user created move springboard and give ownership to sudo user 
 # Give ownership of springb0ard to my regular user
-#
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
-#
 echo "This script has concluded"
 sleep 1
 echo "Switching to $sudoUser"

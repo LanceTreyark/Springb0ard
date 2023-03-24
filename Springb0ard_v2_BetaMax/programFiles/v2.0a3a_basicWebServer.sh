@@ -89,6 +89,6 @@ echo "Installing apache plugin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
 echo "Next,"
-echo "sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh"
+echo "sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh"
 #read -p "Press Enter to continue" meh
-sh /etc/springb0ard/programFiles/0a1c_configBasicWebServer.sh
+sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
