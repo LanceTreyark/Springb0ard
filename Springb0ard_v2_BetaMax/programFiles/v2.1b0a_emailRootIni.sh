@@ -114,11 +114,13 @@ sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 echo "Installing Springb0ard"
+curl -o /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_installPostfix.sh"
+curl -o /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2b_Postfix.DKIM.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3a_basicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3c_deploySimpleLandingPage.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_installPostfix.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2b_Postfix.DKIM.sh"
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
