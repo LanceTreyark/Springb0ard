@@ -49,3 +49,6 @@ sudo mv /tmp/v2.0a1a_springb0ardManager2.sh /etc/springb0ard/programFiles/
 # add alias: via append to file 
 echo 'alias newAlias="sh /etc/springb0ard/programFiles/v2.0a1a_springb0ardManager2.sh"' >> /home/$sudoUser/.bash_aliases
 comment
+
+# Maybe this can be run as an alias, it will overwrite a file that contains a list of the current packages available and cat the list in 
+# an echo. you can select a numer to learn more about the new option go back install it etc.
