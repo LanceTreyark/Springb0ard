@@ -4,7 +4,7 @@
 # ./v2.0a4b_Scp3r.sh
 
 # ini path \/ comment out or delete after first run.
-echo "/tmp/" > /etc/springb0ard/vArs/scpExportPath.txt
+#echo "/tmp/" > /etc/springb0ard/vArs/scpExportPath.txt
 # ini path /\
 
 defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
@@ -36,8 +36,12 @@ echo ""
 echo "(OPTIONAL) Enter the export address ie:user@152.44.45.125"                                                                                                                                                                                                   
 read -p "If nothing entered the default user is used '$defaultScpAddr':   " exportAddr 
 read -p "would you like to add $exportAddr as your new default address? Y/N:" addNewDefault
-  if [[ "$addNewDefault" = [yY] ]]; then 
+    if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
+#  if [[ "$addNewDefault" = [yY] ]]; then 
+    echo "writing $exportAddr to file"
     echo "$exportAddr" > /etc/springb0ard/vArs/defaultScpAddr.txt
+    echo "here is the current value after writing"
+    cat /etc/springb0ard/vArs/defaultScpAddr.txt
   fi
 exportAddr=${exportAddr:-$defaultScpAddr}
 #exportAddr=${exportAddr:-user@152.44.45.125}
@@ -62,13 +66,15 @@ sleep 2
 echo "$zfilename"
 echo ""
 #
-
 echo "The default export path is $scpExportPath"
 read -p "If you would like to use a different path add it here ie: 'C:/Users/me/Desktop/'   " newScpExportPath
-
 read -p "would you like to add $newScpExportPath as your new default export path? Y/N:" addNewScpDefaultPath
-  if [[ "$addNewScpDefaultPath" = [yY] ]]; then 
+  #if [[ "$addNewScpDefaultPath" = [yY] ]]; then 
+  if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
+    echo "writing $newScpExportPath to file"  
     echo "$newScpExportPath" > /etc/springb0ard/vArs/scpExportPath.txt
+    echo "here is the current value after writing"
+    cat /etc/springb0ard/vArs/scpExportPath.txt   
   fi
 scpExportPath=${scpExportPath:-$newScpExportPath}
 # update entry
