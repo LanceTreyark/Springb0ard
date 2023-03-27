@@ -25,6 +25,7 @@ echo "The Script is Live"
 #echo "-----------------------------"
 sleep 1
 echo "Updating the server..."
+sudo timedatectl set-timezone America/Los_Angeles
 sleep 1
 sudo apt update && sudo apt upgrade -y
 sudo apt install snapd -y

@@ -2,7 +2,13 @@
 # nano v2.0a4b_Scp3r.sh
 # sudo chmod +x v2.0a4b_Scp3r.sh
 # ./v2.0a4b_Scp3r.sh
+
+# ini path \/ comment out or delete after first run.
+echo "/tmp/" > /etc/springb0ard/vArs/scpExportPath.txt
+# ini path /\
+
 defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
+scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
 echo "Scp3r is live"
 echo "Your current path is:"
 pwd
@@ -48,19 +54,28 @@ sleep 1
 echo " "
 echo "Nav to dir"
 cd $filePath
-echo "Compressing file $fileName into $zfilename"                                                                                                                                                                                                                    
+echo "Compressing file $fileName into $zfilename"
 echo ""
 sleep 1
 tar -zcvf $zfilename $fileName
 sleep 2
 echo "$zfilename"
 echo ""
+#
 
-echo "Would you like to add an export path?"
+echo "The default export path is $scpExportPath"
+read -p "If you would like to use a different path add it here ie: 'C:/Users/me/Desktop/'   " newScpExportPath
 
+read -p "would you like to add $newScpExportPath as your new default export path? Y/N:" addNewScpDefaultPath
+  if [[ "$addNewScpDefaultPath" = [yY] ]]; then 
+    echo "$newScpExportPath" > /etc/springb0ard/vArs/scpExportPath.txt
+  fi
+scpExportPath=${scpExportPath:-$newScpExportPath}
+# update entry
 echo "Sending to remote server via scp"
 #scp $zfilename $exportAddr:C:/$zfilename
-scp $zfilename $exportAddr:/tmp/$zfilename
+#scp $zfilename $exportAddr:/tmp/$zfilename
+scp $zfilename $exportAddr:$scpExportPath$zfilename
 echo "$zfilename will now be removed"
 read -p "Press enter to proceed, or ctrl+c abort" x
 rm $zfilename
