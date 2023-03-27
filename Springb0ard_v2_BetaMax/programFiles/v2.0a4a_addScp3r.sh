@@ -53,7 +53,7 @@ touch /etc/springb0ard/vArs/defaultScpAddr.txt
 
 
 ## Add program file:
-curl -o /tmp/v2.0a4b_Scp3r.sh "https://github.com/LanceTreyark/Springb0ard/blob/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
+curl -o /tmp/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
 #make exe
 sudo chmod +x /tmp/v2.0a4b_Scp3r.sh
 #mv to dir

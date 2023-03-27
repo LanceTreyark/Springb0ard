@@ -55,7 +55,11 @@ tar -zcvf $zfilename $fileName
 sleep 2
 echo "$zfilename"
 echo ""
+
+echo "Would you like to add an export path?"
+
 echo "Sending to remote server via scp"
+#scp $zfilename $exportAddr:C:/$zfilename
 scp $zfilename $exportAddr:/tmp/$zfilename
 echo "$zfilename will now be removed"
 read -p "Press enter to proceed, or ctrl+c abort" x
