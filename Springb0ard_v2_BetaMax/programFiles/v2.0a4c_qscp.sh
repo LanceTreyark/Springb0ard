@@ -6,6 +6,7 @@
 # ./v2.0a4c_qscp.sh
 defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
 scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
+exportAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
 echo "Scp3r is live"
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
@@ -21,6 +22,7 @@ ls -a -1
 echo "-----------------------------------------------------------------------------"
 read -p "enter the name of the file to be exported:   " fileName
 echo "file to be exported is at the end of this path $filePath/$fileName"
+echo "file to be exported to the end of this path $scpExportPath$zfilename"
 echo "The export address will be: $exportAddr"
 echo "Export file name will be: $zfilename"
 cd $filePath
