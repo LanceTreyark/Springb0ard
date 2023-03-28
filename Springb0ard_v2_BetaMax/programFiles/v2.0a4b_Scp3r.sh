@@ -78,6 +78,8 @@ read -p "would you like to add $newScpExportPath as your new default export path
   fi
 scpExportPath=${scpExportPath:-$newScpExportPath}
 # update entry
+defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
+scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
 echo "Sending to remote server via scp"
 #scp $zfilename $exportAddr:C:/$zfilename
 #scp $zfilename $exportAddr:/tmp/$zfilename
