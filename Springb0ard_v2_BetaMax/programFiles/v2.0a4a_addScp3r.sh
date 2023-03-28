@@ -50,7 +50,7 @@ fi
 # add the default vAr file so we dont get an error notification the first time the script is run.
 touch /etc/springb0ard/vArs/defaultScpAddr.txt
 
-
+# WE NEED TO RUN A TEST TO SEE IF THESE ARE THERE WHAT VERSION THEY ARE AND UPDATE THEM IF NEEDED
 
 ## Add program file:
 curl -o /tmp/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
