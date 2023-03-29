@@ -50,7 +50,7 @@ fi
 # add the default vAr file so we dont get an error notification the first time the script is run.
 touch /etc/springb0ard/vArs/defaultScpAddr.txt
 
-# WE NEED TO RUN A TEST TO SEE IF THESE ARE THERE WHAT VERSION THEY ARE AND UPDATE THEM IF NEEDED
+# WE NEED TO CREATE A TEST TO SEE IF THESE ARE THERE, WHAT VERSION THEY ARE AND UPDATE THEM IF NEEDED. 
 
 ## Add program file:
 curl -o /tmp/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
@@ -61,3 +61,10 @@ sudo mv /tmp/v2.0a4b_Scp3r.sh /etc/springb0ard/programFiles/
 
 #add alias command 'scp3r'
 echo 'alias scp3r="sh /etc/springb0ard/programFiles/v2.0a4b_Scp3r.sh"' >> /home/$sudoUser/.bash_aliases
+
+
+#curl -o /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
+#curl -o /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
+#  #  #
+#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh
+#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh

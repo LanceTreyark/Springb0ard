@@ -122,21 +122,24 @@ curl -o /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh "https://raw.git
 curl -o /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3c_deploySimpleLandingPage.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4a_addScp3r.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
-
+#  #  #   These \/ will be installed when this test /\ is executed
+#curl -o /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
+#curl -o /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
+#  #  #
 #curl -o /tmp/springb0ard/programFiles/NAME_HERE "URL_HERE" 
+# sudo chmod +x
+#  #  #
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
-# aliases have not been created for these yet \/
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh
-# sudo chmod +x
+sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh # aliases have not been created for these yet \/
+#  #  #  These \/ will be installed when this test /\ is executed 
+#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh
+#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh
+#  #  #
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 echo "This script has concluded"
@@ -145,3 +148,15 @@ echo "Switching to $sudoUser"
 echo "Type the command 'deploy' to continue with the installation"
 sleep 1
 su $sudoUser
+
+
+
+# TODO:
+<<comment
+Add aliases to the script that need them
+
+Add git as a core component
+
+For every new script added to the repo aver the inital install they will need installers that make them executable
+ and add aliases to whatever needs it
+comment
