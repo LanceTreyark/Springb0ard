@@ -85,4 +85,7 @@ else
     fi
 fi
 #####
+cd /etc/springb0ard/git/
+git clone https://github.com/LanceTreyark/Springb0ard.git
+
 echo "The script has concluded"
