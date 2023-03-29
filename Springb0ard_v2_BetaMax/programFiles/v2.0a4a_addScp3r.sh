@@ -2,8 +2,6 @@
 # nano v2.0a4a_addScp3r.sh
 # sudo chmod +x v2.0a4a_addScp3r.sh
 # ./v2.0a4a_addScp3r.sh
-
-
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
