@@ -32,9 +32,9 @@ right from the gate. This will change the directory structure to match that of t
 Basically:
 make a file in /etc/ called springb0ard just like before then git clone into that which will
 make the directory look like this:
-/etc/springb0ard/Springb0ard/dTools -I want to change this name to ...dTools
-/etc/springb0ard/Springb0ard/programFiles
-/etc/springb0ard/Springb0ard/vArs
+/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools
+/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles
+/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs
 
 comment
 sleep 1

@@ -89,5 +89,5 @@ comment
 #####
 cd /etc/springb0ard/git/
 git clone https://github.com/LanceTreyark/Springb0ard.git
-
+# git pull
 echo "The script has concluded"
