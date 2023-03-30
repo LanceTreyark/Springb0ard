@@ -150,10 +150,7 @@ sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
 sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh # aliases have not been created for these yet \/
-#  #  #  These \/ will be installed when this test /\ is executed 
-#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh
-#sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh
-#  #  #
+
 sudo cp -r /tmp/springb0ard /etc/
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 echo "This script has concluded"
