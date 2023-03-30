@@ -24,6 +24,19 @@ echo "The Script is Live"
 #echo "webDomainName=$webDomainName"
 #echo "-----------------------------"
 #
+<<comment
+TODO:
+Okay, so the major chage to this it we are incorporating v2.0a5b_yatGitIni.sh into this
+right from the gate. This will change the directory structure to match that of the github repo
+
+Basically:
+make a file in /etc/ called springb0ard just like before then git clone into that which will
+make the directory look like this:
+/etc/springb0ard/Springb0ard/dTools -I want to change this name to ...dTools
+/etc/springb0ard/Springb0ard/programFiles
+/etc/springb0ard/Springb0ard/vArs
+
+comment
 sleep 1
 echo "Updating the server..."
 sudo timedatectl set-timezone America/Los_Angeles

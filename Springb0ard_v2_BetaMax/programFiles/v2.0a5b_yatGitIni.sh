@@ -56,6 +56,7 @@ echo "git install phase completed"
 echo ""
 echo "Checking for SSH keys..."
 #####
+<<comment
 # check the server for an ssh key, if one does not exist offer to make one
 # ask user if the key has been added to your SCP destinations authorized users file.
 #-----------------------------------------------------------------------------
@@ -84,6 +85,7 @@ else
         fi
     fi
 fi
+comment
 #####
 cd /etc/springb0ard/git/
 git clone https://github.com/LanceTreyark/Springb0ard.git

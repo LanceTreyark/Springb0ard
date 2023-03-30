@@ -5,6 +5,10 @@
 
 <<comment
 Purpose
+!!!!!!!!!!!
+Check for server side ssh keys if they dont exist make them, and check if they exist in sudo then copy over to sudo .ssh so
+sudo git can set monitoring of crontab cycle.
+!!!!!!!!!!!
 Add the git global variables by setting up a home git directory
 later this can be used to monitor server processes and crontab 
 also this needs to use a script to initialize a new directory with dudes tools

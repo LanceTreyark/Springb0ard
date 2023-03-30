@@ -37,5 +37,10 @@ sudo mv /tmp/v2.0a1a_springb0ardManager2.sh /etc/springb0ard/programFiles/
 echo 'alias newAlias="sh /etc/springb0ard/programFiles/v2.0a1a_springb0ardManager2.sh"' >> /home/$sudoUser/.bash_aliases
 comment
 
-# Maybe this can be run as an alias, it will overwrite a file that contains a list of the current packages available and cat the list in 
-# an echo. you can select a numer to learn more about the new option go back install it etc.
+<<comment
+This is a script that makes all scripts in the git directory executable and add their aliases to the alias file.
+crontab will run this script to manage updates. 
+crontab will run git pull, then this script, as this changes all new aliases and sudo chmod +X commands will be in here.
+
+comment
+
