@@ -131,7 +131,42 @@ sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 #######################################################
 echo "Installing Git core update system"
 
-
+echo "Adding git to the springb0ard directory"
+mkdir /tmp/git
+#curl -o /tmp/git/git.tar.gz https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.39.0.tar.gz //OLD
+curl -o /tmp/git/git.tar.gz "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz"
+cd /tmp/git && tar -xf git.tar.gz && rm -r git.tar.gz && cd -
+# It is assumed the directory is made and permission is that of the sudo user
+sudo mkdir /etc/springb0ard
+sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+#
+cp -r /tmp/git /etc/springb0ard/
+echo "install aspell"
+sudo apt install aspell -y 
+sleep 1
+echo "sudo apt install libcurl4-openssl-dev -y"
+sudo apt install libcurl4-openssl-dev -y
+echo "sudo apt install libexpat1-dev -y"
+sudo apt install libexpat1-dev -y
+echo "sudo apt install gettext tcl -y"
+sudo apt install gettext tcl -y
+echo "sudo apt install make -y"
+sudo apt install make -y
+echo "sudo apt install gcc -y"
+sudo apt install gcc -y
+echo "sudo apt install libssl-dev -y"
+sudo apt install libssl-dev -y
+echo "sudo apt install zlib1g-dev -y"
+sudo apt install zlib1g-dev -y
+cd /etc/springb0ard/git/git-2.40.0
+pwd
+echo "sudo make prefix=/usr/local all" 
+sudo make prefix=/usr/local all
+echo "sudo make prefix=/usr/local install"
+sudo make prefix=/usr/local install
+sleep 1
+echo "git --version"
+git --version
 
 
 
@@ -147,30 +182,6 @@ echo "Installing Git core update system"
 
 #######################################################
 echo "Installing Springb0ard"
-curl -o /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_installPostfix.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2b_Postfix.DKIM.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3a_basicWebServer.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a3c_deploySimpleLandingPage.sh"
-curl -o /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4a_addScp3r.sh"
-#  #  #   These \/ will be installed when this test /\ is executed
-#curl -o /tmp/springb0ard/programFiles/v2.0a4b_Scp3r.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
-#curl -o /tmp/springb0ard/programFiles/v2.0a4c_qscp.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
-#  #  #
-#curl -o /tmp/springb0ard/programFiles/NAME_HERE "URL_HERE" 
-# sudo chmod +x
-#  #  #
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3a_basicWebServer.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
-sudo chmod +x /tmp/springb0ard/programFiles/v2.0a4a_addScp3r.sh # aliases have not been created for these yet \/
-
-sudo cp -r /tmp/springb0ard /etc/
-sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 echo "This script has concluded"
 sleep 1
 echo "Switching to $sudoUser"
