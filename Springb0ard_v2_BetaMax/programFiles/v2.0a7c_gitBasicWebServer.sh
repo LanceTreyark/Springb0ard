@@ -4,14 +4,14 @@
 # ./v2.0a3a_basicWebServer.sh
 echo "The script is live!"
 #Call your vArs!
-yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
-myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
-webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUserID.txt)
+myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/webAdminEmail.txt)
+webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"

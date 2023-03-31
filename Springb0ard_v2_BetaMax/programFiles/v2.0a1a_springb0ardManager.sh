@@ -2,26 +2,18 @@
 # nano v2.0a1a_springb0ardManager.sh
 # sudo chmod +x v2.0a1a_springb0ardManager.sh
 # ./v2.0a1a_springb0ardManager.sh
-
 # This script will track updates, manage the package and make upgrades available for install
-
-
-
-
-
 #append >> 
 #replace >
-
-
 ## add alias: via append to file 
 # echo 'alias newAlias="sh /etc/springb0ard/programFiles/v2.0a1a_springb0ardManager2.sh"' >> /home/$sudoUser/.bash_aliases
-
-
 <<comment
 This is a script that makes all scripts in the git directory executable and add their aliases to the alias file.
 crontab will run this script to manage updates. 
 crontab will run git pull, then this script, as this changes all new aliases and sudo chmod +X commands will be in here.
-
+#
+# For every new script added to the repo after the inital install they will need installers that make them executable
+# and add aliases to whatever needs it
 comment
 # programFiles
 # sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/

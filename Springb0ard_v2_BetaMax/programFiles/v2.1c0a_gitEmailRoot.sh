@@ -1,4 +1,6 @@
 #!/bin/bash
+################################### Root Installer For Springb0ard Email Server & Webserver
+################################### This is the demo program
 # nano v2.1b0a_emailRootIni.sh
 # sudo chmod +x v2.1b0a_emailRootIni.sh
 # ./v2.1b0a_emailRootIni.sh
@@ -23,14 +25,8 @@ echo "The Script is Live"
 #echo "webAdminEmail=$webAdminEmail"
 #echo "webDomainName=$webDomainName"
 #echo "-----------------------------"
-#
-# TODO:
-<<comment
-# For every new script added to the repo after the inital install they will need installers that make them executable
-# and add aliases to whatever needs it
-comment
-#
 echo "Updating the server..."
+# later add option for user specific time zone
 sudo timedatectl set-timezone America/Los_Angeles
 sudo apt update && sudo apt upgrade -y
 sudo apt install snapd -y
@@ -47,7 +43,6 @@ sudo rm -r /tmp/ipSort3r.txt
 # IP -Out #
 sleep 1
 read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
-#sudoUser="userName"
 echo ""
 read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
 #webAdminEmail="name@example.com"

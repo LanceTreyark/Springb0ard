@@ -7,3 +7,4 @@
 # these are the "yat" scripts they assume nothing other than the stated assumtions that are echoed at the top with a "press enter to proceed"
 
 echo "finish root installer then copy that below. delete what we dont need rather than duplicating work"
+

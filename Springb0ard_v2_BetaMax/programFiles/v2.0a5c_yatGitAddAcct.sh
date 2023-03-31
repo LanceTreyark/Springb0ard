@@ -16,14 +16,14 @@ add to the dude command that way we dont actually have to add that script to the
 command. it will just run from /etc/springb0ard...
 Make a modified script from the example dir in springb0ard.
 comment
-yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
-myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
-webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUserID.txt)
+myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/webAdminEmail.txt)
+webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
 #---------------------------------------------------------This script assumes the alias file exits just add dudes commands
 #---------------------------------------------------------This script assumes the alias file exits just add dudes commands
 #---------------------------------------------------------This script assumes the alias file exits just add dudes commands
