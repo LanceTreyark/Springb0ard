@@ -4,14 +4,14 @@
 # ./v2.1b0a_emailRootIni.sh
 echo "The Script is Live"
 #Call your vArs!
-# yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-# mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-# regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-# sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-# sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
-# myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
-# webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-# webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+# yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+# mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
+# regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/regMailUser.txt)
+# sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUser.txt)
+# sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/sudoUserID.txt)
+# myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/myIP.txt)
+# webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/webAdminEmail.txt)
+# webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/vArs/mailDomain.txt)
 #echo "           vArs Test:"
 #echo "-----------------------------"
 #echo "yourDomain=$yourDomain"
@@ -24,33 +24,18 @@ echo "The Script is Live"
 #echo "webDomainName=$webDomainName"
 #echo "-----------------------------"
 #
+# TODO:
 <<comment
-TODO:
-Okay, so the major chage to this it we are incorporating v2.0a5b_yatGitIni.sh into this
-right from the gate. This will change the directory structure to match that of the github repo
-
-Basically:
-make a file in /etc/ called springb0ard just like before then git clone into that which will
-make the directory look like this:
-/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools
-/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles
-/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs
-
+# For every new script added to the repo after the inital install they will need installers that make them executable
+# and add aliases to whatever needs it
 comment
-sleep 1
+#
 echo "Updating the server..."
 sudo timedatectl set-timezone America/Los_Angeles
-sleep 1
 sudo apt update && sudo apt upgrade -y
 sudo apt install snapd -y
 sudo snap install core
 sudo snap install btop
-sleep 1
-#echo "Creating Springb0ard Directory"
-sleep 1
-#mkdir -p /tmp/springb0ard/programFiles
-#mkdir  /tmp/springb0ard/vArs
-#mkdir  /tmp/springb0ard/exampleDir
 # IP -In #
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
@@ -80,12 +65,14 @@ echo "Adding new user to sudo group"
 sleep 1
 usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
-echo "$sudoUser" > /tmp/springb0ard/vArs/sudoUser.txt
-echo "$sudoUserID" > /tmp/springb0ard/vArs/sudoUserID.txt
-echo "$webAdminEmail" > /tmp/springb0ard/vArs/webAdminEmail.txt
-echo "$regMailUser" > /tmp/springb0ard/vArs/regMailUser.txt
-echo "$mailDomain" > /tmp/springb0ard/vArs/mailDomain.txt
-echo "$myIP" > /tmp/springb0ard/vArs/myIP.txt
+mkdir /tmp/vArs
+echo "$sudoUser" > /tmp/vArs/sudoUser.txt
+echo "$sudoUserID" > /tmp/vArs/sudoUserID.txt
+echo "$webAdminEmail" > /tmp/vArs/webAdminEmail.txt
+echo "$regMailUser" > /tmp/vArs/regMailUser.txt
+echo "$mailDomain" > /tmp/vArs/mailDomain.txt
+echo "$myIP" > /tmp/vArs/myIP.txt
+#sudo cp -a /tmp/vArs/. /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
 echo "Installing dependencies"
 sleep 1
 echo "Installing Curl"
@@ -117,7 +104,7 @@ sleep 1
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="sh /etc/springb0ard/programFiles/v2.0a2a_installPostfix.sh"
+alias deploy="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
 alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
 alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
@@ -128,18 +115,13 @@ echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
-#######################################################
 echo "Installing Git core update system"
-
-echo "Adding git to the springb0ard directory"
+echo "Creating springb0ard directory through git core system"
 mkdir /tmp/git
-#curl -o /tmp/git/git.tar.gz https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.39.0.tar.gz //OLD
 curl -o /tmp/git/git.tar.gz "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz"
 cd /tmp/git && tar -xf git.tar.gz && rm -r git.tar.gz && cd -
-# It is assumed the directory is made and permission is that of the sudo user
-sudo mkdir /etc/springb0ard
+sudo mkdir /etc/springb0ard ################################################
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
-#
 cp -r /tmp/git /etc/springb0ard/
 echo "install aspell"
 sudo apt install aspell -y 
@@ -167,36 +149,16 @@ sudo make prefix=/usr/local install
 sleep 1
 echo "git --version"
 git --version
-
-
-
-
-
-
-
-
-
-
-
-
-
-#######################################################
-echo "Installing Springb0ard"
+cd /etc/springb0ard/
+git clone https://github.com/LanceTreyark/Springb0ard.git
+echo "Making springboard executable..."
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
+echo "Adding stored variables to springb0ard directory..."
+sudo cp -a /tmp/vArs/. /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
 echo "This script has concluded"
 sleep 1
 echo "Switching to $sudoUser"
 echo "Type the command 'deploy' to continue with the installation"
 sleep 1
 su $sudoUser
-
-
-
-# TODO:
-<<comment
-Add aliases to the script that need them
-
-Add git as a core component
-
-For every new script added to the repo aver the inital install they will need installers that make them executable
- and add aliases to whatever needs it
-comment
