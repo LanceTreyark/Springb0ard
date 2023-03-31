@@ -54,38 +54,8 @@ echo "End of script."
 sleep 1
 echo "git install phase completed"
 echo ""
-echo "Checking for SSH keys..."
 #####
-<<comment
-# check the server for an ssh key, if one does not exist offer to make one
-# ask user if the key has been added to your SCP destinations authorized users file.
-#-----------------------------------------------------------------------------
-if [ -f /home/$sudoUser/.ssh/id_rsa.pub ]; then
-    cat /home/$sudoUser/.ssh/id_rsa.pub
-    read -p "Have you added this key to to your destinations authorized_users file or git settings? (Y/N) " response
-    if [ "$response" = "n" ]; then
-        echo "Please add this key to your destinations authorized_users file, or git settings."
-    fi
-else
-    read -p "It appears that an ssh key has not been generated. Would you like to create one? (Y/N) " response
-    if [ "$response" = "y" ]; then
-        ssh-keygen
-        echo ""
-        cat /home/$sudoUser/.ssh/id_rsa.pub
-        echo ""
-        echo "Please add this key to your destinations authorized_users file or git settings."
-        echo ""
-    else
-        echo "If you don't add the ssh-key the SSH communication will fail. Are you shure you want to skip this?"
-        read -p "Enter (Y/N): " choice
-        if [ "$choice" = "n" ]; then
-            ssh-keygen
-            cat /home/$sudoUser/.ssh/id_rsa.pub
-            echo "Please add this key your destinations authorized_users file or git settings."
-        fi
-    fi
-fi
-comment
+#KeyGen deleted
 #####
 cd /etc/springb0ard/git/
 git clone https://github.com/LanceTreyark/Springb0ard.git

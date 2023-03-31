@@ -46,11 +46,11 @@ sudo apt install snapd -y
 sudo snap install core
 sudo snap install btop
 sleep 1
-echo "Creating Springb0ard Directory"
+#echo "Creating Springb0ard Directory"
 sleep 1
-mkdir -p /tmp/springb0ard/programFiles
-mkdir  /tmp/springb0ard/vArs
-mkdir  /tmp/springb0ard/exampleDir
+#mkdir -p /tmp/springb0ard/programFiles
+#mkdir  /tmp/springb0ard/vArs
+#mkdir  /tmp/springb0ard/exampleDir
 # IP -In #
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
@@ -128,6 +128,24 @@ echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
+#######################################################
+echo "Installing Git core update system"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################################
 echo "Installing Springb0ard"
 curl -o /tmp/springb0ard/programFiles/v2.0a1a_springb0ardManager.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh"
 curl -o /tmp/springb0ard/programFiles/v2.0a2a_installPostfix.sh "https://raw.githubusercontent.com/LanceTreyark/Springb0ard/main/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_installPostfix.sh"
