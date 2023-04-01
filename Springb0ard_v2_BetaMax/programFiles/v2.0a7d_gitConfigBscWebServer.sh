@@ -65,27 +65,26 @@ echo "config file check in /etc/apache2/sites-available"
 echo "--------------------------------------------"
 sudo ls /etc/apache2/sites-available
 echo "--------------------------------------------"
-sleep 1
 echo " "
 echo "Configure permissions for the Web directory"
 sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
-sleep 1
 echo " "
 echo "Enable Website and Obtain SSL Certificate"
 sudo a2ensite $webDomainName.conf
-sleep 1
 echo " "
 echo "Restart Apache"
 sudo systemctl restart apache2
-sleep 1
 echo " "
 echo "Obtain SSL Certificate"
 sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
-sleep 1
 echo " "
 echo "Restarting Apache..."
 sudo systemctl restart apache2
 echo "The script has concluded."
-echo "Next,"
-echo "sh /etc/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh"
-sh /etc/springb0ard/programFiles/v2.0a3c_deploySimpleLandingPage.sh
+echo "Preparing to deploy landing page..."
+echo "Will start in 10 seconds..."
+sleep 5
+echo "5 Seconds..."
+sleep 5
+echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7e_gitDeployLandingPage.sh"
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7e_gitDeployLandingPage.sh

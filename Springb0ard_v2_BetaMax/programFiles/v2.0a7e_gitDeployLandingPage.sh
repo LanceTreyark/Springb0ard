@@ -23,13 +23,11 @@ echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "-----------------------------"
-sleep 1
 echo ""
 echo "The following script deploys a basic landing page for your site"
 #echo "It is assumed that you have already run 'v2.0a3b_configBasicWebServer.sh' and the site is enabled w/ a proper directory"
 #read -p "Press enter to proceed with the script" fgVar
 #read -p "what is the domain we are creating the sample page for?" yourDomain 
-sleep 1
 echo "Creating a temp directory and using curl to copy the sample files"
 echo " installing dependencies, these should already be installed..."
 sudo apt install snapd -y
@@ -39,11 +37,13 @@ mkdir /tmp/htmlSamplePage
 curl -o /tmp/htmlSamplePage/index.html https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/index.html
 curl -o /tmp/htmlSamplePage/styles.css https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/styles.css
 curl -o /tmp/htmlSamplePage/robots.txt https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/robots.txt
-sleep 1
 echo "Moving the files to the web directory"
 sudo cp -a /tmp/htmlSamplePage/. /var/www/$yourDomain/public_html/
-sleep 1
 echo "The script has concluded, go ahead and check $yourDomain"
-echo "Next,"
-echo "sh /etc/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh"
-sh /etc/springb0ard/programFiles/v2.0a2b_Postfix.DKIM.sh
+echo "Preparing to deploy DKIM keys and DNS records..."
+echo "Will start in 10 seconds..."
+sleep 5
+echo "5 Seconds..."
+sleep 5
+echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7b_gitPostfix.DKIM.sh"
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7b_gitPostfix.DKIM.sh
