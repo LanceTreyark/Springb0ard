@@ -71,6 +71,10 @@ sleep 1
 echo "Installing apache plugin..."
 sudo service apache2 reload
 sudo apt install python3-certbot-apache -y
-echo "Next,"
-echo "sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh"
-sh /etc/springb0ard/programFiles/v2.0a3b_configBasicWebServer.sh
+echo "Preparing to start Webserver Configuration..."
+echo "Will start in 10 seconds..."
+sleep 5
+echo "5 Seconds..."
+sleep 5
+echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh"
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh
