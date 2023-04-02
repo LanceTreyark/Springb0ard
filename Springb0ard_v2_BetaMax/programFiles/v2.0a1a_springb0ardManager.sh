@@ -74,6 +74,8 @@ alias deploy-landing-page="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMa
 alias dude="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/microInit_i1.sh"
 alias sudo-dude="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/microInit_v0.0.sh"
 alias commit="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com.sh"
-alias sudo-commit="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/SQ_Com_v0.0.sh"
+alias sudo-commit="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com_v0.0.sh"
 #echo 'alias newAlias="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
+alias test416pm="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
+
 EOF

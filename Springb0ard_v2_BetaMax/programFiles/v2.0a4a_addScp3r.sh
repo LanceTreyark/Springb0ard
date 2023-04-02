@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
+echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
 # nano v2.0a4a_addScp3r.sh
 # sudo chmod +x v2.0a4a_addScp3r.sh
 # ./v2.0a4a_addScp3r.sh
@@ -73,6 +75,5 @@ done <<EOF
 alias scp3r="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
 alias qscp="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
 EOF
-echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
-echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
+
 echo "the installer has concluded"

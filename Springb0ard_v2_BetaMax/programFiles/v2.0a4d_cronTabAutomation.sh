@@ -46,3 +46,17 @@ echo "-----------------------------"
 
 # Verify the crontab entries have been added
 crontab -l
+
+<<comment
+#this runs it every 3 days at midnight:
+#!/bin/bash 
+
+# Add the first crontab entry
+(crontab -l 2>/dev/null; echo "0 0 */3 * * cd /etc/postfix && sudo git add . && sudo ./Q_Com_v0.0.sh && sudo git push -u origin main && cd -") | crontab -
+
+# Add the second crontab entry
+(crontab -l 2>/dev/null; echo "0 0 */3 * * cd /etc/dovecot && sudo git add . && sudo ./Q_Com_v0.0.sh && sudo git push -u origin main && cd -") | crontab -
+
+# Verify the crontab entries have been added
+crontab -l
+comment
