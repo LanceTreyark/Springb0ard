@@ -6,9 +6,31 @@
 # ini path \/ comment out or delete after first run.
 #echo "/tmp/" > /etc/springb0ard/vArs/scpExportPath.txt
 # ini path /\
-
-defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
-scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
+echo "The script is live!"
+#Call your vArs!
+yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt)
+myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt)
+webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
+scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
+echo "           vArs Test:"
+echo "-----------------------------"
+echo "yourDomain=$yourDomain"
+echo "mailDomain=$mailDomain"
+echo "regMailUser=$regMailUser"
+echo "sudoUser=$sudoUser"
+echo "sudoUserID=$sudoUserID"
+echo "myIP=$myIP"
+echo "webAdminEmail=$webAdminEmail"
+echo "webDomainName=$webDomainName"
+echo "defaultScpAddr=$defaultScpAddr"
+echo "scpExportPath=$scpExportPath"
+echo "-----------------------------"
 echo "Scp3r is live"
 echo "Your current path is:"
 pwd
@@ -39,7 +61,7 @@ read -p "would you like to add $exportAddr as your new default address? Y/N:" ad
     if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
 #  if [[ "$addNewDefault" = [yY] ]]; then 
     echo "writing $exportAddr to file"
-    echo "$exportAddr" > /etc/springb0ard/vArs/defaultScpAddr.txt
+    echo "$exportAddr" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
     echo "here is the current value after writing"
     cat /etc/springb0ard/vArs/defaultScpAddr.txt
   fi
@@ -72,14 +94,14 @@ read -p "would you like to add $newScpExportPath as your new default export path
   #if [[ "$addNewScpDefaultPath" = [yY] ]]; then 
   if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
     echo "writing $newScpExportPath to file"  
-    echo "$newScpExportPath" > /etc/springb0ard/vArs/scpExportPath.txt
+    echo "$newScpExportPath" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
     echo "here is the current value after writing"
     cat /etc/springb0ard/vArs/scpExportPath.txt   
   fi
 scpExportPath=${scpExportPath:-$newScpExportPath}
 # update entry
-defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
-scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
+defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
+scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
 echo "Sending to remote server via scp"
 #scp $zfilename $exportAddr:C:/$zfilename
 #scp $zfilename $exportAddr:/tmp/$zfilename

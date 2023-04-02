@@ -4,14 +4,16 @@
 # ./v2.1b0a_emailRootIni.sh
 echo "The Script is Live"
 #Call your vArs!
-# yourDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-# mailDomain=$(cat /etc/springb0ard/vArs/mailDomain.txt)
-# regMailUser=$(cat /etc/springb0ard/vArs/regMailUser.txt)
-# sudoUser=$(cat /etc/springb0ard/vArs/sudoUser.txt)
-# sudoUserID=$(cat /etc/springb0ard/vArs/sudoUserID.txt)
-# myIP=$(cat /etc/springb0ard/vArs/myIP.txt)
-# webAdminEmail=$(cat /etc/springb0ard/vArs/webAdminEmail.txt)
-# webDomainName=$(cat /etc/springb0ard/vArs/mailDomain.txt)
+# yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+# mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+# regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)
+# sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt)
+# sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt)
+# myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt)
+# webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt)
+# webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+#defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
+#scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
 #echo "           vArs Test:"
 #echo "-----------------------------"
 #echo "yourDomain=$yourDomain"
@@ -22,6 +24,8 @@ echo "The Script is Live"
 #echo "myIP=$myIP"
 #echo "webAdminEmail=$webAdminEmail"
 #echo "webDomainName=$webDomainName"
+#echo "defaultScpAddr=$defaultScpAddr"
+#echo "scpExportPath=$scpExportPath"
 #echo "-----------------------------"
 #
 sleep 1
