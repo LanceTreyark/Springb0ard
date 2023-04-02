@@ -30,10 +30,7 @@ echo "webDomainName=$webDomainName"
 echo "defaultScpAddr=$defaultScpAddr"
 echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
-
-defaultScpAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
-scpExportPath=$(cat /etc/springb0ard/vArs/scpExportPath.txt)
-exportAddr=$(cat /etc/springb0ard/vArs/defaultScpAddr.txt)
+exportAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
 echo "Scp3r is live"
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)

@@ -59,14 +59,12 @@ echo "(OPTIONAL) Enter the export address ie:user@152.44.45.125"
 read -p "If nothing entered the default user is used '$defaultScpAddr':   " exportAddr 
 read -p "would you like to add $exportAddr as your new default address? Y/N:" addNewDefault
     if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
-#  if [[ "$addNewDefault" = [yY] ]]; then 
     echo "writing $exportAddr to file"
     echo "$exportAddr" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
     echo "here is the current value after writing"
-    cat /etc/springb0ard/vArs/defaultScpAddr.txt
+    cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
   fi
 exportAddr=${exportAddr:-$defaultScpAddr}
-#exportAddr=${exportAddr:-user@152.44.45.125}
 echo ""
 echo "here is the data you provided:"
 echo "file to be exported is at the end of following path:"
@@ -96,7 +94,7 @@ read -p "would you like to add $newScpExportPath as your new default export path
     echo "writing $newScpExportPath to file"  
     echo "$newScpExportPath" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
     echo "here is the current value after writing"
-    cat /etc/springb0ard/vArs/scpExportPath.txt   
+    cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt   
   fi
 scpExportPath=${scpExportPath:-$newScpExportPath}
 # update entry
