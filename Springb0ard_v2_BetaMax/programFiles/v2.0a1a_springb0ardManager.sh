@@ -90,17 +90,18 @@ EOF
 # Define the new cron jobs to add
 # JOB1="0 0 */3 * * sh /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
 # JOB2="0 0 */3 * * sudo apt update && sudo apt upgrade -y"
-#J OB3="0 0 */3 * * echo '$(date) Cron job ran successfully' >> /etc/springb0ard/myCron.log"
+# JOB3="0 0 */3 * * echo '$(date) Cron job ran successfully' >> /etc/springb0ard/myCron.log"
 
+# Set the path to the cron jobs file
+cron_jobs_file="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt"
 
-# Crontab
 # Read the new cron jobs from file
 while read -r line; do
-  if ! crontab -l | grep -q "$line"; then
+  if ! crontab -l | grep -Fxq "$line"; then
     # Add the new job to the crontab
     (crontab -l 2>/dev/null; echo "$line") | crontab -
     echo "Added to the crontab: $line"
   else
     echo "Already exists in the crontab: $line"
   fi
-done < /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt
+done < "$cron_jobs_file"
