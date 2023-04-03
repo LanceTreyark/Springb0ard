@@ -103,4 +103,4 @@ while read -r line; do
   else
     echo "Already exists in the crontab: $line"
   fi
-done < /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt
+done < /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt
