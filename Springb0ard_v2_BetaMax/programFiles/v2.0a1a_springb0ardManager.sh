@@ -94,7 +94,7 @@ EOF
 # Define the new cron jobs to add
 JOB1="0 0 */3 * * sh /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
 JOB2="0 0 */3 * * sudo apt update && sudo apt upgrade -y"
-JOB2="0 0 */3 * * echo "$(date) Cron job ran successfully" >> /tmp/cron.log"
+JOB2="0 0 */3 * * echo "$(date) Cron job ran successfully" >> /etc/springb0ard/myCron.log"
 
 # Check if the jobs already exist in the crontab
 CRONTAB=$(crontab -l 2>/dev/null)
