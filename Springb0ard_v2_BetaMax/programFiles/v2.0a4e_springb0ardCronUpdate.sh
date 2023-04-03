@@ -13,7 +13,7 @@ echo "timeNow $timeNow"
 echo ""
 echo "vArs Log Name: $vArsFilename"
 sleep 2
-rm -r /tmp/vArs.old
+# rm -r /tmp/vArs.old
 cd /etc/springb0ard
 cp -r /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs /etc/springb0ard/
 cd vArs
