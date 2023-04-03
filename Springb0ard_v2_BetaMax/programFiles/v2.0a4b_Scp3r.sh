@@ -58,12 +58,12 @@ echo ""
 echo "(OPTIONAL) Enter the export address ie:user@152.44.45.125"                                                                                                                                                                                                   
 read -p "If nothing entered the default user is used '$defaultScpAddr':   " exportAddr 
 read -p "would you like to add $exportAddr as your new default address? Y/N:" addNewDefault
-    if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
-    echo "writing $exportAddr to file"
-    echo "$exportAddr" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
-    echo "here is the current value after writing"
-    cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
-  fi
+if [ "$addNewDefault" = "y" ] || [ "$addNewDefault" = "Y" ]; then
+  echo "writing $exportAddr to file"
+  echo "$exportAddr" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
+  echo "here is the current value after writing"
+  cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
+fi
 exportAddr=${exportAddr:-$defaultScpAddr}
 echo ""
 echo "here is the data you provided:"
@@ -89,13 +89,14 @@ echo ""
 echo "The default export path is $scpExportPath"
 read -p "If you would like to use a different path add it here ie: 'C:/Users/me/Desktop/'   " newScpExportPath
 read -p "would you like to add $newScpExportPath as your new default export path? Y/N:" addNewScpDefaultPath
-  #if [[ "$addNewScpDefaultPath" = [yY] ]]; then 
-  if [[ "$addNewScpDefaultPath" =~ ^[yY]$ ]]; then
-    echo "writing $newScpExportPath to file"  
-    echo "$newScpExportPath" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
-    echo "here is the current value after writing"
-    cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt   
-  fi
+
+if [ "$addNewScpDefaultPath" = "y" ] || [ "$addNewScpDefaultPath" = "Y" ]; then
+  echo "Writing $newScpExportPath to file"
+  echo "$newScpExportPath" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
+  echo "Here is the current value after writing:"
+  cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt   
+fi
+
 scpExportPath=${scpExportPath:-$newScpExportPath}
 # update entry
 defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)

@@ -75,7 +75,12 @@ alias dude="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/microI
 alias sudo-dude="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/microInit_v0.0.sh"
 alias commit="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com.sh"
 alias sudo-commit="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com_v0.0.sh"
-#echo 'alias newAlias="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
 alias test416pm="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
-
+alias hi="sudo apt update && sudo apt upgrade"
+alias deploy="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
+alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
+alias maillog="sudo nano /var/log/mail.log"
+alias springb0ard="cat /home/$sudoUser/.bash_aliases"
+alias springboard="cat /home/$sudoUser/.bash_aliases"
+#echo 'alias newAlias="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
 EOF
