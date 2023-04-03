@@ -88,32 +88,19 @@ EOF
 # Crontab
 
 # Define the new cron jobs to add
-JOB1="0 0 */3 * * sh /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
-JOB2="0 0 */3 * * sudo apt update && sudo apt upgrade -y"
-JOB3="0 0 */3 * * echo '$(date) Cron job ran successfully' >> /etc/springb0ard/myCron.log"
+# JOB1="0 0 */3 * * sh /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
+# JOB2="0 0 */3 * * sudo apt update && sudo apt upgrade -y"
+#J OB3="0 0 */3 * * echo '$(date) Cron job ran successfully' >> /etc/springb0ard/myCron.log"
 
-# Check if the jobs already exist in the crontab
-CRONTAB=$(crontab -l 2>/dev/null)
-if echo "$CRONTAB" | grep -q "$JOB1"; then
-  echo "Job 1 already exists in the crontab"
-else
-  # Add the new job to the crontab
-  (echo "$CRONTAB"; echo "$JOB1") | crontab -
-  echo "Job 1 added to the crontab"
-fi
 
-if echo "$CRONTAB" | grep -q "$JOB2"; then
-  echo "Job 2 already exists in the crontab"
-else
-  # Add the new job to the crontab
-  (echo "$CRONTAB"; echo "$JOB2") | crontab -
-  echo "Job 2 added to the crontab"
-fi
-
-if echo "$CRONTAB" | grep -q "$JOB3"; then
-  echo "Job 3 already exists in the crontab"
-else
-  # Add the new job to the crontab
-  (echo "$CRONTAB"; echo "$JOB3") | crontab -
-  echo "Job 3 added to the crontab"
-fi
+# Crontab
+# Read the new cron jobs from file
+while read -r line; do
+  if ! crontab -l | grep -q "$line"; then
+    # Add the new job to the crontab
+    (crontab -l 2>/dev/null; echo "$line") | crontab -
+    echo "Added to the crontab: $line"
+  else
+    echo "Already exists in the crontab: $line"
+  fi
+done < /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt
