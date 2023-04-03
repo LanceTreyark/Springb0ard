@@ -86,15 +86,10 @@ alias springboard="cat /home/$sudoUser/.bash_aliases"
 EOF
 
 # Crontab
-
-
-
-#or
-
 # Define the new cron jobs to add
 JOB1="0 0 */3 * * sh /etc/springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
 JOB2="0 0 */3 * * sudo apt update && sudo apt upgrade -y"
-JOB2="0 0 */3 * * echo "$(date) Cron job ran successfully" >> /etc/springb0ard/myCron.log"
+JOB2="0 0 */3 * * echo "$(date) 'Cron' job ran successfully" >> /etc/springb0ard/myCron.log"
 
 # Check if the jobs already exist in the crontab
 CRONTAB=$(crontab -l 2>/dev/null)
@@ -121,25 +116,3 @@ else
   (echo "$CRONTAB"; echo "$JOB3") | crontab -
   echo "Job 3 added to the crontab"
 fi
-#or
-<<comment
-(crontab -l 2>/dev/null; echo "0 0 */3 * * sudo apt update && sudo apt upgrade -y") | crontab -
-
-# Add the second crontab entry
-(crontab -l 2>/dev/null; echo "0 0 */3 * * echo "$(date) Cron job ran successfully" >> /tmp/cron.log") | crontab -
-
-# Verify the crontab entries have been added
-crontab -l
-comment
-#or 
-<<comment
-while read -r line; do
-  cron_name=$(echo "$line" | cut -d'"' -f2)
-  if ! grep -q "$cron_name" /home/$sudoUser/.bash_aliases; then
-    echo "$line" >> /home/$sudoUser/.bash_aliases
-  fi
-done <<EOF
-0 0 */3 * * sudo apt update && sudo apt upgrade -y
-0 0 */3 * * echo "$(date) Cron job ran successfully" >> /tmp/cron.log
-EOF
-comment
