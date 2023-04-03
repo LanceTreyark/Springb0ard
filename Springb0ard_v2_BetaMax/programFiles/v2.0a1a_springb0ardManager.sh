@@ -89,7 +89,7 @@ EOF
 
 # Crontab
 # Set the path to the cron jobs file
-cron_jobs_file="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/cron_jobs.txt"
+cron_jobs_file="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4f_cronJobs.txt"
 
 # Read the new cron jobs from file
 while read -r line; do
