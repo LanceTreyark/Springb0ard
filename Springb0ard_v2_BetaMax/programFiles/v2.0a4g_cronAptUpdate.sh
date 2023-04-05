@@ -1,7 +1,7 @@
 #!/bin/bash
-# nano v2.0a4e_springb0ardCronUpdate.sh
-# sudo chmod +x v2.0a4e_springb0ardCronUpdate.sh
-# ./v2.0a4e_springb0ardCronUpdate.sh
+# nano v2.0a4g_cronAptUpdate.sh
+# sudo chmod +x v2.0a4g_cronAptUpdate.sh
+# ./v2.0a4g_cronAptUpdate.sh
 # It is assumed that this script is called to action by a crontab entry.
 # Update process for cron:
 #Call your vArs!
@@ -30,25 +30,6 @@ echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
-vArsFilename="vArs${todaysDate}${timeNow}"
-echo "todaysDate $todaysDate"
-echo ""
-echo "timeNow $timeNow"
-echo ""
-echo "vArs Log Name: $vArsFilename"
-sleep 2
-cd /etc/springb0ard/Springb0ard
-cp -r /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs /etc/springb0ard/
-cd vArs
-pwd
-ls -1
-cd /etc/springb0ard
-sudo rm -r Springb0ard
-git clone https://github.com/LanceTreyark/Springb0ard.git
-sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
-cp -a /etc/springb0ard/vArs/. /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
-mkdir -p /etc/springb0ard/vArsLog
-mv vArs /etc/springb0ard/vArsLog/$vArsFilename
-sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
-sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
-#echo "$(date) This is a better method" >> /etc/springb0ard/springb0ardUpdate.log
+sudo apt update
+sudo apt upgrade -y
+echo "system update ran successfully $todaysDate$timeNow" >> /etc/springb0ard/systemUpdate.log
