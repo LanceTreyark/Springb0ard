@@ -30,7 +30,7 @@ echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
-vArsFilename="vArs${todaysDate}${timeNow}.tar.gz"
+vArsFilename="vArs${todaysDate}${timeNow}"
 echo "todaysDate $todaysDate"
 echo ""
 echo "timeNow $timeNow"
