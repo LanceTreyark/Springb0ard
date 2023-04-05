@@ -88,7 +88,7 @@ ls /home/$sudoUser/.ssh/
 echo "Create basic Alias commands to run updates in /home/$sudoUser/ directory"
 cat >/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
+alias deploy="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
 alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
 alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
@@ -134,9 +134,10 @@ cd /etc/springb0ard/
 git clone https://github.com/LanceTreyark/Springb0ard.git
 echo "Making springboard executable..."
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
-sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 echo "Adding stored variables to springb0ard directory..."
 sudo cp -a /tmp/vArs/. /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
+# This \/ needs to be run as the sudoUser 
+#sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 echo "This script has concluded"
 echo "Switching to $sudoUser"
 echo "Type the command 'deploy' to continue with the installation"
