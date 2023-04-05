@@ -135,8 +135,10 @@ sudo maildirmake.dovecot /etc/skel/Maildir/.Sent
 sudo maildirmake.dovecot /etc/skel/Maildir/.Trash
 sudo maildirmake.dovecot /etc/skel/Maildir/.Templates
 sudo cp -r /etc/skel/Maildir /home/$regMailUser/
+sudo cp -r /etc/skel/Maildir /home/$sudoUser/
 uid=$(id -u "$regMailUser")
 sudo chown -R $uid:$uid /home/$regMailUser/Maildir
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/Maildir
 sudo chmod -R 700 /home/$regMailUser/Maildir
 sudo adduser $regMailUser mail
 echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
