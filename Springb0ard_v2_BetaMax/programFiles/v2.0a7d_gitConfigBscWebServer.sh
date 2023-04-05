@@ -85,9 +85,5 @@ echo "Restarting Apache..."
 sudo systemctl restart apache2
 echo "The script has concluded."
 echo "Preparing to deploy landing page..."
-echo "Will start in 10 seconds..."
-sleep 5
-echo "5 Seconds..."
-sleep 5
 echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7e_gitDeployLandingPage.sh"
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7e_gitDeployLandingPage.sh

@@ -45,9 +45,5 @@ echo "Moving the files to the web directory"
 sudo cp -a /tmp/htmlSamplePage/. /var/www/$yourDomain/public_html/
 echo "The script has concluded, go ahead and check $yourDomain"
 echo "Preparing to deploy DKIM keys and DNS records..."
-echo "Will start in 10 seconds..."
-sleep 5
-echo "5 Seconds..."
-sleep 5
 echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7b_gitPostfix.DKIM.sh"
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7b_gitPostfix.DKIM.sh
