@@ -39,8 +39,8 @@ echo "vArs Log Name: $vArsFilename"
 sleep 2
 # rm -r /tmp/vArs.old
 cd /etc/springb0ard/Springb0ard
-git pull
-<<comment
+#git pull
+
 cp -r /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs /etc/springb0ard/
 cd vArs
 pwd
@@ -54,6 +54,6 @@ mkdir -p /etc/springb0ard/vArsLog
 mv vArs /etc/springb0ard/vArsLog/$vArsFilename
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
-comment
-#echo "$(date) Update ran successfully" >> /etc/springb0ard/springb0ardUpdate.log
-echo "$(date) This is a better method" >> /etc/springb0ard/springb0ardUpdate.log
+
+echo "$(date) Update ran successfully" >> /etc/springb0ard/springb0ardUpdate.log
+#echo "$(date) This is a better method" >> /etc/springb0ard/springb0ardUpdate.log
