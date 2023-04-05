@@ -1,4 +1,5 @@
-#0 0 */3 * * sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
+0 0 */3 * * sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
+0 0 */2 * * sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4g_cronAptUpdate.sh
 #*/2 * * * * sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4g_cronAptUpdate.sh
 #*/3 * * * * sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
-*/3 * * * * sudo ls ~/
+#*/3 * * * * sudo ls ~/
