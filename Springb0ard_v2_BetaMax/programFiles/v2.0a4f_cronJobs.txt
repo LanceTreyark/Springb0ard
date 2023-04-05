@@ -1,3 +1,4 @@
 0 0 */3 * * sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
 */3 * * * * sudo apt update && sudo apt upgrade -y && echo "system update ran successfully" >> /etc/springb0ard/systemUpdate.log
 */3 * * * * sleep 30 && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
+*/3 * * * * sleep 30 && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh
