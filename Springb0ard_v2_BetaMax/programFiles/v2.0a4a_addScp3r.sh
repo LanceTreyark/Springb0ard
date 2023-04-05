@@ -61,9 +61,9 @@ else
         fi
     fi
 fi
-cd /etc/springb0ard/Springb0ard/ 
-git pull
-cd -
+#cd /etc/springb0ard/Springb0ard/ 
+#git pull
+#cd -
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh
 while read -r line; do
