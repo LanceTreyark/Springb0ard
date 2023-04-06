@@ -37,7 +37,7 @@ echo "-----------------------------"
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3b_configBasicWebServer.sh
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3c_deploySimpleLandingPage.sh
 
-#sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4a_addScp3r.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh
