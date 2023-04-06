@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt
-echo "Null" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt
 # nano v2.0a4a_addScp3r.sh
 # sudo chmod +x v2.0a4a_addScp3r.sh
 # ./v2.0a4a_addScp3r.sh
@@ -49,7 +47,7 @@ else
         echo ""
         cat /home/$sudoUser/.ssh/id_rsa.pub
         echo ""
-        echo "Please add this key to your Github settings."
+        echo "Please add this key your SCP destinations authorized_users file."
         echo ""
     else
         echo "If you don't add the ssh-key the SCP communication will fail. Are you shure you want to skip this?"
