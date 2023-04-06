@@ -51,4 +51,4 @@ mkdir -p /etc/springb0ard/vArsLog
 mv vArs /etc/springb0ard/vArsLog/$vArsFilename
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
-#echo "$(date) This is a better method" >> /etc/springb0ard/springb0ardUpdate.log
+echo "$(date) Springb0ard Files Updated" >> /etc/springb0ard/springb0ardUpdate.log
