@@ -39,7 +39,7 @@ echo "vArs Log Name: $vArsFilename"
 sleep 2
 cd /etc/springb0ard/Springb0ard
 cp -r /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs /etc/springb0ard/
-cd vArs
+cd /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs
 pwd
 ls -1
 cd /etc/springb0ard
