@@ -79,6 +79,7 @@ sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
 echo "making a default copy of postfix"
 sudo cp -r /etc/postfix /home/$sudoUser/
+sudo chown -R $sudoUser:$sudoUser /home/$sudoUser/postfix
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
@@ -100,6 +101,7 @@ sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/mail.$mailDomain/pr
 echo "installing Dovecot"
 sudo apt install dovecot-common dovecot-imapd dovecot-pop3d -y 
 sudo cp -r /etc/dovecot /home/$sudoUser/
+sudo chown -R $sudoUser:$sudoUser /home/$sudoUser/dovecot
 sudo postconf -e 'smtpd_sasl_type = dovecot'
 sudo postconf -e 'smtpd_sasl_path = private/auth'
 sudo postconf -e 'smtpd_sasl_local_domain ='

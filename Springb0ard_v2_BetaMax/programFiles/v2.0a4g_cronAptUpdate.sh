@@ -32,5 +32,4 @@ todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
 sudo apt update
 sudo apt upgrade -y
-#echo "system update ran successfully $todaysDate$timeNow" >> /etc/springb0ard/systemUpdate.log
 echo "$(date) system update ran successfully" >> /etc/springb0ard/springb0ardUpdate.log
