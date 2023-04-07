@@ -1,4 +1,6 @@
 #!/bin/bash
+# nano /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh
+# sudo chmod +x /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh
 # sh /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh
 # alias sp-recovery="sh /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh"
 # If an issue happens during an update where the springboard directory deletes itself this
