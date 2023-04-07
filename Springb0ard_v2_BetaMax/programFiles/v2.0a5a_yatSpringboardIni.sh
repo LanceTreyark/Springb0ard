@@ -14,7 +14,7 @@
 
 # Check if Postfix is installed
 mkdir -p /tmp/vArs
-if dpkg -s postfix >/dev/null 2>&1; then
+if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed."
   echo "1" > /tmp/vArs/postfixTest.txt
 else
@@ -23,7 +23,7 @@ else
 fi
 
 # Check if Dovecot is installed
-if dpkg -s dovecot-core >/dev/null 2>&1; then
+if which dovecot >/dev/null 2>&1; then
   echo "Dovecot is installed."
   echo "1" > /tmp/vArs/dovecotTest.txt
 else
