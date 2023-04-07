@@ -39,3 +39,9 @@ else
   echo "Git is not installed."
   echo "0" > /tmp/vArs/gitTest.txt
 fi
+postfixTest=$(cat /tmp/vArs/postfixTest.txt)
+dovecotTest=$(cat /tmp/vArs/dovecotTest.txt)
+gitTest=$(cat /tmp/vArs/gitTest.txt)
+echo "postfixTest=$postfixTest"
+echo "dovecotTest=$dovecotTest"
+echo "gitTest=$gitTest"
