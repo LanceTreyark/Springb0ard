@@ -13,6 +13,7 @@
 #!/bin/bash
 
 # Check if Postfix is installed
+mkdir -p /tmp/vArs
 if dpkg -s postfix >/dev/null 2>&1; then
   echo "Postfix is installed."
   echo "1" > /tmp/vArs/postfixTest.txt
