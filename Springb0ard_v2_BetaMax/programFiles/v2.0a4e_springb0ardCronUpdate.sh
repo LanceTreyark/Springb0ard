@@ -25,8 +25,8 @@ echo "sudoUserID=$sudoUserID"
 echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
-echo "defaultScpAddr=$defaultScpAddr"
-echo "scpExportPath=$scpExportPath"
+#echo "defaultScpAddr=$defaultScpAddr"
+#echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
