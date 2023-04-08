@@ -14,16 +14,7 @@ sb-recovery     --Brings Springb0ard back from the dead in the event of update f
 install-scp3r   --Prepares the Secure Copy/SCP utillity by creating ssh keys if they do not already exist
 scp3r           --SCP export utillity, long version sets up stored variables that can be accessed by qscp 
 qscp            --Quick SCP Export utillity, just add the file name to export and press enter.
-add-cron        --Cron setup utillity, this atomatically sets up server events with the correct syntax
-add-origin      --This stores your github account information for use with github automation
-install-email   --Runs the email server installer for pre-existing tech stacks
-install-dkim    --Runs the DNS records utillity that creates required email TXT records
-install-apache  --Installs the apache web server
-config-apache   --Configures the apache web server
-deploy-page     --Automates the directory and www data permissions to make launching new webpages faster
-dude            --Dude links your current directory with a github repo's origin. 
-commit          --Runs a script that helps git to commit a repo's data to github
 hi              --Runs Debian's security and software updates.
-sb-deploy       --This is used ONLY in the root email server installer after root is configured.
 bootmail        --Reboots Postfix and Dovecot
 maillog         --Displays the last 100 lines of the postfix maillog
+sb-deploy       --This is used ONLY in the root email server installer after root is configured.
