@@ -14,6 +14,8 @@ sb-update       --Updates the repository from github using git
 
 sb-log          --Displays the Springb0ard system log
 
+db-latest       --Displays the latest features from the last Springb0ard update
+
 sb-recovery     --Brings Springb0ard back from the dead in the event of update failure
 
 install-scp3r   --Prepares the Secure Copy/SCP utillity by creating ssh keys if they do not already exist
