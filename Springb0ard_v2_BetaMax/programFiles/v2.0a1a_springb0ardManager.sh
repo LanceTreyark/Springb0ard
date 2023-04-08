@@ -64,9 +64,9 @@ while read -r line; do
     echo "$line" >> /home/$sudoUser/.bash_aliases
   fi
 done <<EOF
-alias sp-log="cat /etc/springb0ard/springb0ardUpdate.log"
-alias sp-recovery="sh /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh"
-alias update-springb0ard="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
+alias sb-log="cat /etc/springb0ard/springb0ardUpdate.log"
+alias sb-recovery="sh /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh"
+alias sb-update="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4e_springb0ardCronUpdate.sh"
 alias install-scp3r="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4a_addScp3r.sh"
 alias scp3r="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4b_Scp3r.sh"
 alias qscp="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4c_qscp.sh"
