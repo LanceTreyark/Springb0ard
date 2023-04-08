@@ -7,14 +7,25 @@ Springb0ard Help Menu:
   Command   |   --Description                             |
 -----------------------------------------------------------
 btop            --Graphical display of the server's data statistics
+
 sb-help         --Displays this help menu
+
 sb-update       --Updates the repository from github using git
+
 sb-log          --Displays the Springb0ard system log
+
 sb-recovery     --Brings Springb0ard back from the dead in the event of update failure
+
 install-scp3r   --Prepares the Secure Copy/SCP utillity by creating ssh keys if they do not already exist
+
 scp3r           --SCP export utillity, long version sets up stored variables that can be accessed by qscp 
+
 qscp            --Quick SCP Export utillity, just add the file name to export and press enter.
+
 hi              --Runs Debian's security and software updates.
+
 bootmail        --Reboots Postfix and Dovecot
+
 maillog         --Displays the last 100 lines of the postfix maillog
+
 sb-deploy       --This is used ONLY in the root email server installer after root is configured.
