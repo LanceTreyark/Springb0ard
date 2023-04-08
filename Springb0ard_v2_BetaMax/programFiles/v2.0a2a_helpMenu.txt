@@ -6,7 +6,7 @@ Springb0ard Help Menu:
 -----------------------------------------------------------
   Command   |   --Description                             |
 -----------------------------------------------------------
-btop            --Graphical display of the server's data statistics
+bb (or) btop    --Graphical display of the server's data statistics
 
 sb-help         --Displays this help menu
 
