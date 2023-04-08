@@ -64,6 +64,7 @@ while read -r line; do
     echo "$line" >> /home/$sudoUser/.bash_aliases
   fi
 done <<EOF
+alias sb-latest="cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a2b_latest.txt"
 alias sb-help="cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a2a_helpMenu.txt"
 alias sb-log="cat /etc/springb0ard/springb0ardUpdate.log"
 alias sb-recovery="sh /etc/springb0ard/v2.0a1b_springb0ardRecovery.sh"
