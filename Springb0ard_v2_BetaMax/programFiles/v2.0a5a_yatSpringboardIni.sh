@@ -10,7 +10,62 @@
 # Test if postfix is installed
 # Test if Dovecot it installed 
 
-#!/bin/bash
+
+# Check if Postfix is installed using 'which' command
+if which postfix >/dev/null 2>&1; then
+  echo "Postfix is installed (checked using 'which' command)."
+  echo "1" > /tmp/vArs/postfixWhichTest.txt
+else
+  echo "Postfix is not installed (checked using 'which' command)."
+  echo "0" > /tmp/vArs/postfixWhichTest.txt  
+fi
+
+# Check if Postfix is installed using 'dpkg' command
+if dpkg -s postfix >/dev/null 2>&1; then
+  echo "Postfix is installed (checked using 'dpkg' command)."
+  echo "1" > /tmp/vArs/postfixDpkgTest.txt
+else
+  echo "Postfix is not installed (checked using 'dpkg' command)."
+  echo "0" > /tmp/vArs/postfixDpkgTest.txt  
+fi
+
+# Check if Dovecot is installed using 'which' command
+if which dovecot >/dev/null 2>&1; then
+  echo "Dovecot is installed (checked using 'which' command)."
+  echo "1" > /tmp/vArs/dovecotWhichTest.txt  
+else
+  echo "Dovecot is not installed (checked using 'which' command)."
+  echo "0" > /tmp/vArs/dovecotWhichTest.txt   
+fi
+
+# Check if Dovecot is installed using 'dpkg' command
+if dpkg -s dovecot >/dev/null 2>&1; then
+  echo "Dovecot is installed (checked using 'dpkg' command)."
+  echo "1" > /tmp/vArs/dovecotDpkgTest.txt 
+else
+  echo "Dovecot is not installed (checked using 'dpkg' command)."
+  echo "0" > /tmp/vArs/dovecotDpkgTest.txt
+fi
+
+# Check if Git is installed using 'which' command
+if which git >/dev/null 2>&1; then
+  echo "Git is installed (checked using 'which' command)."
+  echo "1" > /tmp/vArs/gitWhichTest.txt
+else
+  echo "Git is not installed (checked using 'which' command)."
+  echo "0" > /tmp/vArs/gitWhichTest.txt
+fi
+
+# Check if Git is installed using 'dpkg' command
+if dpkg -s git >/dev/null 2>&1; then
+  echo "Git is installed (checked using 'dpkg' command)."
+  echo "1" > /tmp/vArs/gitDpkgTest.txt
+else
+  echo "Git is not installed (checked using 'dpkg' command)."
+  echo "0" > /tmp/vArs/gitDpkgTest.txt
+fi
+
+<<comment
 
 # Check if Postfix is installed
 mkdir -p /tmp/vArs
@@ -39,22 +94,28 @@ else
   echo "Git is not installed."
   echo "0" > /tmp/vArs/gitTest.txt
 fi
-postfixTest=$(cat /tmp/vArs/postfixTest.txt)
-dovecotTest=$(cat /tmp/vArs/dovecotTest.txt)
-gitTest=$(cat /tmp/vArs/gitTest.txt)
-echo "postfixTest=$postfixTest"
-echo "dovecotTest=$dovecotTest"
-echo "gitTest=$gitTest"
+comment
+postfixWhichTest=$(cat /tmp/vArs/postfixWhichTest.txt)
+postfixDpkgTest=$(cat /tmp/vArs/postfixDpkgTest.txt)
+dovecotWhichTest=$(cat /tmp/vArs/dovecotWhichTest.txt)
+dovecotDpkgTest=$(cat /tmp/vArs/dovecotDpkgTest.txt)
+gitWhichTest=$(cat /tmp/vArs/gitWhichTest.txt)
+gitDpkgTest=$(cat /tmp/vArs/gitDpkgTest.txt)
+echo "postfixWhichTest=$postfixWhichTest"
+echo "postfixDpkgTest=$postfixDpkgTest"
+echo "dovecotWhichTest=$dovecotWhichTest"
+echo "dovecotDpkgTest=$dovecotDpkgTest"
+echo "gitDpkgTest=$gitWhichTest"
+echo "gitDpkgTest=$gitDpkgTest"
 
-if [ "$gitTest" == "0" ]; then
+if [ $((gitWhichTest + gitDpkgTest)) -eq 1 ] || [ $((gitWhichTest + gitDpkgTest)) -eq 2 ]; then
   echo "installing git..."
 fi
-echo "skipping git installation"
-if [ "$postfixTest" == "0" ]; then
+
+if [ $((postfixWhichTest + postfixDpkgTest)) -eq 1 ] || [ $((postfixWhichTest + postfixDpkgTest)) -eq 2 ]; then
   echo "installing Postfix..."
 fi
-echo "skipping Postfix installation"
-if [ "$dovecotTest" == "0" ]; then
+
+if [ $((dovecotWhichTest + dovecotDpkgTest)) -eq 1 ] || [ $((dovecotWhichTest + dovecotDpkgTest)) -eq 2 ]; then
   echo "installing Dovecot..."
 fi
-echo "skipping Dovecot installation"
