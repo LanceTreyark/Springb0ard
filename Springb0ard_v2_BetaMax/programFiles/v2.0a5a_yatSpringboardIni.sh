@@ -10,6 +10,8 @@
 # Test if postfix is installed
 # Test if Dovecot it installed 
 
+
+
 if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed (checked using 'which' command)."
   postfixWhichTest="1"
@@ -84,15 +86,24 @@ echo "dovecotSystemctlTest=$dovecotSystemctlTest"
 echo "gitWhichTest=$gitWhichTest"
 echo "gitDpkgTest=$gitDpkgTest"
 
+
+if [ $((postfixWhichTest + postfixDpkgTest + postfixSystemctlTest)) -ge 1 ]; then
+  echo "Removing previous Postfix installation ..."
+fi
+
+if [ $((dovecotWhichTest + dovecotDpkgTest + dovecotSystemctlTest)) -ge 1 ]; then
+  echo "Removing previous Dovecot installation..."
+fi
+
 if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
-  echo "installing git..."
+  echo "Begin git core & Springb0ard install procedure..."
+  echo "making sure the system is up to date..."
+  sudo apt update && sudo apt upgrade -y
+  echo "Installing dependencies, some of these may already exist on your system"
+  sudo apt install snapd -y
+  sudo snap install core
+  sudo snap install btop
 fi
 
-if [ $((postfixWhichTest + postfixDpkgTest + postfixSystemctlTest)) -eq 0 ]; then
-  echo "installing Postfix..."
-fi
 
-if [ $((dovecotWhichTest + dovecotDpkgTest + dovecotSystemctlTest)) -eq 0 ]; then
-  echo "installing Dovecot..."
-fi
 
