@@ -45,3 +45,16 @@ gitTest=$(cat /tmp/vArs/gitTest.txt)
 echo "postfixTest=$postfixTest"
 echo "dovecotTest=$dovecotTest"
 echo "gitTest=$gitTest"
+
+if [ "$gitTest" == "0" ]; then
+  echo "installing git..."
+fi
+echo "skipping git installation"
+if [ "$postfixTest" == "0" ]; then
+  echo "installing Postfix..."
+fi
+echo "skipping Postfix installation"
+if [ "$dovecotTest" == "0" ]; then
+  echo "installing Dovecot..."
+fi
+echo "skipping Dovecot installation"
