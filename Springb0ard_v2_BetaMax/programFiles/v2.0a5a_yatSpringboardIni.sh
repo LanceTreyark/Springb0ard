@@ -15,10 +15,7 @@ sudoUser=$(who am i | awk '{print $1}')
 echo "It is assumed that the required sudo user to run this script is $sudoUser"
 sudoUserID=$(id -u $sudoUser)
 
-
-# PROBLEM What if the user wants to just add our tools like scp3r and they already have email working properly?
 # Purpose of this is just the tools no installations.
-
 
 if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed (checked using 'which' command)."
@@ -93,7 +90,6 @@ echo "dovecotDpkgTest=$dovecotDpkgTest"
 echo "dovecotSystemctlTest=$dovecotSystemctlTest"
 echo "gitWhichTest=$gitWhichTest"
 echo "gitDpkgTest=$gitDpkgTest"
-
 
 if [ $((postfixWhichTest + postfixDpkgTest + postfixSystemctlTest)) -ge 1 ]; then
   echo "Postfix is currently installed on this system"
@@ -184,9 +180,6 @@ sudo chmod +x /home/$sudoUser/.bash_aliases
 # Because these files were created by root we need to make sure they are owned by the sudo user instead.
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
-
-# in order for the manager to execute we need to write some hard variables for it to reference
-
 # IP -In #
 myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
 cat >/tmp/ipSort3r.txt <<EOF
@@ -196,17 +189,10 @@ myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt)
 echo "The IP address for this server is: $myIP"
 sudo rm -r /tmp/ipSort3r.txt
 # IP -Out #
-
-
 echo "$sudoUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt
 echo "$sudoUserID" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt
 echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
-
-# echo "minor" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt
-# echo "1000" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt
-# echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
-# sudo chown -R 1000:1000 /home/minor/.ssh/
-
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
+echo ""
 echo "it is reccomended for you to exit the session and return for the alias commands to become available." 
 echo "Once you log back in enter the following command 'sb-help' to view what tools are available"
