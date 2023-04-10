@@ -10,7 +10,7 @@
 # Test if postfix is installed
 # Test if Dovecot it installed 
 
-
+sudoUser=$(id)
 
 if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed (checked using 'which' command)."
@@ -89,10 +89,16 @@ echo "gitDpkgTest=$gitDpkgTest"
 
 if [ $((postfixWhichTest + postfixDpkgTest + postfixSystemctlTest)) -ge 1 ]; then
   echo "Removing previous Postfix installation ..."
+  sudo apt-get remove --purge postfix
+  sudo apt-get autoremove --purge
+  sudo apt-get clean
 fi
 
 if [ $((dovecotWhichTest + dovecotDpkgTest + dovecotSystemctlTest)) -ge 1 ]; then
   echo "Removing previous Dovecot installation..."
+  sudo apt-get remove --purge dovecot
+  sudo apt-get autoremove --purge
+  sudo apt-get clean
 fi
 
 if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
@@ -103,7 +109,25 @@ if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
   sudo apt install snapd -y
   sudo snap install core
   sudo snap install btop
+  echo "Installing Curl"
+  sudo apt install curl -y
+  read -p "Are you ready to proceed with the git install?" meh
 fi
 
+echo "Installing springboard..."
 
-
+echo "adding alias commands..."
+cat >/home/$sudoUser/.bash_aliases <<EOF
+alias hi="sudo apt update && sudo apt upgrade"
+alias deploy="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
+alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
+alias maillog="sudo nano /var/log/mail.log"
+alias springb0ard="cat /home/$sudoUser/.bash_aliases"
+alias springboard="cat /home/$sudoUser/.bash_aliases"
+EOF
+#echo "Installing Firewall"
+#apt install ufw -y
+#echo "Allow SSH through the firewall"
+#ufw allow OpenSSH
+#ufw enable
+#ufw status
