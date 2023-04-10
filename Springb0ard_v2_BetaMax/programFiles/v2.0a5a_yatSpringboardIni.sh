@@ -206,3 +206,7 @@ echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
 # echo "1000" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt
 # echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
 # sudo chown -R 1000:1000 /home/minor/.ssh/
+
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
+echo "it is reccomended for you to exit the session and return for the alias commands to become available." 
+echo "Once you log back in enter the following command 'sb-help' to view what tools are available"
