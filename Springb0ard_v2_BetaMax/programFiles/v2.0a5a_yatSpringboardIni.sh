@@ -16,7 +16,9 @@ echo "It is assumed that the required sudo user to run this script is $sudoUser"
 sudoUserID=$(id -u $sudoUser)
 
 
-# PROBLEM What if the user wants to just add our tools and they already have postfix set up proper?
+# PROBLEM What if the user wants to just add our tools like scp3r and they already have email working properly?
+# Purpose of this is just the tools no installations.
+
 
 if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed (checked using 'which' command)."
@@ -94,20 +96,23 @@ echo "gitDpkgTest=$gitDpkgTest"
 
 
 if [ $((postfixWhichTest + postfixDpkgTest + postfixSystemctlTest)) -ge 1 ]; then
-  echo "Removing previous Postfix installation ..."
-  sudo apt-get remove --purge postfix
-  sudo apt-get autoremove --purge
-  sudo apt-get clean
+  echo "Postfix is currently installed on this system"
+  #echo "Removing previous Postfix installation ..."
+  #sudo apt-get remove --purge postfix
+  #sudo apt-get autoremove --purge
+  #sudo apt-get clean
 fi
 
 if [ $((dovecotWhichTest + dovecotDpkgTest + dovecotSystemctlTest)) -ge 1 ]; then
-  echo "Removing previous Dovecot installation..."
-  sudo apt-get remove --purge dovecot
-  sudo apt-get autoremove --purge
-  sudo apt-get clean
+  echo "Dovecot is currently installed on this system"
+  #echo "Removing previous Dovecot installation..."
+  #sudo apt-get remove --purge dovecot
+  #sudo apt-get autoremove --purge
+  #sudo apt-get clean
 fi
 
 if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
+  echo "Git was not detected on this system. We will need to install this core dependency"
   echo "Begin git core & Springb0ard install procedure..."
   echo "making sure the system is up to date..."
   sudo apt update && sudo apt upgrade -y
@@ -154,30 +159,25 @@ if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
   sudo mkdir /etc/springb0ard
   sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
   cd /etc/springb0ard/
-  echo "Installing springboard..."
+  echo "Installing the Springb0ard filesystem..."
   git clone https://github.com/LanceTreyark/Springb0ard.git
   echo "Making springboard executable..."
   sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh  
 else
+  echo "Git is already installed on this system"
+  echo "Installing the Springb0ard filesystem..."
   sudo mkdir /etc/springb0ard
   sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
   cd /etc/springb0ard/
-  echo "Installing springboard..."
   git clone https://github.com/LanceTreyark/Springb0ard.git
-  echo "Making springboard executable..."
+  echo "Making springb0ard executable..."
   sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 fi
-echo "adding alias commands..."
+echo "Adding alias commands..."
 # append to file if it already exists
 cat >>/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
-alias deploy="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
-alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
-alias maillog="sudo nano /var/log/mail.log"
-alias springb0ard="cat /home/$sudoUser/.bash_aliases"
-alias springboard="cat /home/$sudoUser/.bash_aliases"
 EOF
-
 echo "Enabling the Alias file..."
 sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
