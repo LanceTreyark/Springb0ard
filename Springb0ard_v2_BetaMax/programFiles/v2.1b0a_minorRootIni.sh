@@ -47,5 +47,3 @@ ls /home/$sudoUser/.ssh/
 sleep 1
 #cat /home/$sudoUser/.ssh/authorized_keys
 echo "This script has concluded"
-
-

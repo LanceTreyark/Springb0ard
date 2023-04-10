@@ -180,14 +180,28 @@ alias hi="sudo apt update && sudo apt upgrade"
 EOF
 echo "Enabling the Alias file..."
 sudo chmod +x /home/$sudoUser/.bash_aliases
+# Because these files were created by root we need to make sure they are owned by the sudo user instead.
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
+
+# in order for the manager to execute we need to write some hard variables for it to reference
+
+# IP -In #
+myIPv4=$(ip addr show | awk '{if (match($2,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)) {print $2}}' | head -2 | tail -1)
+cat >/tmp/ipSort3r.txt <<EOF
+$myIPv4
+EOF
+myIP=$(awk -F/ '{print $1}' /tmp/ipSort3r.txt) 
+echo "The IP address for this server is: $myIP"
+sudo rm -r /tmp/ipSort3r.txt
+# IP -Out #
 
 
+echo "$sudoUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt
+echo "$sudoUserID" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt
+echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
 
-
-#echo "Installing Firewall"
-#apt install ufw -y
-#echo "Allow SSH through the firewall"
-#ufw allow OpenSSH
-#ufw enable
-#ufw status
+# echo "minor" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt
+# echo "1000" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt
+# echo "$myIP" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt
+# sudo chown -R 1000:1000 /home/minor/.ssh/
