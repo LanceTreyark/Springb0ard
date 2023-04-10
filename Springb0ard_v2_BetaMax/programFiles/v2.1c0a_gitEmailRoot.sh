@@ -98,8 +98,8 @@ echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
-echo "Installing Git core update system"
-echo "Creating springb0ard directory through git core system"
+echo "Installing Git, Springb0ard's core software updating system"
+
 mkdir /tmp/git
 curl -o /tmp/git/git.tar.gz "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz"
 cd /tmp/git && tar -xf git.tar.gz && rm -r git.tar.gz && cd -
@@ -130,6 +130,7 @@ echo "sudo make prefix=/usr/local install"
 sudo make prefix=/usr/local install
 echo "git --version"
 git --version
+
 cd /etc/springb0ard/
 git clone https://github.com/LanceTreyark/Springb0ard.git
 echo "Making springboard executable..."

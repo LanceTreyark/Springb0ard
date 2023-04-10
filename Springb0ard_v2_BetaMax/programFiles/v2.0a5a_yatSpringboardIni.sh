@@ -10,7 +10,13 @@
 # Test if postfix is installed
 # Test if Dovecot it installed 
 
-sudoUser=$(id)
+# Variable Declarations:
+sudoUser=$(who am i | awk '{print $1}')
+echo "It is assumed that the required sudo user to run this script is $sudoUser"
+sudoUserID=$(id -u $sudoUser)
+
+
+# PROBLEM What if the user wants to just add our tools and they already have postfix set up proper?
 
 if which postfix >/dev/null 2>&1; then
   echo "Postfix is installed (checked using 'which' command)."
@@ -112,12 +118,58 @@ if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
   echo "Installing Curl"
   sudo apt install curl -y
   read -p "Are you ready to proceed with the git install?" meh
+  sleep 1
+  echo ""
+  echo "Installing Git, Springb0ard's core software updating system"
+  mkdir /tmp/git
+  curl -o /tmp/git/git.tar.gz "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz"
+  cd /tmp/git && tar -xf git.tar.gz && rm -r git.tar.gz && cd -
+  sudo mkdir /etc/springb0ard
+  sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+  cp -r /tmp/git /etc/springb0ard/
+  echo "install aspell"
+  sudo apt install aspell -y 
+  echo "sudo apt install libcurl4-openssl-dev -y"
+  sudo apt install libcurl4-openssl-dev -y
+  echo "sudo apt install libexpat1-dev -y"
+  sudo apt install libexpat1-dev -y
+  echo "sudo apt install gettext tcl -y"
+  sudo apt install gettext tcl -y
+  echo "sudo apt install make -y"
+  sudo apt install make -y
+  echo "sudo apt install gcc -y"
+  sudo apt install gcc -y
+  echo "sudo apt install libssl-dev -y"
+  sudo apt install libssl-dev -y
+  echo "sudo apt install zlib1g-dev -y"
+  sudo apt install zlib1g-dev -y
+  cd /etc/springb0ard/git/git-2.40.0
+  pwd
+  echo "sudo make prefix=/usr/local all" 
+  sudo make prefix=/usr/local all
+  echo "sudo make prefix=/usr/local install"
+  sudo make prefix=/usr/local install
+  echo "git --version"
+  git --version
+  sudo mkdir /etc/springb0ard
+  sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+  cd /etc/springb0ard/
+  echo "Installing springboard..."
+  git clone https://github.com/LanceTreyark/Springb0ard.git
+  echo "Making springboard executable..."
+  sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh  
+else
+  sudo mkdir /etc/springb0ard
+  sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+  cd /etc/springb0ard/
+  echo "Installing springboard..."
+  git clone https://github.com/LanceTreyark/Springb0ard.git
+  echo "Making springboard executable..."
+  sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 fi
-
-echo "Installing springboard..."
-
 echo "adding alias commands..."
-cat >/home/$sudoUser/.bash_aliases <<EOF
+# append to file if it already exists
+cat >>/home/$sudoUser/.bash_aliases <<EOF
 alias hi="sudo apt update && sudo apt upgrade"
 alias deploy="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh && sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7a_gitInstallPostfix.sh"
 alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix"
@@ -125,6 +177,14 @@ alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
 alias springboard="cat /home/$sudoUser/.bash_aliases"
 EOF
+
+echo "Enabling the Alias file..."
+sudo chmod +x /home/$sudoUser/.bash_aliases
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.bash_aliases
+
+
+
+
 #echo "Installing Firewall"
 #apt install ufw -y
 #echo "Allow SSH through the firewall"
