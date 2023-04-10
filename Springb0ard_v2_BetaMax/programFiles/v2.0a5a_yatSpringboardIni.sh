@@ -113,18 +113,19 @@ fi
 
 if [ $((gitWhichTest + gitDpkgTest)) -eq 0 ]; then
   echo "Git was not detected on this system. We will need to install this core dependency"
-  echo "Begin git core & Springb0ard install procedure..."
+  sleep 1
   echo "making sure the system is up to date..."
   sudo apt update && sudo apt upgrade -y
+  echo "Begin git core & Springb0ard install procedure..."
+  read -p "Are you ready to proceed with the git install?" meh
+  sleep 1
+  echo ""
   echo "Installing dependencies, some of these may already exist on your system"
   sudo apt install snapd -y
   sudo snap install core
   sudo snap install btop
   echo "Installing Curl"
   sudo apt install curl -y
-  read -p "Are you ready to proceed with the git install?" meh
-  sleep 1
-  echo ""
   echo "Installing Git, Springb0ard's core software updating system"
   mkdir /tmp/git
   curl -o /tmp/git/git.tar.gz "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.0.tar.gz"

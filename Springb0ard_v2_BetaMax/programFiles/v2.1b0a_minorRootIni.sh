@@ -13,7 +13,6 @@ echo "4-Copies over the ssh-keys to the new user"
 echo ""
 read -p "Press enter if you are ready to proceed" meh
 echo ""
-sleep 1
 echo "Updating the server..."
 echo ""
 sudo apt update && sudo apt upgrade -y
@@ -27,23 +26,17 @@ usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
 echo "Installing Firewall"
 apt install ufw -y
-sleep 1
 echo "Allow SSH through the firewall"
 ufw allow OpenSSH
 ufw enable
-sleep 1
 ufw status
-sleep 1
 echo "Copy authorized_keys over to $sudoUser"
-sleep 1
 echo "/home/$sudoUser/.ssh/"
 adminPubKeyString=$(cat .ssh/authorized_keys)
 mkdir -p /home/$sudoUser/.ssh
 ls /home/$sudoUser/.ssh/
-sleep 1
 echo $adminPubKeyString >> /home/$sudoUser/.ssh/authorized_keys
-sleep 1
-ls /home/$sudoUser/.ssh/
-sleep 1
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
+#ls /home/$sudoUser/.ssh/
 #cat /home/$sudoUser/.ssh/authorized_keys
 echo "This script has concluded"
