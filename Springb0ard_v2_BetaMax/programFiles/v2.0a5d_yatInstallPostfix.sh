@@ -1,31 +1,48 @@
 #!/bin/bash
-# nano v2.0a2a_installPostfix.sh
-# sudo chmod +x v2.0a2a_installPostfix.sh
-# ./v2.0a2a_installPostfix.sh
+# Git Core: Yes
+# nano v2.0a5d_yatInstallPostfix.sh
+# sudo chmod +x v2.0a5d_yatInstallPostfix.sh
+# ./v2.0a5d_yatInstallPostfix.sh
 echo "The script is live!"
+echo ""
+read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
+#mailDomain="example.com"
+echo ""
+read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
+#regMailUser="admin"
+echo ""
+read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+#webAdminEmail="name@example.com"
+echo ""
+echo "$webAdminEmail" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt
+echo "$regMailUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt
+echo "$mailDomain" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt
 #Call your vArs!
-yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+#yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)
 sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt)
 sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt)
-webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
-defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
-scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
+#webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+#defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
+#scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
 echo "           vArs Test:"
 echo "-----------------------------"
-echo "yourDomain=$yourDomain"
+#echo "yourDomain=$yourDomain"
 echo "mailDomain=$mailDomain"
 echo "regMailUser=$regMailUser"
 echo "sudoUser=$sudoUser"
 echo "sudoUserID=$sudoUserID"
 echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
-echo "webDomainName=$webDomainName"
-echo "defaultScpAddr=$defaultScpAddr"
-echo "scpExportPath=$scpExportPath"
+echo "-----------------------------"
+echo "Check the values above in order for this script to work none of these values can be blank"
+read -p "Press enter to continue, or exit the script with CTRL+C" meh
+#echo "webDomainName=$webDomainName"
+#echo "defaultScpAddr=$defaultScpAddr"
+#echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 echo "Opening required mail ports..."
 sudo ufw allow 25
@@ -211,6 +228,5 @@ echo ""
 echo "Skipping for now..."
 echo ""
 sudo systemctl restart postfix
-echo "Preparing to run webserver installer v2.0a3a_basicWebServer.sh"
-echo "sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7c_gitBasicWebServer.sh"
-sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7c_gitBasicWebServer.sh
+read -p "Press Enter to continue to DKIM generation" meh
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_yatPostfix.DKIM.sh

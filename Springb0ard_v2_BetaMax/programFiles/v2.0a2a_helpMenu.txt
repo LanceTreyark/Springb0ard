@@ -14,7 +14,7 @@ sb-update       --Updates the repository from github using git
 
 sb-log          --Displays the Springb0ard system log
 
-db-latest       --Displays the latest features from the last Springb0ard update
+sb-latest       --Displays the latest features from the last Springb0ard update
 
 sb-recovery     --Brings Springb0ard back from the dead in the event of update failure
 
@@ -23,6 +23,8 @@ install-scp3r   --Prepares the Secure Copy/SCP utility by creating ssh keys if t
 scp3r           --SCP export utility, long version sets up stored variables that can be accessed by qscp 
 
 qscp            --Quick SCP Export utility, just add the file name to export and press enter.
+
+sb-mailserver   --Installs a Postfix/Dovecot email server and provides all required DNS records + DKIM keys
 
 hi              --Runs Debian's security and software updates.
 
