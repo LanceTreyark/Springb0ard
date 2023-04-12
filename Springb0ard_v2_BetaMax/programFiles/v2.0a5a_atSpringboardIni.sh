@@ -1,10 +1,10 @@
 #!/bin/bash
-# nano v2.0a5a_yatSpringboardIni.sh
-# sudo chmod +x v2.0a5a_yatSpringboardIni.sh
-# ./v2.0a5a_yatSpringboardIni.sh
+# nano v2.0a5a_atSpringboardIni.sh
+# sudo chmod +x v2.0a5a_atSpringboardIni.sh
+# ./v2.0a5a_atSpringboardIni.sh
 
 # Installs Springboard Tools as options on an existing server
-# these are the "yat" scripts they assume nothing other than the stated assumtions that are echoed at the top with a "press enter to proceed"
+# these are the "AT" scripts they assume nothing other than the stated assumtions that are echoed at the top with a "press enter to proceed"
 
 # Test if git is installed
 # Test if postfix is installed

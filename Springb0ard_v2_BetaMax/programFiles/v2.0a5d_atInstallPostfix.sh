@@ -1,8 +1,8 @@
 #!/bin/bash
 # Git Core: Yes
-# nano v2.0a5d_yatInstallPostfix.sh
-# sudo chmod +x v2.0a5d_yatInstallPostfix.sh
-# ./v2.0a5d_yatInstallPostfix.sh
+# nano v2.0a5d_atInstallPostfix.sh
+# sudo chmod +x v2.0a5d_atInstallPostfix.sh
+# ./v2.0a5d_atInstallPostfix.sh
 echo "The script is live!"
 echo ""
 read -p "Please enter the domain name to use for this mailserver, Don't add the 'www., mail. or smtp.' just the domain:   " mailDomain
@@ -229,4 +229,4 @@ echo "Skipping for now..."
 echo ""
 sudo systemctl restart postfix
 read -p "Press Enter to continue to DKIM generation" meh
-sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_yatPostfix.DKIM.sh
+sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_atPostfix.DKIM.sh

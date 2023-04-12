@@ -1,7 +1,7 @@
 #!/bin/bash
-# nano v2.0a5b_yatGitIni.sh
-# sudo chmod +x v2.0a5b_yatGitIni.sh
-# ./v2.0a5b_yatGitIni.sh
+# nano v2.0a5b_atGitIni.sh
+# sudo chmod +x v2.0a5b_atGitIni.sh
+# ./v2.0a5b_atGitIni.sh
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)

@@ -1,8 +1,8 @@
 #!/bin/bash
 # Git Core: Yes
-# nano v2.0a5e_yatPostfix.DKIM.sh
-# sudo chmod +x v2.0a5e_yatPostfix.DKIM.sh
-# ./v2.0a5e_yatPostfix.DKIM.sh
+# nano v2.0a5e_atPostfix.DKIM.sh
+# sudo chmod +x v2.0a5e_atPostfix.DKIM.sh
+# ./v2.0a5e_atPostfix.DKIM.sh
 echo "The script is live!"
 #Call your vArs!
 #Call your vArs!

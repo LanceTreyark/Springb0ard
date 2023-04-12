@@ -1,7 +1,7 @@
 #!/bin/bash
-# nano v2.0a5c_yatGitAddAcct.sh
-# sudo chmod +x v2.0a5c_yatGitAddAcct.sh
-# ./v2.0a5c_yatGitAddAcct.sh
+# nano v2.0a5c_atGitAddAcct.sh
+# sudo chmod +x v2.0a5c_atGitAddAcct.sh
+# ./v2.0a5c_atGitAddAcct.sh
 
 <<comment
 Purpose
