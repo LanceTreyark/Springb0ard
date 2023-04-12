@@ -4,6 +4,23 @@
 # sb-test         --Run test script
 # sb-etest        --Edit test script
 
+
+
+echo "closing unused mail ports..."
+#sudo ufw allow 25
+sudo ufw delete allow 143
+sudo ufw delete allow 110
+sudo ufw delete allow 554
+#sudo ufw allow "WWW Full"
+sudo ufw delete allow 993
+#sudo ufw allow 995
+sudo ufw delete allow 587
+sudo ufw status
+
+
+
+
+<<comment
 sudoUser=$(who am i | awk '{print $1}')
 echo "sudoUser=$sudoUser"
 
@@ -97,3 +114,4 @@ if [ $((dovecotWhichTest + dovecotDpkgTest + dovecotSystemctlTest)) -ge 1 ]; the
   #sudo apt-get autoremove --purge
   #sudo apt-get clean
 fi
+comment
