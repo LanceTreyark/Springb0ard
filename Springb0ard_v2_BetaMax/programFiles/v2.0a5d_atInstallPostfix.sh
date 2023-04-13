@@ -46,13 +46,13 @@ read -p "Press enter to continue, or exit the script with CTRL+C" meh
 echo "-----------------------------"
 echo "Opening required mail ports..."
 sudo ufw allow 25
-sudo ufw allow 143
-sudo ufw allow 110
+#sudo ufw allow 143
+#sudo ufw allow 110
 sudo ufw allow 554
 sudo ufw allow "WWW Full"
-sudo ufw allow 993
+#sudo ufw allow 993
 sudo ufw allow 995
-sudo ufw allow 587
+#sudo ufw allow 587
 sudo ufw status
 echo "Adding new user $regMailUser"
 sudo adduser $regMailUser
@@ -112,7 +112,6 @@ echo "creating standalone certificate for the email"
 # sudo snap install --classic certbot
 # sudo apt install python3-certbot-apache -y
 #
-
 echo ""
 echo "your DNS needs to look like the following before proceeding:"
 echo "Where I use '@' below you will see $mailDomain when It's been entered correctly into DNS"
@@ -123,7 +122,9 @@ echo "| A             mail             $myIP                        300       N/
 echo "| MX             @               mail.$mailDomain                  300       N/A |" 
 echo "-------------------------------------------------------------------------------------"
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
+#
 sudo certbot certonly --standalone -d mail.$mailDomain
+#
 sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/mail.$mailDomain/fullchain.pem"
 sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/mail.$mailDomain/privkey.pem"
 echo "installing Dovecot"
