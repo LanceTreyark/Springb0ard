@@ -7,9 +7,23 @@
 
 webDomainName="certloop.com"
 
-# Check if Apache is installed
-if ! [ -x "$(command -v apache2)" ]; then
-  echo "Apache is not installed. Please install Apache before obtaining SSL certificate."
+
+# Check if Apache is installed using dpkg
+if dpkg -s apache2 >/dev/null 2>&1; then
+  echo "Apache is installed (checked using 'dpkg' command)."
+else
+  # Check if Apache is installed using which
+  if ! [ -x "$(command -v apache2)" ]; then
+    echo "Apache is not installed (checked using 'dpkg' and 'which' commands)."
+    exit 1
+  fi
+fi
+
+# Check if Apache is active using systemctl
+if systemctl is-active --quiet apache2; then
+  echo "Apache is active (checked using 'systemctl' command)."
+else
+  echo "Apache is not active (checked using 'systemctl' command)."
   exit 1
 fi
 
@@ -19,6 +33,7 @@ if [ ! -f "$configFile" ]; then
   echo "Config file for domain '$webDomainName' not found. Please create a config file before obtaining SSL certificate."
   exit 1
 fi
+
 
 # Run Certbot to obtain SSL certificate
 echo "running: certbot --apache -d $webDomainName"
