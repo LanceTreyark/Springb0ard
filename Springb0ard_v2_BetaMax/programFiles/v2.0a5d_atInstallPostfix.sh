@@ -96,12 +96,23 @@ sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
 echo "making a default copy of postfix"
 sudo cp -r /etc/postfix /home/$sudoUser/
-sudo chown -R $sudoUser:$sudoUser /home/$sudoUser/postfix
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/postfix
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
 sudo apt install certbot -y
 echo "creating standalone certificate for the email"
+#
+# PROBLEM
+# The version of certbot should be the same as the one used to certify the website 
+# standard is --classic.
+# creating a standalone cert is not ideal if the mail subdomain is being added along w/
+# an exising site's config file.
+#
+# sudo snap install --classic certbot
+# sudo apt install python3-certbot-apache -y
+#
+
 echo ""
 echo "your DNS needs to look like the following before proceeding:"
 echo "Where I use '@' below you will see $mailDomain when It's been entered correctly into DNS"

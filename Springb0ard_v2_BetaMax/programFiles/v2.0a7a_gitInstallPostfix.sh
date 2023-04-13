@@ -79,7 +79,7 @@ sudo debconf-set-selections /var/cache/debconf/postfix.seed
 sudo apt install postfix -y
 echo "making a default copy of postfix"
 sudo cp -r /etc/postfix /home/$sudoUser/
-sudo chown -R $sudoUser:$sudoUser /home/$sudoUser/postfix
+sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/postfix
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
