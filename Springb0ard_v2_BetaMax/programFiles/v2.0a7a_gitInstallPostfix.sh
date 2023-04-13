@@ -29,13 +29,13 @@ echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 echo "Opening required mail ports..."
 sudo ufw allow 25
-sudo ufw allow 143
-sudo ufw allow 110
+#sudo ufw allow 143
+#sudo ufw allow 110
 sudo ufw allow 554
 sudo ufw allow "WWW Full"
-sudo ufw allow 993
+#sudo ufw allow 993
 sudo ufw allow 995
-sudo ufw allow 587
+#sudo ufw allow 587
 sudo ufw status
 echo "Adding new user $regMailUser"
 sudo adduser $regMailUser

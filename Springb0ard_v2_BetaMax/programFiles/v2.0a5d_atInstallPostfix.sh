@@ -108,7 +108,7 @@ echo "creating standalone certificate for the email"
 # standard is --classic.
 # creating a standalone cert is not ideal if the mail subdomain is being added along w/
 # an exising site's config file.
-#
+##
 # sudo snap install --classic certbot
 # sudo apt install python3-certbot-apache -y
 #
