@@ -6,7 +6,7 @@
 
 
 webDomainName="certloop.com"
-
+echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 
 # Check if Apache is installed using dpkg
 if dpkg -s apache2 >/dev/null 2>&1; then
