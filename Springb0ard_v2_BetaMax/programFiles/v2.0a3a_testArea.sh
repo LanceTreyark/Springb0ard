@@ -5,7 +5,25 @@
 # sb-etest        --Edit test script
 
 
+webDomainName="certloop.com"
 
+# Check if Apache is installed
+if ! [ -x "$(command -v apache2)" ]; then
+  echo "Apache is not installed. Please install Apache before obtaining SSL certificate."
+  exit 1
+fi
+
+# Check if config file is present
+configFile="/etc/apache2/sites-available/${webDomainName}.conf"
+if [ ! -f "$configFile" ]; then
+  echo "Config file for domain '$webDomainName' not found. Please create a config file before obtaining SSL certificate."
+  exit 1
+fi
+
+# Run Certbot to obtain SSL certificate
+echo "running: certbot --apache -d $webDomainName"
+
+<<comment
 echo "closing unused mail ports..."
 #sudo ufw allow 25
 sudo ufw delete allow 143
@@ -18,9 +36,8 @@ sudo ufw delete allow 587
 sudo ufw status
 
 
+#end
 
-
-<<comment
 sudoUser=$(who am i | awk '{print $1}')
 echo "sudoUser=$sudoUser"
 
