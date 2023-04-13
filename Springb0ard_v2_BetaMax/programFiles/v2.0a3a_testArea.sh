@@ -32,6 +32,8 @@ configFile="/etc/apache2/sites-available/${webDomainName}.conf"
 if [ ! -f "$configFile" ]; then
   echo "Config file for domain '$webDomainName' not found. Please create a config file before obtaining SSL certificate."
   exit 1
+else
+  echo "an apache config file for $webDomainName was located"  
 fi
 
 
