@@ -11,7 +11,13 @@
 
 # run a test to locate an apache config file for the name in question
 
-
+# TODO
+# NEED TO UPDATE SPRINGB0ARD Postfix installer
+# To have crontab notifications from the sudo user forward to our mail user's inbox.
+#sudo nano /etc/postfix/virtual
+# sed + append:
+#$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain
+#sudo postmap /etc/postfix/virtual
 
 
 #

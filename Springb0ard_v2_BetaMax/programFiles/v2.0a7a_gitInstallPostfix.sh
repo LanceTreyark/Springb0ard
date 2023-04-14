@@ -14,6 +14,18 @@ webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/web
 webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
 scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
+
+
+# TODO
+# NEED TO UPDATE SPRINGB0ARD Postfix installer
+# To have crontab notifications from the sudo user forward to our mail user's inbox.
+#sudo nano /etc/postfix/virtual
+# sed + append:
+#$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain
+#sudo postmap /etc/postfix/virtual
+
+
+
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
