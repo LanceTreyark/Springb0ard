@@ -239,6 +239,8 @@ echo "Additional security options"
 echo ""
 echo "Skipping for now..."
 echo ""
+echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
+sudo postmap /etc/postfix/virtual
 sudo systemctl restart postfix
 read -p "Press Enter to continue to DKIM generation" meh
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_atPostfix.DKIM.sh
