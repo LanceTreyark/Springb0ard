@@ -44,10 +44,10 @@ if which apache2 >/dev/null 2>&1; then
   postfixWhichTest="1"
 fi  
 
-
-if ! [ -x "$(command -v apache2)" ]; then
-    echo "Apache is not installed (checked using 'dpkg' and 'which' commands)."
-    exit 1
+if [ -x "$(command -v apache2)" ]; then
+    echo "Apache is installed & executable (checked using 'dpkg' and 'which' commands)."
+else    
+    echo "Apache is not installed & executable (checked using 'dpkg' and 'which' commands)."
 fi
 
 
