@@ -4,27 +4,61 @@
 # sb-test         --Run test script
 # sb-etest        --Edit test script
 
+<<comment
+if which postfix >/dev/null 2>&1; then
+  echo "Postfix is installed (checked using 'which' command)."
+  postfixWhichTest="1"
+else
+  echo "Postfix is not installed (checked using 'which' command)."
+  postfixWhichTest="0"
+fi
 
+if dpkg -s postfix >/dev/null 2>&1; then
+  echo "Postfix is installed (checked using 'dpkg' command)."
+  postfixDpkgTest="1"
+else
+  echo "Postfix is not installed (checked using 'dpkg' command)."
+  postfixDpkgTest="0" 
+fi
+
+if systemctl is-active --quiet postfix; then
+  echo "Postfix is installed and active (checked using systemctl command)."
+  postfixSystemctlTest="1"
+else
+  echo "Postfix is not installed or inactive (checked using systemctl command)."
+  postfixSystemctlTest="0"
+fi
+comment
 webDomainName="certloop.com"
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 
 # Check if Apache is installed using dpkg
 if dpkg -s apache2 >/dev/null 2>&1; then
-  echo "Apache is installed (checked using 'dpkg' command)."
-else
+  #echo "Apache is installed (checked using 'dpkg' command)."
+  apacheDpkgTest="1"
+fi
+
   # Check if Apache is installed using which
-  if ! [ -x "$(command -v apache2)" ]; then
+if which apache2 >/dev/null 2>&1; then
+  echo "Postfix is installed (checked using 'which' command)."
+  postfixWhichTest="1"
+fi  
+
+
+if ! [ -x "$(command -v apache2)" ]; then
     echo "Apache is not installed (checked using 'dpkg' and 'which' commands)."
     exit 1
-  fi
 fi
+
 
 # Check if Apache is active using systemctl
 if systemctl is-active --quiet apache2; then
   echo "Apache is active (checked using 'systemctl' command)."
+  apacheSystemCtlTest="1"
 else
   echo "Apache is not active (checked using 'systemctl' command)."
   exit 1
+  apacheSystemCtlTest="0"  
 fi
 
 # Check if config file is present
