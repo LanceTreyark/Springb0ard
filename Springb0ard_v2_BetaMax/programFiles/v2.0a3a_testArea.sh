@@ -203,7 +203,7 @@ fi
 
 # Run Certbot to obtain SSL certificate
 read -p "Are you ready to deploy an ssl certificate for your webserver  y/n:   " checkCertInstallPref
-if [ "$checkCertInstallPref" = "y" || "$checkCertInstallPref" = "Y" ]; then
+if [ "$checkCertInstallPref" = "y" -o "$checkCertInstallPref" = "Y" ]; then
   echo "running: certbot --apache -d $webDomainName"
   sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
 else
