@@ -193,7 +193,7 @@ else
     sudo service apache2 reload
     sudo apt install python3-certbot-apache -y
     sudo systemctl restart apache2
-  fi
+  else
 fi
 
 
