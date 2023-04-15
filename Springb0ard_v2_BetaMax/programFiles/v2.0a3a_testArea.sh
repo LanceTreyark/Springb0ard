@@ -56,6 +56,8 @@ else
   if [ "$checkApacheInstallPref" = "y" || "$checkApacheInstallPref" = "Y" ] then
     echo "Installing Apache Webserver..."
     sudo apt install apache2 -y
+  else
+  fi  
 fi  
 # Apache should now exist either it was already installed or it was just installed
 
@@ -194,6 +196,7 @@ else
     sudo apt install python3-certbot-apache -y
     sudo systemctl restart apache2
   else
+  fi
 fi
 
 
