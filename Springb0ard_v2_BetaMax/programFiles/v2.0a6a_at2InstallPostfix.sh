@@ -4,6 +4,8 @@
 # sudo chmod +x v2.0a6a_at2InstallPostfix.sh
 # ./v2.0a6a_at2InstallPostfix.sh
 #
+#sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh
+
 # Purpose this will probably replace 0a5d
 # This version swaps the standalone cert with a cert amendment to a config file.
 
@@ -34,7 +36,7 @@ sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser
 sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt)
 myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt)
 webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt)
-#webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+#mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 #defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
 #scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
 echo "           vArs Test:"
@@ -49,7 +51,7 @@ echo "webAdminEmail=$webAdminEmail"
 echo "-----------------------------"
 echo "Check the values above in order for this script to work none of these values can be blank"
 read -p "Press enter to continue, or exit the script with CTRL+C" meh
-#echo "webDomainName=$webDomainName"
+#echo "mailDomain=$mailDomain"
 #echo "defaultScpAddr=$defaultScpAddr"
 #echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
@@ -105,70 +107,70 @@ fi
 # Apache should now exist either it was already installed or it was just installed
 
 # Check if config file is present
-configFile="/etc/apache2/sites-available/${webDomainName}.conf"
+configFile="/etc/apache2/sites-available/${mailDomain}.conf"
 if [ ! -f "$configFile" ]; then
-  echo "Config file for domain '$webDomainName' not found. Please create a config file before obtaining SSL certificate."
+  echo "Config file for domain '$mailDomain' not found. Please create a config file before obtaining SSL certificate."
   #exit 1
-  echo "Creating a site directory for $webDomainName"
-  sudo mkdir -p /var/www/$webDomainName/public_html
+  echo "Creating a site directory for $mailDomain"
+  sudo mkdir -p /var/www/$mailDomain/public_html
   echo "-----------------------------------------------"
   ls /var/www/
   echo "-----------------------------------------------"
-  ls /var/www/$webDomainName
+  ls /var/www/$mailDomain
   echo "-----------------------------------------------"
   echo " "
   echo "Create Apache2 configuration file"
-cat > /tmp/$webDomainName.conf <<EOF
+cat > /tmp/$mailDomain.conf <<EOF
   <VirtualHost *:80>
       ServerAdmin $webAdminEmail
-      ServerName $webDomainName
-      ServerAlias www.$webDomainName
-      ServerAlias mail.$webDomainName
-      DocumentRoot /var/www/$webDomainName/public_html
+      ServerName $mailDomain
+      ServerAlias www.$mailDomain
+      ServerAlias mail.$mailDomain
+      DocumentRoot /var/www/$mailDomain/public_html
       ErrorLog ${APACHE_LOG_DIR}/error.log
       CustomLog ${APACHE_LOG_DIR}/access.log combined
-    <Directory /var/www/$webDomainName/public_html/>
+    <Directory /var/www/$mailDomain/public_html/>
             AllowOverride All
     </Directory>
   </VirtualHost>
 EOF
   echo "verify that config file was created in tmp dir:"
   echo "--------------------------------------------"
-  cat /tmp/$webDomainName.conf
+  cat /tmp/$mailDomain.conf
   echo "--------------------------------------------"
   echo "Moving config file to /etc/apache2/sites-available/"
-  sudo mv /tmp/$webDomainName.conf /etc/apache2/sites-available/
+  sudo mv /tmp/$mailDomain.conf /etc/apache2/sites-available/
   echo "config file check in /etc/apache2/sites-available"
   echo "--------------------------------------------"
   sudo ls /etc/apache2/sites-available
   echo "--------------------------------------------"
   echo " "
   echo "Configure permissions for the Web directory"
-  sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
+  sudo chown -R www-data:www-data /var/www/$mailDomain/public_html
   echo " "
   echo "Enable Website"
-  sudo a2ensite $webDomainName.conf
+  sudo a2ensite $mailDomain.conf
   echo " "
   echo "Restart Apache"
   sudo systemctl restart apache2
 else
-  echo "an apache config file for $webDomainName was located"  
+  echo "an apache config file for $mailDomain was located"  
   echo "-------------------------------------------------------------"
-  sudo cat /etc/apache2/sites-available/$webDomainName.conf
+  sudo cat /etc/apache2/sites-available/$mailDomain.conf
   echo "-------------------------------------------------------------"
-  echo "Ammending the config file with an additional alias mail.$webDomainName"
-  sudo sed -i "/ServerAlias/a ServerAlias mail.$webDomainName" /etc/apache2/sites-available/$webDomainName.conf
+  echo "Ammending the config file with an additional alias mail.$mailDomain"
+  sudo sed -i "/ServerAlias/a ServerAlias mail.$mailDomain" /etc/apache2/sites-available/$mailDomain.conf
   echo ""
   echo "Here is the ammended config file:"
   echo "-------------------------------------------------------------"
-  sudo cat /etc/apache2/sites-available/$webDomainName.conf
+  sudo cat /etc/apache2/sites-available/$mailDomain.conf
   echo "-------------------------------------------------------------"
   echo "Verifying that the site is enabled..."
   echo "Verify permissions for the Web directory..."
-  sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
+  sudo chown -R www-data:www-data /var/www/$mailDomain/public_html
   echo " "
   echo "Verify the website is enabled..."
-  sudo a2ensite $webDomainName.conf
+  sudo a2ensite $mailDomain.conf
   echo " "
   echo "Restarting Apache"
   sudo systemctl restart apache2
@@ -367,7 +369,7 @@ echo "--------------------------------------------------------------------------
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 #
 echo "Installing SSL certificate via Certbot..."
-sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
+sudo certbot --apache -d $mailDomain -d www.$mailDomain -d mail.$mailDomain 
 #
 sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/$mailDomain/fullchain.pem"
 sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/$mailDomain/privkey.pem"
