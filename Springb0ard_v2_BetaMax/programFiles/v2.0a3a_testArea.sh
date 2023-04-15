@@ -8,7 +8,7 @@
 
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 read -p "Please enter the domain name:   " webDomainName
-#webDomainName="certloop.com"
+webDomainName="certloop.com"
 echo "Checking for the existence of apache web server..."
 # Check if Apache is installed using dpkg
 if dpkg -s apache2 >/dev/null 2>&1; then
@@ -53,7 +53,7 @@ else
   #echo "Checking for the existence of Nginx web server..."
   echo "This system is currently designed around and dependent on the Apache2 webServer"
   read -p "Would you like to install Apache2? y/n:   " checkApacheInstallPref
-  if [ "$checkApacheInstallPref" = "y" || "$checkApacheInstallPref" = "Y" ]; then
+  if [ "$checkApacheInstallPref" = "y" ] || [ "$checkApacheInstallPref" = "Y" ]; then
     echo "Installing Apache Webserver..."
     sudo apt install apache2 -y
   fi  
@@ -203,7 +203,8 @@ fi
 
 # Run Certbot to obtain SSL certificate
 read -p "Are you ready to deploy an ssl certificate for your webserver  y/n:   " checkCertInstallPref
-if [ "$checkCertInstallPref" = "y" -o "$checkCertInstallPref" = "Y" ]; then
+#if [ "$checkCertInstallPref" = "y" -o "$checkCertInstallPref" = "Y" ]; then
+if [ "$checkCertInstallPref" = "y" ] || [ "$checkCertInstallPref" = "Y" ]; then
   echo "running: certbot --apache -d $webDomainName"
   sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
 else
