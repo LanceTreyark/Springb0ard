@@ -20,7 +20,7 @@ fi
 
   # Check if Apache is installed using which
 if which apache2 >/dev/null 2>&1; then
-  #echo "Postfix is installed (checked using 'which' command)."
+  #echo "Apache2 is installed (checked using 'which' command)."
   apacheWhichTest="1"
 else
   apacheWhichTest="0"
@@ -134,8 +134,6 @@ fi
 # Now at this point we have apache configured and ready to obtain an ssl certificate 
 # but, is certbot installed?
 
-##################################################
-
 echo "Checking for the existence of Certbot..."
 # Check if Certbot is installed using dpkg
 if dpkg -s certbot >/dev/null 2>&1; then
@@ -197,9 +195,54 @@ else
   fi
 fi
 
+# now that certbot is installed we need to make sure the proper ports are forwarded through the firewall, but
+# do we even have a firewall? 
 
-##################################################
+echo "Checking for the existence of ufw..."
 
+# Check if ufw is installed using dpkg
+if dpkg -s ufw >/dev/null 2>&1; then
+  ufwDpkgTest="1"
+else
+  ufwDpkgTest="0"
+fi
+
+# Check if ufw is installed using which
+if which ufw >/dev/null 2>&1; then
+  ufwWhichTest="1"
+else
+  ufwWhichTest="0"
+fi  
+
+# Check if ufw is executable using command -v
+if [ -x "$(command -v ufw)" ]; then
+    ufwExeTest="1"
+else    
+    ufwExeTest="0"
+fi
+
+# Check if ufw is active using systemctl
+if systemctl is-active --quiet ufw; then
+  ufwSystemCtlTest="1"
+else
+  ufwSystemCtlTest="0"  
+fi
+
+if [ $((ufwDpkgTest + ufwWhichTest + ufwExeTest + ufwSystemCtlTest)) -ge 1 ]; then
+  echo "ufw was detected"
+  echo "opening WWW ports..."
+  sudo ufw allow in "WWW Full"
+else
+  echo "ufw not found"
+  echo ""
+  read -p "Would you like to install ufw? y/n:   " checkUfwInstallPref
+  if [ "$checkUfwInstallPref" = "y" ] || [ "$checkUfwInstallPref" = "Y" ]; then
+    echo "Installing ufw..."
+    sudo apt install ufw -y
+    echo "opening WWW ports..."
+    sudo ufw allow in "WWW Full"    
+  fi
+fi
 
 # Run Certbot to obtain SSL certificate
 read -p "Are you ready to deploy an ssl certificate for your webserver  y/n:   " checkCertInstallPref
