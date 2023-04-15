@@ -4,8 +4,34 @@
 # sb-test         --Run test script
 # sb-etest        --Edit test script
 
+echo "$webAdminEmail" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt
+echo "$regMailUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt
+echo "$mailDomain" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt
+#Call your vArs!
+#yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)
+sudoUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUser.txt)
+sudoUserID=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/sudoUserID.txt)
+myIP=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/myIP.txt)
+webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt)
+#mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
+#defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
+#scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
+echo "           vArs Test:"
+echo "-----------------------------"
+#echo "yourDomain=$yourDomain"
+echo "mailDomain=$mailDomain"
+echo "regMailUser=$regMailUser"
+echo "sudoUser=$sudoUser"
+echo "sudoUserID=$sudoUserID"
+echo "myIP=$myIP"
+echo "webAdminEmail=$webAdminEmail"
+echo "-----------------------------"
 
+sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
 
+<<comment
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 read -p "Please enter the domain name:   " webDomainName
 webDomainName="certloop.com"
@@ -255,6 +281,7 @@ else
   echo ""
 fi
 echo "Goodbye"  
+comment
 <<comment
 echo "closing unused mail ports..."
 #sudo ufw allow 25

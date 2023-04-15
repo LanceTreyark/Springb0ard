@@ -485,7 +485,7 @@ echo "Additional security options"
 echo ""
 echo "Skipping for now..."
 echo ""
-echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
+sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
 sudo postmap /etc/postfix/virtual
 sudo systemctl restart postfix
 read -p "Press Enter to continue to DKIM generation" meh
