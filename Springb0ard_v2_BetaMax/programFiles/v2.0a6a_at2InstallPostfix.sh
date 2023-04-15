@@ -53,6 +53,173 @@ read -p "Press enter to continue, or exit the script with CTRL+C" meh
 #echo "defaultScpAddr=$defaultScpAddr"
 #echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
+
+echo "Checking for the existence of apache web server..."
+# Check if Apache is installed using dpkg
+if dpkg -s apache2 >/dev/null 2>&1; then
+  #echo "Apache is installed (checked using 'dpkg' command)."
+  apacheDpkgTest="1"
+else
+  apacheDpkgTest="0"
+fi
+
+  # Check if Apache is installed using which
+if which apache2 >/dev/null 2>&1; then
+  #echo "Apache2 is installed (checked using 'which' command)."
+  apacheWhichTest="1"
+else
+  apacheWhichTest="0"
+fi  
+
+if [ -x "$(command -v apache2)" ]; then
+    #echo "Apache is installed & executable (checked using 'dpkg' and 'which' commands)."
+    apacheExeTest="1"
+else    
+    #echo "Apache is not installed & executable (checked using 'dpkg' and 'which' commands)."
+    apacheExeTest="0"
+fi
+
+# Check if Apache is active using systemctl
+if systemctl is-active --quiet apache2; then
+  #echo "Apache is active (checked using 'systemctl' command)."
+  apacheSystemCtlTest="1"
+else
+  #echo "Apache is not active (checked using 'systemctl' command)."
+  #exit 1
+  apacheSystemCtlTest="0"  
+fi
+
+if [ $((apacheDpkgTest + apacheWhichTest + apacheExeTest + apacheSystemCtlTest)) -ge 1 ]; then
+  echo "Apache was detected"
+else
+  echo "Apache not found"
+  echo ""
+  #echo "Checking for the existence of Nginx web server..."
+  echo "This system is currently designed around and dependent on the Apache2 webServer"
+  read -p "Would you like to install Apache2? y/n:   " checkApacheInstallPref
+  if [ "$checkApacheInstallPref" = "y" ] || [ "$checkApacheInstallPref" = "Y" ]; then
+    echo "Installing Apache Webserver..."
+    sudo apt install apache2 -y
+  fi  
+fi  
+# Apache should now exist either it was already installed or it was just installed
+
+# Check if config file is present
+configFile="/etc/apache2/sites-available/${webDomainName}.conf"
+if [ ! -f "$configFile" ]; then
+  echo "Config file for domain '$webDomainName' not found. Please create a config file before obtaining SSL certificate."
+  #exit 1
+  echo "Creating a site directory for $webDomainName"
+  sudo mkdir -p /var/www/$webDomainName/public_html
+  echo "-----------------------------------------------"
+  ls /var/www/
+  echo "-----------------------------------------------"
+  ls /var/www/$webDomainName
+  echo "-----------------------------------------------"
+  echo " "
+  echo "Create Apache2 configuration file"
+cat > /tmp/$webDomainName.conf <<EOF
+  <VirtualHost *:80>
+      ServerAdmin $webAdminEmail
+      ServerName $webDomainName
+      ServerAlias www.$webDomainName
+      ServerAlias mail.$webDomainName
+      DocumentRoot /var/www/$webDomainName/public_html
+      ErrorLog ${APACHE_LOG_DIR}/error.log
+      CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory /var/www/$webDomainName/public_html/>
+            AllowOverride All
+    </Directory>
+  </VirtualHost>
+EOF
+  echo "verify that config file was created in tmp dir:"
+  echo "--------------------------------------------"
+  cat /tmp/$webDomainName.conf
+  echo "--------------------------------------------"
+  echo "Moving config file to /etc/apache2/sites-available/"
+  sudo mv /tmp/$webDomainName.conf /etc/apache2/sites-available/
+  echo "config file check in /etc/apache2/sites-available"
+  echo "--------------------------------------------"
+  sudo ls /etc/apache2/sites-available
+  echo "--------------------------------------------"
+  echo " "
+  echo "Configure permissions for the Web directory"
+  sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
+  echo " "
+  echo "Enable Website"
+  sudo a2ensite $webDomainName.conf
+  echo " "
+  echo "Restart Apache"
+  sudo systemctl restart apache2
+else
+  echo "an apache config file for $webDomainName was located"  
+  echo "-------------------------------------------------------------"
+  sudo cat /etc/apache2/sites-available/$webDomainName.conf
+  echo "-------------------------------------------------------------"
+  echo "Ammending the config file with an additional alias mail.$webDomainName"
+  sudo sed -i "/ServerAlias/a ServerAlias mail.$webDomainName" /etc/apache2/sites-available/$webDomainName.conf
+  echo ""
+  echo "Here is the ammended config file:"
+  echo "-------------------------------------------------------------"
+  sudo cat /etc/apache2/sites-available/$webDomainName.conf
+  echo "-------------------------------------------------------------"
+  echo "Verifying that the site is enabled..."
+  echo "Verify permissions for the Web directory..."
+  sudo chown -R www-data:www-data /var/www/$webDomainName/public_html
+  echo " "
+  echo "Verify the website is enabled..."
+  sudo a2ensite $webDomainName.conf
+  echo " "
+  echo "Restarting Apache"
+  sudo systemctl restart apache2
+fi
+
+echo "Checking for the existence of ufw..."
+
+# Check if ufw is installed using dpkg
+if dpkg -s ufw >/dev/null 2>&1; then
+  ufwDpkgTest="1"
+else
+  ufwDpkgTest="0"
+fi
+
+# Check if ufw is installed using which
+if which ufw >/dev/null 2>&1; then
+  ufwWhichTest="1"
+else
+  ufwWhichTest="0"
+fi  
+
+# Check if ufw is executable using command -v
+if [ -x "$(command -v ufw)" ]; then
+    ufwExeTest="1"
+else    
+    ufwExeTest="0"
+fi
+
+# Check if ufw is active using systemctl
+if systemctl is-active --quiet ufw; then
+  ufwSystemCtlTest="1"
+else
+  ufwSystemCtlTest="0"  
+fi
+
+if [ $((ufwDpkgTest + ufwWhichTest + ufwExeTest + ufwSystemCtlTest)) -ge 1 ]; then
+  echo "ufw was detected"
+  echo "opening WWW ports..."
+  sudo ufw allow in "WWW Full"
+else
+  echo "ufw not found"
+  echo ""
+  read -p "Would you like to install ufw? y/n:   " checkUfwInstallPref
+  if [ "$checkUfwInstallPref" = "y" ] || [ "$checkUfwInstallPref" = "Y" ]; then
+    echo "Installing ufw..."
+    sudo apt install ufw -y
+    #echo "opening WWW ports..."
+    #sudo ufw allow in "WWW Full"    
+  fi
+fi
+
 echo "Opening required mail ports..."
 sudo ufw allow 25
 #sudo ufw allow 143
@@ -109,8 +276,8 @@ sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/postfix
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
-sudo apt install certbot -y
-echo "creating standalone certificate for the email"
+#sudo apt install certbot -y
+#echo "creating standalone certificate for the email"
 #
 # PROBLEM
 # The version of certbot should be the same as the one used to certify the website 
@@ -121,6 +288,73 @@ echo "creating standalone certificate for the email"
 # sudo snap install --classic certbot
 # sudo apt install python3-certbot-apache -y
 #
+
+echo "Checking for the existence of Certbot..."
+# Check if Certbot is installed using dpkg
+if dpkg -s certbot >/dev/null 2>&1; then
+  certbotDpkgTest="1"
+else
+  certbotDpkgTest="0"
+fi
+
+# Check if Certbot is installed using which
+if which certbot >/dev/null 2>&1; then
+  certbotWhichTest="1"
+else
+  certbotWhichTest="0"
+fi  
+
+# Check if Certbot is executable using command -v
+if [ -x "$(command -v certbot)" ]; then
+    certbotExeTest="1"
+else    
+    certbotExeTest="0"
+fi
+
+# Check if Certbot is active using systemctl
+if systemctl is-active --quiet certbot; then
+  certbotSystemCtlTest="1"
+else
+  certbotSystemCtlTest="0"  
+fi
+
+if [ $((certbotDpkgTest + certbotWhichTest + certbotExeTest + certbotSystemCtlTest)) -ge 1 ]; then
+  echo "Certbot was detected"
+else
+  echo "Certbot not found"
+  echo ""
+  read -p "Would you like to install Certbot? y/n:   " checkCertbotInstallPref
+  if [ "$checkCertbotInstallPref" = "y" ] || [ "$checkCertbotInstallPref" = "Y" ]; then
+    echo "Installing Certbot..."
+    #sudo apt install certbot -y
+    echo "Installing dependencies for certbot"
+    echo ""
+    echo "+ Snap D"
+    sudo apt install snapd
+    echo " "
+    echo "+ Snap Core"
+    sudo snap install core
+    echo " "
+    echo "Refresh Snap Core"
+    sudo snap refresh core
+    echo " "
+    echo "Installing Certbot"
+    sudo snap install --classic certbot
+    echo " "
+    echo "Adding symbolic link for Certbot"
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    echo "Installing apache plugin..."
+    sudo service apache2 reload
+    sudo apt install python3-certbot-apache -y
+    sudo systemctl restart apache2
+  fi
+fi
+
+<<comment
+This new SSL certification method ammends an existing certificate or combines everything into on cert
+without subdomains. This script has been modified to remove the mail.example.com subdomain from our 
+certificate path declarations.
+comment
 echo ""
 echo "your DNS needs to look like the following before proceeding:"
 echo "Where I use '@' below you will see $mailDomain when It's been entered correctly into DNS"
@@ -132,10 +366,11 @@ echo "| MX             @               mail.$mailDomain                  300    
 echo "-------------------------------------------------------------------------------------"
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 #
-sudo certbot certonly --standalone -d mail.$mailDomain
+echo "Installing SSL certificate via Certbot..."
+sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
 #
-sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/mail.$mailDomain/fullchain.pem"
-sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/mail.$mailDomain/privkey.pem"
+sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/$mailDomain/fullchain.pem"
+sudo postconf -e "smtpd_tls_key_file = /etc/letsencrypt/live/$mailDomain/privkey.pem"
 echo "installing Dovecot"
 sudo apt install dovecot-common dovecot-imapd dovecot-pop3d -y 
 sudo cp -r /etc/dovecot /home/$sudoUser/
@@ -227,8 +462,8 @@ sudo sed -i "s/#ssl_min_protocol = TLSv1/ssl_min_protocol = TLSv1/" /etc/dovecot
 sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 # or if thats not there do this
 sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
 echo ""
 sudo sed -i "s/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
 echo "Check the Dovecot configuration"

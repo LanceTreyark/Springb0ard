@@ -244,7 +244,7 @@ else
   fi
 fi
 
-# Run Certbot to obtain SSL certificate
+# Run Certbot to obtain SSL certificate skip this this will just run as usual in "AT2" v2.0a6a_at2InstallPostfix.sh
 read -p "Are you ready to deploy an ssl certificate for your webserver  y/n:   " checkCertInstallPref
 #if [ "$checkCertInstallPref" = "y" -o "$checkCertInstallPref" = "Y" ]; then
 if [ "$checkCertInstallPref" = "y" ] || [ "$checkCertInstallPref" = "Y" ]; then
