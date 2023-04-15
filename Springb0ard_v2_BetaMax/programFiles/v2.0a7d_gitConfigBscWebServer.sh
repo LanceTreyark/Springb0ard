@@ -50,6 +50,7 @@ cat > /tmp/$webDomainName.conf <<EOF
     ServerAdmin $webAdminEmail
     ServerName $webDomainName
     ServerAlias www.$webDomainName
+    #ServerAlias mail.$webDomainName
     DocumentRoot /var/www/$webDomainName/public_html
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
@@ -79,7 +80,9 @@ echo "Restart Apache"
 sudo systemctl restart apache2
 echo " "
 echo "Obtain SSL Certificate"
-sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
+#sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
+sudo certbot --apache -d $webDomainName -d www.$webDomainName $d $existingSubDomain 
+#sudo certbot --apache $d $existingSubDomain -d $webDomainName -d www.$webDomainName
 echo " "
 echo "Restarting Apache..."
 sudo systemctl restart apache2
