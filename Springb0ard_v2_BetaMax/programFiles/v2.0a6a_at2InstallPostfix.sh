@@ -151,7 +151,7 @@ EOF
   echo "Restart Apache"
   sudo systemctl restart apache2
   echo "Creating a Sample page in the web directory for $mailDomain"
-  echo " installing dependencies, these should already be installed..."
+  echo "Installing dependencies, these should already be installed..."
   sudo apt install snapd -y
   sudo snap install core
   sudo apt install curl -y
