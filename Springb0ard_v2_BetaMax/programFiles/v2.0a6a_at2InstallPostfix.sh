@@ -51,9 +51,6 @@ echo "webAdminEmail=$webAdminEmail"
 echo "-----------------------------"
 echo "Check the values above in order for this script to work none of these values can be blank"
 read -p "Press enter to continue, or exit the script with CTRL+C" meh
-#echo "mailDomain=$mailDomain"
-#echo "defaultScpAddr=$defaultScpAddr"
-#echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
 
 echo "Checking for the existence of apache web server..."
@@ -109,7 +106,8 @@ fi
 # Check if config file is present
 configFile="/etc/apache2/sites-available/${mailDomain}.conf"
 if [ ! -f "$configFile" ]; then
-  echo "Config file for domain '$mailDomain' not found. Please create a config file before obtaining SSL certificate."
+  echo "Config file for domain '$mailDomain' not found."
+  echo "Creating a config file for SSL certificate."
   #exit 1
   echo "Creating a site directory for $mailDomain"
   sudo mkdir -p /var/www/$mailDomain/public_html
@@ -155,16 +153,6 @@ EOF
   sudo systemctl restart apache2
 else
   echo "an apache config file for $mailDomain was located"  
-  echo "-------------------------------------------------------------"
-  sudo cat /etc/apache2/sites-available/$mailDomain.conf
-  echo "-------------------------------------------------------------"
-  #echo "Ammending the config file with an additional alias mail.$mailDomain"
-  #sudo sed -i "/ServerAlias/a ServerAlias mail.$mailDomain" /etc/apache2/sites-available/$mailDomain.conf
-  #echo ""
-  #echo "Here is the ammended config file:"
-  #echo "-------------------------------------------------------------"
-  #sudo cat /etc/apache2/sites-available/$mailDomain.conf
-  #echo "-------------------------------------------------------------"
   echo "Verifying that the site is enabled..."
   echo "Verify permissions for the Web directory..."
   sudo chown -R www-data:www-data /var/www/$mailDomain/public_html
@@ -217,8 +205,6 @@ else
   if [ "$checkUfwInstallPref" = "y" ] || [ "$checkUfwInstallPref" = "Y" ]; then
     echo "Installing ufw..."
     sudo apt install ufw -y
-    #echo "opening WWW ports..."
-    #sudo ufw allow in "WWW Full"    
   fi
 fi
 
@@ -278,18 +264,6 @@ sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/postfix
 echo "Configuring Postfix..."
 sudo postconf -e 'home_mailbox = Maildir/'
 sudo postconf -e "mydomain = $mailDomain"
-#sudo apt install certbot -y
-#echo "creating standalone certificate for the email"
-#
-# PROBLEM
-# The version of certbot should be the same as the one used to certify the website 
-# standard is --classic.
-# creating a standalone cert is not ideal if the mail subdomain is being added along w/
-# an exising site's config file.
-##
-# sudo snap install --classic certbot
-# sudo apt install python3-certbot-apache -y
-#
 
 echo "Checking for the existence of Certbot..."
 # Check if Certbot is installed using dpkg
