@@ -29,8 +29,8 @@ echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "-----------------------------"
 
-sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
-
+#sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
+sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
 <<comment
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 read -p "Please enter the domain name:   " webDomainName

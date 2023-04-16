@@ -402,6 +402,7 @@ touch /tmp/virtual
 echo "postmaster@$mailDomain root" >> /tmp/virtual
 echo "root@$mailDomain root" >> /tmp/virtual
 echo "info@$mailDomain info" >> /tmp/virtual
+echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /tmp/virtual
 sudo cp /tmp/virtual /etc/postfix/ 
 sudo postmap /etc/postfix/virtual
 sudo sed -i "/#smtps     inet  n       -       y       -       -       smtpd/a smtps     inet  n       -       y       -       -       smtpd" /etc/postfix/master.cf
@@ -485,7 +486,8 @@ echo "Additional security options"
 echo ""
 echo "Skipping for now..."
 echo ""
-sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
+#sudo cat /etc/postfix/virtual
+#echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
 sudo postmap /etc/postfix/virtual
 sudo systemctl restart postfix
 read -p "Press Enter to continue to DKIM generation" meh
