@@ -32,7 +32,7 @@ echo "-----------------------------"
 # This script will track updates, manage the package and make upgrades available for install
 #
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh # already enabled CORE FUNCTION
-
+sudo timedatectl set-timezone America/Los_Angeles
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5f_atDebian10.DKIM.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh
