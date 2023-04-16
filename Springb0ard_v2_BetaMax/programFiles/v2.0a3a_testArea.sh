@@ -3,10 +3,7 @@
 # you can execute or edit this script with these alias commands:
 # sb-test         --Run test script
 # sb-etest        --Edit test script
-
-#echo "$webAdminEmail" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt
-#echo "$regMailUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt
-#echo "$mailDomain" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt
+#
 #Call your vArs!
 #yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
@@ -28,9 +25,26 @@ echo "sudoUserID=$sudoUserID"
 echo "myIP=$myIP"
 echo "webAdminEmail=$webAdminEmail"
 echo "-----------------------------"
-
+#
+#
+#
+  echo "Creating a Sample page in the web directory for $mailDomain"
+  echo " installing dependencies, these should already be installed..."
+  sudo apt install snapd -y
+  sudo snap install core
+  sudo apt install curl -y
+  mkdir /tmp/htmlSamplePage
+  curl -o /tmp/htmlSamplePage/index.html https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/index.html
+  curl -o /tmp/htmlSamplePage/styles.css https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/styles.css
+  curl -o /tmp/htmlSamplePage/robots.txt https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/robots.txt
+  echo "Moving the files to the web directory"
+  sudo cp -a /tmp/htmlSamplePage/. /var/www/$mailDomain/public_html/
+  echo "The script has concluded, go ahead and check $mailDomain"
+#
+#
+#
 #sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
-sudo certbot --apache -d $mailDomain -d www.$mailDomain -d mail.$mailDomain 
+#sudo certbot --apache -d $mailDomain -d www.$mailDomain -d mail.$mailDomain 
 <<comment
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 read -p "Please enter the domain name:   " webDomainName
