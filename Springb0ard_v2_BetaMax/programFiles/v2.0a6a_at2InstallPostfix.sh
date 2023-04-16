@@ -354,6 +354,9 @@ echo "--------------------------------------------------------------------------
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 #
 echo "Installing SSL certificate via Certbot..."
+sudo certbot --apache -d $mailDomain -d www.$mailDomain
+sleep 1
+echo "Expanding certificate for mail.$mailDomain"
 sudo certbot --apache -d $mailDomain -d www.$mailDomain -d mail.$mailDomain 
 #
 sudo postconf -e "smtpd_tls_cert_file = /etc/letsencrypt/live/$mailDomain/fullchain.pem"
