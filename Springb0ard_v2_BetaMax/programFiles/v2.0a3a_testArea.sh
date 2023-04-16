@@ -4,9 +4,9 @@
 # sb-test         --Run test script
 # sb-etest        --Edit test script
 
-echo "$webAdminEmail" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt
-echo "$regMailUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt
-echo "$mailDomain" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt
+#echo "$webAdminEmail" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/webAdminEmail.txt
+#echo "$regMailUser" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt
+#echo "$mailDomain" > /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt
 #Call your vArs!
 #yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
@@ -30,7 +30,7 @@ echo "webAdminEmail=$webAdminEmail"
 echo "-----------------------------"
 
 #sudo echo "$sudoUser@$mailDomain $sudoUser $regMailUser@$mailDomain" >> /etc/postfix/virtual
-sudo certbot --apache -d $webDomainName -d www.$webDomainName -d mail.$webDomainName 
+sudo certbot --apache -d $mailDomain -d www.$mailDomain -d mail.$mailDomain 
 <<comment
 echo "THIS TEST IS PART OF v2.0a6a_at2InstallPostfix.sh"
 read -p "Please enter the domain name:   " webDomainName

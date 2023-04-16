@@ -158,13 +158,13 @@ else
   echo "-------------------------------------------------------------"
   sudo cat /etc/apache2/sites-available/$mailDomain.conf
   echo "-------------------------------------------------------------"
-  echo "Ammending the config file with an additional alias mail.$mailDomain"
-  sudo sed -i "/ServerAlias/a ServerAlias mail.$mailDomain" /etc/apache2/sites-available/$mailDomain.conf
-  echo ""
-  echo "Here is the ammended config file:"
-  echo "-------------------------------------------------------------"
-  sudo cat /etc/apache2/sites-available/$mailDomain.conf
-  echo "-------------------------------------------------------------"
+  #echo "Ammending the config file with an additional alias mail.$mailDomain"
+  #sudo sed -i "/ServerAlias/a ServerAlias mail.$mailDomain" /etc/apache2/sites-available/$mailDomain.conf
+  #echo ""
+  #echo "Here is the ammended config file:"
+  #echo "-------------------------------------------------------------"
+  #sudo cat /etc/apache2/sites-available/$mailDomain.conf
+  #echo "-------------------------------------------------------------"
   echo "Verifying that the site is enabled..."
   echo "Verify permissions for the Web directory..."
   sudo chown -R www-data:www-data /var/www/$mailDomain/public_html
