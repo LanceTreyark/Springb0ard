@@ -8,10 +8,10 @@ echo "The script is live!"
 
 # First thing to do is add the data for our site without springb0ard.
 
-read -p "Please enter the domain name to use for this website, Don't add the 'www., mail. or smtp.' just the domain:   " webDomainName
-#webDomainName="example.com"
-read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
-#webAdminEmail="name@example.com"
+#read -p "Please enter the domain name to use for this website, Don't add the 'www., mail. or smtp.' just the domain:   " webDomainName
+webDomainName="archiveninja.com"
+#read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
+webAdminEmail="info@treyark.com"
 echo ""
 
 echo ""
@@ -43,7 +43,7 @@ echo "Refresh Snap Core"
 sudo snap refresh core
 echo " "
 echo "Installing Certbot"
-sudo snap install --classic certbot
+sudo snap install --classic certbot -y
 echo " "
 echo "Adding symbolic link for Certbot"
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
