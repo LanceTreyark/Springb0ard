@@ -123,7 +123,6 @@ cat > /tmp/$mailDomain.conf <<EOF
       ServerAdmin $webAdminEmail
       ServerName $mailDomain
       ServerAlias www.$mailDomain
-      ServerAlias mail.$mailDomain
       DocumentRoot /var/www/$mailDomain/public_html
       ErrorLog ${APACHE_LOG_DIR}/error.log
       CustomLog ${APACHE_LOG_DIR}/access.log combined
