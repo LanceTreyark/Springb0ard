@@ -1,6 +1,3 @@
-*
-**
-***
 
 Springb0ard Help Menu:
 -----------------------------------------------------------
@@ -38,6 +35,3 @@ sb-test         --Run test script
 
 sb-etest        --Edit test script
 
-***
-**
-*
