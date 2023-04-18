@@ -63,11 +63,11 @@ echo "Restarting Apache..."
 sudo systemctl restart apache2
 echo "The script has concluded."
 echo "Preparing to deploy landing page..."
-
-  echo "Creating a Sample page in the web directory for $webDomainName"
-  curl -o /tmp/htmlSamplePage/index.html https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/index.html
-  curl -o /tmp/htmlSamplePage/styles.css https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/styles.css
-  curl -o /tmp/htmlSamplePage/robots.txt https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/robots.txt
-  echo "Moving the files to the web directory"
-  sudo cp -a /tmp/htmlSamplePage/. /var/www/$webDomainName/public_html/
-  echo "The script has concluded, go ahead and check $webDomainName"
+mkdir /tmp/htmlSamplePage
+echo "Creating a Sample page in the web directory for $webDomainName"
+curl -o /tmp/htmlSamplePage/index.html https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/index.html
+curl -o /tmp/htmlSamplePage/styles.css https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/styles.css
+curl -o /tmp/htmlSamplePage/robots.txt https://raw.githubusercontent.com/LanceTreyark/sampleLandingPage/main/robots.txt
+echo "Moving the files to the web directory"
+sudo cp -a /tmp/htmlSamplePage/. /var/www/$webDomainName/public_html/
+echo "The script has concluded, go ahead and check $webDomainName"
