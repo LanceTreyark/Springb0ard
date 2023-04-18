@@ -1,6 +1,6 @@
 #!/bin/bash
 # nano v2.0a7f_DeployWebsiteV3.sh
-# sudo chmos +x v2.0a7f_DeployWebsiteV3.sh
+# sudo chmod +x v2.0a7f_DeployWebsiteV3.sh
 # ./v2.0a7f_DeployWebsiteV3.sh
 #
 
