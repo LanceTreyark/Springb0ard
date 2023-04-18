@@ -34,6 +34,7 @@ echo "-----------------------------"
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh # already enabled CORE FUNCTION
 sudo timedatectl set-timezone America/Los_Angeles
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5f_atDebian10.DKIM.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5d_atInstallPostfix.sh
@@ -69,7 +70,8 @@ while read -r line; do
     echo "$line" >> /home/$sudoUser/.bash_aliases
   fi
 done <<EOF
-alias sb-mailserver="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh"
+alias sb-addsite="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh"
+alias sb-mailserver="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh"
 alias sb-dkim="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_atPostfix.DKIM.sh"
 alias sb-etest="nano /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3a_testArea.sh"
 alias sb-test="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a3a_testArea.sh"

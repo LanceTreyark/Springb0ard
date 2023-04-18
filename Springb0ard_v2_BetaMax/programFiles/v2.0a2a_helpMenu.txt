@@ -29,7 +29,7 @@ bootmail        --Reboots Postfix and Dovecot
 
 maillog         --Displays the last 100 lines of the postfix maillog
 
-sb-deploy       --This is used ONLY in the root email server installer after root is configured.
+sb-addsite      --This creates a www directory & deploys a new url + landing page.
 
 sb-test         --Run test script
 
