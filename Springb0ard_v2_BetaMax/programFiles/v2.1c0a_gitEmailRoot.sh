@@ -29,6 +29,7 @@ echo "The IP address for this server is: $myIP"
 sudo rm -r /tmp/ipSort3r.txt
 # IP -Out #
 read -p "Creating a new user with root privilages aka 'sudo user'. What would you like to set as the new username?:  " sudoUser
+#sudoUser="cornelius"
 echo ""
 read -p "Enter your Administrative email to use for SSL Certification:   " webAdminEmail
 #webAdminEmail="name@example.com"
