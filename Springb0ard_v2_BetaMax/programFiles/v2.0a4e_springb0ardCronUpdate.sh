@@ -5,6 +5,21 @@
 # It is assumed that this script is called to action by a crontab entry.
 # Update process for cron:
 #Call your vArs!
+
+
+LOCKFILE=/tmp/springb0ard_update.lock
+
+if [ -e $LOCKFILE ]
+then
+    echo "System update already running. Exiting."
+    exit 1
+fi
+
+# Create lock file
+touch $LOCKFILE
+
+# Run Script
+
 yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)
@@ -52,3 +67,6 @@ mv vArs /etc/springb0ard/vArsLog/$vArsFilename
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
 echo "$(date) Springb0ard Files Updated" >> /etc/springb0ard/springb0ardUpdate.log
+# Remove lock file
+rm $LOCKFILE
+echo "$(date) Springb0ard update ran successfully"

@@ -4,6 +4,20 @@
 # ./v2.0a4g_cronAptUpdate.sh
 # It is assumed that this script is called to action by a crontab entry.
 # Update process for cron:
+
+LOCKFILE=/tmp/system_update.lock
+
+if [ -e $LOCKFILE ]
+then
+    echo "System update already running. Exiting."
+    exit 1
+fi
+
+# Create lock file
+touch $LOCKFILE
+
+# Run system update Script
+
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
@@ -33,3 +47,7 @@ timeNow=$(date +%I%M%p)
 sudo apt update
 sudo apt upgrade -y
 echo "$(date) system update ran successfully" >> /etc/springb0ard/springb0ardUpdate.log
+# Remove lock file
+rm $LOCKFILE
+
+echo "$(date) System update ran successfully"
