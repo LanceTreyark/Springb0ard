@@ -3,6 +3,7 @@
 ***
 Latest Features:
 --------------------------------------------------
+April 20th 2023 --Springb0ard v2 is Public!
 April 8th 2023  --Added the help & latest features menu's
 
 ***
