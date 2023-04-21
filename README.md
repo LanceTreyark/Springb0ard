@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/LanceTreyark/Springb0ard">
-  <img width="400" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/Slide1.jpg">
+  <img width="400" alt="Springb0ard_view" src="frontend/src/assets/banner/banner.png">
   </a>
 </p>
 
