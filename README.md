@@ -7,13 +7,13 @@
 ## Springb0ard VPS Toolkit
 <p align="center">1/2
   <a href="https://www.youtube.com/watch?v=_u6wALtU9zs">
-  <img width="800" alt="Springb0ard_view" src="4.27.23_AA.png">
+  <img width="800" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/4.27.23_AA.png">
   </a>
 </p>
 
 <p align="center">2/2
   <a href="https://www.youtube.com/watch?v=Kz5WJSpwF08">
-  <img width="800" alt="Springb0ard_view" src="4.27.23_BB.png">
+  <img width="800" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/4.27.23_BB-1.png">
   </a>
 </p>
 
