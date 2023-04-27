@@ -7,7 +7,7 @@
 ## Springb0ard VPS Toolkit
 <p align="center">1/2
   <a href="https://www.youtube.com/watch?v=_u6wALtU9zs">
-  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/_u6wALtU9zs/mq2.webp?sqp=CMjrqqIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgZShQMA8=&rs=AOn4CLDy7a84K5hao-BM3rmEVZeSwluPwAA">
+  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/_u6wALtU9zs/mq2.webp?sqp=CMjrqqIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgZShQMA8=&rs=AOn4CLDy7a84K5hao-BM3rmEVZeSwluPwA">
   </a>
 </p>
 
