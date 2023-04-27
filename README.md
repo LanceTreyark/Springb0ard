@@ -7,13 +7,13 @@
 ## Springb0ard VPS Toolkit
 <p align="center">1/2
   <a href="https://www.youtube.com/watch?v=_u6wALtU9zs">
-  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/_u6wALtU9zs/mq2.webp?sqp=CMjrqqIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgZShQMA8=&rs=AOn4CLDy7a84K5hao-BM3rmEVZeSwluPwA">
+  <img width="800" alt="Springb0ard_view" src="4.27.23_AA">
   </a>
 </p>
 
 <p align="center">2/2
   <a href="https://www.youtube.com/watch?v=Kz5WJSpwF08">
-  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/Kz5WJSpwF08/mqdefault.webp?v=644ab5b8&sqp=CMzyqqIG&rs=AOn4CLAlzS-12xFmcxFrzXPd0DttwyGXhw">
+  <img width="800" alt="Springb0ard_view" src="4.27.23_BB">
   </a>
 </p>
 
