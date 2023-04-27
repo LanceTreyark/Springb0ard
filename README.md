@@ -8,6 +8,7 @@
 <p>1/2
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_u6wALtU9zs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </p>
+
 [![IMAGE ALT TEXT](https://www.youtube.com/watch?v=_u6wALtU9zs/0.jpg)](https://www.youtube.com/watch?v=_u6wALtU9zs "Video Title")
 
 <p>2/2
