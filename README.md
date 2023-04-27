@@ -5,21 +5,16 @@
 </p>
 
 ## Springb0ard VPS Toolkit
-<p>1/2
-<iframe width="560" height="315" src="https://www.youtube.com/embed/_u6wALtU9zs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p align="center">1/2
+  <a href="https://www.youtube.com/watch?v=_u6wALtU9zs">
+  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/_u6wALtU9zs/mq2.webp?sqp=CMjrqqIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgZShQMA8=&rs=AOn4CLDy7a84K5hao-BM3rmEVZeSwluPwAA">
+  </a>
 </p>
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/_u6wALtU9zs/0.jpg)](http://www.youtube.com/watch?v=_u6wALtU9zs "Video Title")
-
-
-[![1/2](https://i9.ytimg.com/vi_webp/_u6wALtU9zs/mq2.webp?sqp=CMjrqqIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEsgZShQMA8=&rs=AOn4CLDy7a84K5hao-BM3rmEVZeSwluPwA)](https://www.youtube.com/watch?v=_u6wALtU9zs "Video Title")
-
-<p>2/2
-<video width="320" height="240" controls>
-  <source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
-  <source src="https://youtu.be/Kz5WJSpwF08">
-
-</video>
+<p align="center">2/2
+  <a href="https://www.youtube.com/watch?v=Kz5WJSpwF08">
+  <img width="800" alt="Springb0ard_view" src="https://i9.ytimg.com/vi_webp/Kz5WJSpwF08/mqdefault.webp?v=644ab5b8&sqp=CMzyqqIG&rs=AOn4CLAlzS-12xFmcxFrzXPd0DttwyGXhw">
+  </a>
 </p>
 
 **Springb0ard v2 Release 4/20/2023**
