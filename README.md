@@ -5,6 +5,20 @@
 </p>
 
 ## Springb0ard VPS Toolkit
+<p>1/2
+<video width="320" height="240" controls>
+  <source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
+  <source src="https://youtu.be/_u6wALtU9zs">
+
+</video>
+</p>
+<p>2/2
+<video width="320" height="240" controls>
+  <source src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg>
+  <source src="https://youtu.be/Kz5WJSpwF08">
+
+</video>
+</p>
 
 **Springb0ard v2 Release 4/20/2023**
 **Full documentation for this software will be added over the following weeks and should be completed by the end of April 2023**
