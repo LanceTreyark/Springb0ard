@@ -4,14 +4,16 @@
   </a>
 </p>
 
-## Springb0ard VPS Toolkit
-<p align="center">1/2
+<h1 style="color: white; text-align: center;" >Springb0ard VPS Toolkit</h1>
+
+   <h2 style="color: white; text-align: center;" >Installation & Overview (1 of 2)</h2>
+    <p align="center">
   <a href="https://www.youtube.com/watch?v=_u6wALtU9zs" target="_blank">
   <img width="500" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/4.27.23_AA.png">
   </a>
 </p>
-
-<p align="center">2/2
+<h2 style="color: white; text-align: center;" >Installation & Overview (2 of 2)</h2>
+<p align="center">
   <a href="https://www.youtube.com/watch?v=Kz5WJSpwF08" target="_blank">
   <img width="500" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/4.27.23_BB-1.png">
   </a>
