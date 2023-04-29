@@ -100,6 +100,22 @@ alias maillog="sudo tail -n 100 /var/log/mail.log"
 #echo 'alias newAlias="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/x"
 EOF
 
+# Crontab SUDO ONLY
+# Set the path to the cron jobs file
+cron_jobs_file="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4f_cronJobs.txt"
+
+# Read the new cron jobs from file
+while read -r line; do
+  if ! sudo crontab -u root -l | grep -Fxq "$line"; then
+    # Add the new job to the crontab for root
+    (sudo crontab -u root -l 2>/dev/null; echo "$line") | sudo crontab -u root -
+    echo "Added to the crontab for root: $line"
+  else
+    echo "Already exists in the crontab for root: $line"
+  fi
+done < "$cron_jobs_file"
+
+<<comment
 # Crontab
 # Set the path to the cron jobs file
 cron_jobs_file="/etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a4f_cronJobs.txt"
@@ -114,3 +130,4 @@ while read -r line; do
     echo "Already exists in the crontab: $line"
   fi
 done < "$cron_jobs_file"
+comment
