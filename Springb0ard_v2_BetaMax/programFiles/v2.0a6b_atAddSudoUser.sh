@@ -21,9 +21,9 @@ read -p "Creating a new user with root privilages aka 'sudo user'. What would yo
 #sudoUser="cornelius"
 echo ""
 echo "Creating new user, you will need to create password for this"
-adduser $sudoUser
+sudo adduser $sudoUser
 echo "Adding new user to sudo group"
-usermod -aG sudo $sudoUser
+sudo usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
 echo "Copy authorized_keys over to $sudoUser"
 echo "/home/$sudoUser/.ssh/"
