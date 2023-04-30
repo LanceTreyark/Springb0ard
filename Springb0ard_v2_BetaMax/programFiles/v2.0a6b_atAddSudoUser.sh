@@ -27,16 +27,19 @@ sudo usermod -aG sudo $sudoUser
 sudoUserID=$(id -u $sudoUser)
 echo "Copy authorized_keys over to $sudoUser"
 echo "/home/$sudoUser/.ssh/"
-adminPubKeyString=$(cat .ssh/authorized_keys)
+#adminPubKeyString=$(cat .ssh/authorized_keys)
 #mkdir -p /home/$sudoUser/.ssh
 todaysDate=$(date +%m%d%y)
 timeNow=$(date +%I%M%p)
 tmpFilename="vArs${todaysDate}${timeNow}"
-mkdir -p /tmp/$tmpFileName/.ssh/
+#mkdir -p /tmp/$tmpFileName/.ssh/
 #ls /home/$sudoUser/.ssh/
 #echo $adminPubKeyString >> /home/$sudoUser/.ssh/authorized_keys
-echo $adminPubKeyString >> /tmp/$tmpFileName/.ssh/authorized_keys
-sudo mv /tmp/$tmpFileName/.ssh /home/$sudoUser/
+#echo $adminPubKeyString >> /tmp/$tmpFileName/.ssh/authorized_keys
+#sudo mv /tmp/$tmpFileName/.ssh /home/$sudoUser/
+sudo mkdir -p /home/$sudoUser/.ssh
+cd ~/
+sudo cp .ssh/authorized_keys /home/$sudoUser/.ssh/
 #ls /home/$sudoUser/.ssh/
 echo "Copy Alias commands to new user"
 #cat >/home/$sudoUser/.bash_aliases <<EOF
