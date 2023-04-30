@@ -28,14 +28,22 @@ sudoUserID=$(id -u $sudoUser)
 echo "Copy authorized_keys over to $sudoUser"
 echo "/home/$sudoUser/.ssh/"
 adminPubKeyString=$(cat .ssh/authorized_keys)
-mkdir -p /home/$sudoUser/.ssh
-ls /home/$sudoUser/.ssh/
-echo $adminPubKeyString >> /home/$sudoUser/.ssh/authorized_keys
-ls /home/$sudoUser/.ssh/
+#mkdir -p /home/$sudoUser/.ssh
+todaysDate=$(date +%m%d%y)
+timeNow=$(date +%I%M%p)
+tmpFilename="vArs${todaysDate}${timeNow}"
+mkdir -p /tmp/$tmpFileName/.ssh/
+#ls /home/$sudoUser/.ssh/
+#echo $adminPubKeyString >> /home/$sudoUser/.ssh/authorized_keys
+echo $adminPubKeyString >> /tmp/$tmpFileName/.ssh/authorized_keys
+sudo mv /tmp/$tmpFileName/.ssh /home/$sudoUser/
+#ls /home/$sudoUser/.ssh/
 echo "Copy Alias commands to new user"
-cat >/home/$sudoUser/.bash_aliases <<EOF
+#cat >/home/$sudoUser/.bash_aliases <<EOF
+cat >/tmp/$tmpFileName/.bash_aliases <<EOF
 $aliasCommands
 EOF
+sudo mv /tmp/$tmpFileName/.bash_aliases /home/$sudoUser/
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
 sudo chown -R $sudoUserID:$sudoUserID /home/$sudoUser/.ssh/
