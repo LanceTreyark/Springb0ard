@@ -34,6 +34,8 @@ echo "-----------------------------"
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh # already enabled CORE FUNCTION
 sudo timedatectl set-timezone America/Los_Angeles
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6c_install.XMPP.sh
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6b_atAddSudoUser.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5f_atDebian10.DKIM.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh
@@ -64,12 +66,15 @@ sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/microIn
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/dTools/Q_Com_v0.0.sh
 # Aliases
+# Remember to add these new commands to the help file
 while read -r line; do
   alias_name=$(echo "$line" | cut -d'"' -f2)
   if ! grep -q "$alias_name" /home/$sudoUser/.bash_aliases; then
     echo "$line" >> /home/$sudoUser/.bash_aliases
   fi
 done <<EOF
+alias sb-installxmpp=" sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6c_install.XMPP.sh"
+alias sb-addsudouser="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6b_atAddSudoUser.sh"
 alias sb-addsite="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh"
 alias sb-mailserver="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh"
 alias sb-dkim="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a5e_atPostfix.DKIM.sh"

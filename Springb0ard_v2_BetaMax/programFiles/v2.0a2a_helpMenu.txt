@@ -35,3 +35,5 @@ sb-test         --Run test script
 
 sb-etest        --Edit test script
 
+sb-addsudouser --Add a new Sudo user
+
