@@ -1,9 +1,5 @@
 #!/bin/bash
-# This is for running tests 
-# you can execute or edit this script with these alias commands:
-# sb-test         --Run test script
-# sb-etest        --Edit test script
-
+# v2.0a6d_showMailRecords.sh
 echo "The script is live!"
 #Call your vArs!
 yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)

@@ -34,6 +34,7 @@ echo "-----------------------------"
 #sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh # already enabled CORE FUNCTION
 sudo timedatectl set-timezone America/Los_Angeles
 sudo chown -R $sudoUserID:$sudoUserID /etc/springb0ard
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6d_showMailRecords.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6c_install.XMPP.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6b_atAddSudoUser.sh
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh
@@ -73,7 +74,8 @@ while read -r line; do
     echo "$line" >> /home/$sudoUser/.bash_aliases
   fi
 done <<EOF
-alias sb-installxmpp=" sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6c_install.XMPP.sh"
+alias sb-dns="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6d_showMailRecords.sh"
+alias sb-installxmpp="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6c_install.XMPP.sh"
 alias sb-addsudouser="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6b_atAddSudoUser.sh"
 alias sb-addsite="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a7f_DeployWebsiteV3.sh"
 alias sb-mailserver="sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a6a_at2InstallPostfix.sh"

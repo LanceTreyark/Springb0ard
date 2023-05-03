@@ -25,6 +25,8 @@ sb-mailserver   --Installs a Postfix/Dovecot email server and provides all requi
 
 hi              --Runs Debian's security and software updates.
 
+sb-dns          --Displays DNS Mail Server Records (DKIM, SPF, DMARC, etc.)
+
 bootmail        --Reboots Postfix and Dovecot
 
 maillog         --Displays the last 100 lines of the postfix maillog
