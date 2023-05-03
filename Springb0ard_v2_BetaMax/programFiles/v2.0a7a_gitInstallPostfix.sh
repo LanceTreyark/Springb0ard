@@ -120,7 +120,8 @@ sudo postconf -e "myhostname = mail.$mailDomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
-sudo postconf -e 'inet_protocols = ipv4'
+#sudo postconf -e 'inet_protocols = ipv4'
+sudo postconf -e 'inet_protocols = all'
 touch /tmp/sender_canonical
 echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
 sudo cp /tmp/sender_canonical /etc/postfix/
