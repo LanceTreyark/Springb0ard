@@ -46,7 +46,7 @@ echo "| A              @               $myIP                        300       N/
 echo "| A             WWW              $myIP                        300       N/A  "
 echo "| A             mail             $myIP                        300       N/A  "
 echo "| MX             @               mail.$mailDomain                  300       N/A  " 
-echo "| TXT            @              PASTE_SPF_RECORD_HERE                    300   N/A  "
+echo "| TXT            @              PASTE_SPF_RECORD_HERE                300       N/A  "
 echo "| TXT            @              PASTE_DKIM_KEYS_HERE                 300       N/A  " 
 echo "| TXT          _dmarc          PASTE_DMARC_RECORD_HERE               300       N/A  "
 echo "|------------------------------------------------------------------------------------|"
