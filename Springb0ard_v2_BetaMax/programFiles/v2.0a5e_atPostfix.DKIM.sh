@@ -29,6 +29,15 @@ echo "webAdminEmail=$webAdminEmail"
 #echo "defaultScpAddr=$defaultScpAddr"
 #echo "scpExportPath=$scpExportPath"
 echo "-----------------------------"
+# IPV6 -In
+myIPv6=$(ip addr show | awk '/inet6 .* scope global/ {split($2, arr, "/"); print arr[1]}')
+cat >/tmp/ipSorter.txt <<EOF
+$myIPv6
+EOF
+myIP6=$(awk '{print $1}' /tmp/ipSorter.txt)
+echo "The IPv6 address for this server is: $myIP6"
+rm -r /tmp/ipSorter.txt
+# IPV6 -Out
 sleep 1
 sudo apt install opendkim opendkim-tools -y
 sudo sed -i "/#Mode/a Mode                   sv" /etc/opendkim.conf
@@ -73,7 +82,7 @@ echo "| A              @               $myIP                        300       N/
 echo "| A             WWW              $myIP                        300       N/A  "
 echo "| A             mail             $myIP                        300       N/A  "
 echo "| MX             @               mail.$mailDomain                  300       N/A  " 
-echo "| TXT            @               v=spf1 ip4:$myIP -all        300       N/A  "  
+echo "| TXT            @   v=spf1 ip4:$myIP ip6:$myIP6 -all   300   N/A  "
 echo "| TXT            @              PASTE_DKIM_KEYS_HERE                 300       N/A  "  
 echo "| TXT          _dmarc          PASTE_DMARC_RECORD_HERE               300       N/A  "
 echo "|------------------------------------------------------------------------------------|"
