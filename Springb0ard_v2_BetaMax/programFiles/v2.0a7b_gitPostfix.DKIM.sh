@@ -74,6 +74,7 @@ header=$(cat /tmp/DKIM_Segmented.txt)
 header="default._domainkey IN TXT  ( \"v=DKIM1; h=sha256; k=rsa; \" \n$header)"  
 # This outputs the reformatted contents to DKIMwithHeader.txt
 echo -e "$header" > /home/$sudoUser/DKIMwithHeader.txt
+
 echo "-------------------------------------------------------------------------------------"
 echo "| Here are your email DNS Records:                                                  |"
 echo "| TYPE.........HOST.............ANSWER................................TTL......PRIO |"
@@ -81,9 +82,13 @@ echo "| A              @               $myIP                        300       N/
 echo "| A             WWW              $myIP                        300       N/A  "
 echo "| A             mail             $myIP                        300       N/A  "
 echo "| MX             @               mail.$mailDomain                  300       N/A  " 
-echo "| TXT            @   v=spf1 ip4:$myIP ip6:$myIP6 -all   300   N/A  "
+echo "| TXT            @              PASTE_SPF_RECORD_HERE                300       N/A  "
 echo "| TXT            @              PASTE_DKIM_KEYS_HERE                 300       N/A  " 
 echo "| TXT          _dmarc          PASTE_DMARC_RECORD_HERE               300       N/A  "
+echo "|------------------------------------------------------------------------------------|"
+echo "|        Copy and paste this into the ANSWER field for your SPF Record:              |"
+echo "|------------------------------------------------------------------------------------|"
+echo "v=spf1 ip4:$myIP ip6:$myIP6 -all"
 echo "|------------------------------------------------------------------------------------|"
 echo "|         Copy and paste this into the ANSWER field for your DKIM Keys:              |"
 echo "| Omit any text before 'default._domain..' sometimes there is an '-e' don't add that |"
