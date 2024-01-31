@@ -1,9 +1,9 @@
 #!/bin/bash
 ################################### Root Installer For Springb0ard Email Server & Webserver
 ################################### This is the demo program
-# nano v2.1b0a_emailRootIni.sh
-# sudo chmod +x v2.1b0a_emailRootIni.sh
-# ./v2.1b0a_emailRootIni.sh
+# nano start.sh
+# sudo chmod +x start.sh
+# ./start.sh
 echo "The Script is Live"
 sleep 1
 echo "Updating the server..."
