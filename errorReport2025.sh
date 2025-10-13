@@ -1,3 +1,78 @@
+
+TEST 2 10:40PM 10.12.25
+
+ssh root@85.9.197.13
+ssh tony@85.9.197.13
+
+
+
+-----------------------------------------------------------
+Here is the raw DKIM public key prior to reformatting for easy DNS:
+---
+p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsycieMbJxAQXzW4QNTaWoZAQG1uYmBSIfodvlMjWoRr17EpXEoxNZGAlFsRZ9TTJB/Dy7Niy5gNr4kGLKmSlnqkD32ybUIyvGmaP6D7pf4/nD20z8ePKWliyTOiLlVndFQq2WCxErJHf7i7KI035P1oNzTLYap8vC8E2IvZjzwEu86jIYFjSLDBip8Eur571nLb1ULZ2LyOrjLkFJhR5xDiwzGRvdO3KChuvAuSEblSp5DCM8OPPWZ7K6mReUmlC/ZiM8gDVsUt+yZDH71E9nDaPH7WNeqM1BNVmekD/rVT8rL7Q8m7ebZWSNw6BkCzWajZifgtXUdeOHMfyR8ZjFQIDAQAB
+-----------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+| Here are your email DNS Records:                                                  |
+| TYPE.........HOST.............ANSWER................................TTL......PRIO |
+| A              @               85.9.197.13                        300       N/A
+| A             WWW              85.9.197.13                        300       N/A
+| A             mail             85.9.197.13                        300       N/A
+| MX             @               mail.vc-miami.com                  300       N/A
+| TXT            @              PASTE_SPF_RECORD_HERE                300       N/A
+| TXT            @              PASTE_DKIM_KEYS_HERE                 300       N/A
+| TXT          _dmarc          PASTE_DMARC_RECORD_HERE               300       N/A
+|------------------------------------------------------------------------------------|
+|        Copy and paste this into the ANSWER field for your SPF Record:              |
+|------------------------------------------------------------------------------------|
+v=spf1 ip4:85.9.197.13 -all
+|------------------------------------------------------------------------------------|
+|         Copy and paste this into the ANSWER field for your DKIM Keys:              |
+| Omit any text before 'default._domain..' sometimes there is an '-e' don't add that |
+|------------------------------------------------------------------------------------|
+-e default._domainkey IN TXT  ( "v=DKIM1; h=sha256; k=rsa; "
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsycieMbJxAQXzW4QNT"
+"aWoZAQG1uYmBSIfodvlMjWoRr17EpXEoxNZGAlFsRZ9TTJB/Dy7Niy5gNr4kGLKm"
+"SlnqkD32ybUIyvGmaP6D7pf4/nD20z8ePKWliyTOiLlVndFQq2WCxErJHf7i7KI0"
+"35P1oNzTLYap8vC8E2IvZjzwEu86jIYFjSLDBip8Eur571nLb1ULZ2LyOrjLkFJh"
+"R5xDiwzGRvdO3KChuvAuSEblSp5DCM8OPPWZ7K6mReUmlC/ZiM8gDVsUt+yZDH71"
+"E9nDaPH7WNeqM1BNVmekD/rVT8rL7Q8m7ebZWSNw6BkCzWajZifgtXUdeOHMfyR8"
+"ZjFQIDAQAB")
+|------------------------------------------------------------------------------------|
+|        Copy and paste this into the ANSWER field for your DMARC Record:            |
+|------------------------------------------------------------------------------------|
+v=DMARC1; p=quarantine; rua=mailto:donnie@vc-miami.com; ruf=mailto:donnie@vc-miami.com; sp=none; aspf=r; adkim=r; pct=100;
+|------------------------------------------------------------------------------------|
+|                                   NOTE:                                            |
+|      You need to set reverse DNS (PTR) on your server's host admin portal          |
+|------------------------------------------------------------------------------------|
+| IP ADDRESS...............REVERSE DNS NAME.................ATTACHED TO              |
+| 85.9.197.13            mail.vc-miami.com          mail.vc-miami.com
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST 1 7PM 10.12.25
+
+
 ssh root@209.94.60.200
 ssh james@209.94.60.200
 
