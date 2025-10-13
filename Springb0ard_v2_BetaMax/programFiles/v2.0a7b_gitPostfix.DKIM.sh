@@ -4,7 +4,6 @@
 # ./v2.0a2b_Postfix.DKIM.sh
 echo "The script is live!"
 #Call your vArs!
-#Call your vArs!
 yourDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 mailDomain=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 regMailUser=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/regMailUser.txt)

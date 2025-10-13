@@ -129,8 +129,9 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
-sudo postconf -e "mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost"
 sudo postconf -e "myhostname = mail.$mailDomain"
+#sudo postconf -e "mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost"
+sudo postconf -e "mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
 sudo postconf -e "smtpd_banner = $myhostname ESMTP $mail_name"
@@ -200,10 +201,8 @@ sudo sed -i "/inet_listener pop3s {/a      ssl = yes" /etc/dovecot/conf.d/10-mas
 sudo sed -i "/inet_listener pop3s {/a      port = 995" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener imaps {/a      ssl = yes" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener imaps {/a      port = 993" /etc/dovecot/conf.d/10-master.conf
-# deprecated 10.12.25 -L
-#sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
-#updated to:
-sudo sed -i '/#imap_id_send =/a imap_id_send { name = Dovecot }' /etc/dovecot/conf.d/20-imap.conf
+
+sudo sed -i '/#imap_id_send =/a imap_id_send {\n  name = Dovecot\n}' /etc/dovecot/conf.d/20-imap.conf
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
 echo ""
@@ -213,14 +212,11 @@ sudo sed -i "s/#ssl_min_protocol = TLSv1/ssl_min_protocol = TLSv1/" /etc/dovecot
 sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 # or if thats not there do this
 sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
-#sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
-#sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
-# updated 2025 syntax -L 10.12.25
-sudo sed -i "s/ssl_server_cert_file = <\/etc\/dovecot\/private\/dovecot.pem/ssl_server_cert_file = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s/ssl_server_key_file = <\/etc\/dovecot\/private\/dovecot.key/ssl_server_key_file = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
+
+sudo sed -i "s|ssl_server_cert_file = </etc/dovecot/private/dovecot.pem|ssl_server_cert_file = </etc/letsencrypt/live/mail.$mailDomain/fullchain.pem|" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s|ssl_server_key_file = </etc/dovecot/private/dovecot.key|ssl_server_key_file = </etc/letsencrypt/live/mail.$mailDomain/privkey.pem|" /etc/dovecot/conf.d/10-ssl.conf
 echo ""
-#sudo sed -i "s/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
-# updated for 2025 -L 10.12.25:
+
 sudo sed -i 's/^mail_driver *= *.*/mail_driver = maildir/' /etc/dovecot/conf.d/10-mail.conf
 sudo sed -i 's|^mail_home *= *.*/.*|mail_home = /home/%{user|username}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
 sudo sed -i 's|^mail_path *= *.*/.*|mail_path = %{home}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
