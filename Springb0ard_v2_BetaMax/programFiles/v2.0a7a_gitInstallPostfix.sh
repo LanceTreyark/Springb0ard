@@ -14,7 +14,15 @@ webAdminEmail=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/web
 webDomainName=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/mailDomain.txt)
 defaultScpAddr=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/defaultScpAddr.txt)
 scpExportPath=$(cat /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/scpExportPath.txt)
-
+# IPV6 -In
+myIPv6=$(ip addr show | awk '/inet6 .* scope global/ {split($2, arr, "/"); print arr[1]}')
+cat >/tmp/ipSorter.txt <<EOF
+$myIPv6
+EOF
+myIP6=$(awk '{print $1}' /tmp/ipSorter.txt)
+echo "The IPv6 address for this server is: $myIP6"
+rm -r /tmp/ipSorter.txt
+# IPV6 -Out
 echo "           vArs Test:"
 echo "-----------------------------"
 echo "yourDomain=$yourDomain"
@@ -27,6 +35,7 @@ echo "webAdminEmail=$webAdminEmail"
 echo "webDomainName=$webDomainName"
 echo "defaultScpAddr=$defaultScpAddr"
 echo "scpExportPath=$scpExportPath"
+echo "IPV6=$myIP6"
 echo "-----------------------------"
 echo "Opening required mail ports..."
 sudo ufw allow 25
@@ -37,6 +46,10 @@ sudo ufw allow "WWW Full"
 #sudo ufw allow 993
 sudo ufw allow 995
 #sudo ufw allow 587
+sudo ufw allow 587/tcp
+sudo ufw allow 465/tcp
+sudo ufw allow 993/tcp
+sudo ufw reload
 sudo ufw status
 echo "Adding new user $regMailUser"
 sudo adduser $regMailUser
@@ -94,6 +107,7 @@ echo "| A              @               $myIP                        300       N/
 echo "| A             WWW              $myIP                        300       N/A |"
 echo "| A             mail             $myIP                        300       N/A |"
 echo "| MX             @               mail.$mailDomain                  300       N/A |" 
+echo "| AAAA          mail             $myIP6            300       N/A |" 
 echo "-------------------------------------------------------------------------------------"
 read -p "Make sure you have your DNS ready then press enter to continue" xVar
 sudo certbot certonly --standalone -d mail.$mailDomain
@@ -115,13 +129,17 @@ sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
-sudo postconf -e 'mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost'
+sudo postconf -e "mydestination = $mydomain, $myhostname, localhost.$myhostname, localhost"
 sudo postconf -e "myhostname = mail.$mailDomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
-sudo postconf -e 'smtpd_banner = $myhostname ESMTP $mail_name'
-#sudo postconf -e 'inet_protocols = ipv4'
-sudo postconf -e 'inet_protocols = all'
+sudo postconf -e "smtpd_banner = $myhostname ESMTP $mail_name"
+sudo postconf -e 'inet_protocols = ipv4'
+# Need to fix IPV6 -L 10.12.2025
+#sudo postconf -e 'inet_protocols = all'
+# Added 2 Masq's below on 10.12.25 -L 
+sudo postconf -e "masquerade_domains = $mailDomain"
+sudo postconf -e 'masquerade_exceptions = root'
 touch /tmp/sender_canonical
 echo "/$regMailUser@mail.$mailDomain/ $regMailUser@$mailDomain" >> /tmp/sender_canonical
 sudo cp /tmp/sender_canonical /etc/postfix/
@@ -182,7 +200,10 @@ sudo sed -i "/inet_listener pop3s {/a      ssl = yes" /etc/dovecot/conf.d/10-mas
 sudo sed -i "/inet_listener pop3s {/a      port = 995" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener imaps {/a      ssl = yes" /etc/dovecot/conf.d/10-master.conf
 sudo sed -i "/inet_listener imaps {/a      port = 993" /etc/dovecot/conf.d/10-master.conf
-sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
+# deprecated 10.12.25 -L
+#sudo sed -i "/#imap_id_send =/a  imap_id_send = +OK" /etc/dovecot/conf.d/20-imap.conf
+#updated to:
+sudo sed -i '/#imap_id_send =/a imap_id_send { name = Dovecot }' /etc/dovecot/conf.d/20-imap.conf
 echo ""
 echo "Configure  default to the standard ports, 143 for IMAP and 110 for POP3. With STARTTLS required for every connection"
 echo ""
@@ -192,10 +213,18 @@ sudo sed -i "s/#ssl_min_protocol = TLSv1/ssl_min_protocol = TLSv1/" /etc/dovecot
 sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 # or if thats not there do this
 sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
+#sudo sed -i "s/ssl_cert = <\/etc\/dovecot\/private\/dovecot.pem/ssl_cert = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
+#sudo sed -i "s/ssl_key = <\/etc\/dovecot\/private\/dovecot.key/ssl_key = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
+# updated 2025 syntax -L 10.12.25
+sudo sed -i "s/ssl_server_cert_file = <\/etc\/dovecot\/private\/dovecot.pem/ssl_server_cert_file = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/fullchain.pem/" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s/ssl_server_key_file = <\/etc\/dovecot\/private\/dovecot.key/ssl_server_key_file = <\/etc\/letsencrypt\/live\/mail.$mailDomain\/privkey.pem/" /etc/dovecot/conf.d/10-ssl.conf
 echo ""
-sudo sed -i "s/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
+#sudo sed -i "s/mail_location = mbox:~\/mail:INBOX=\/var\/mail\/%u/mail_location = maildir:~\/Maildir/" /etc/dovecot/conf.d/10-mail.conf
+# updated for 2025 -L 10.12.25:
+sudo sed -i 's/^mail_driver *= *.*/mail_driver = maildir/' /etc/dovecot/conf.d/10-mail.conf
+sudo sed -i 's|^mail_home *= *.*/.*|mail_home = /home/%{user|username}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
+sudo sed -i 's|^mail_path *= *.*/.*|mail_path = %{home}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
+sudo sed -i 's|^mail_inbox_path *= *.*/.*|mail_inbox_path = %{home}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
 echo "Check the Dovecot configuration"
 echo ""
 sudo dovecot -n

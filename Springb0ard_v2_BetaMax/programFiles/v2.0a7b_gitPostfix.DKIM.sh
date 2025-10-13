@@ -88,7 +88,9 @@ echo "| TXT          _dmarc          PASTE_DMARC_RECORD_HERE               300  
 echo "|------------------------------------------------------------------------------------|"
 echo "|        Copy and paste this into the ANSWER field for your SPF Record:              |"
 echo "|------------------------------------------------------------------------------------|"
-echo "v=spf1 ip4:$myIP ip6:$myIP6 -all"
+# IPV6 Support is not working right now 10.12.25 -L
+#echo "v=spf1 ip4:$myIP ip6:$myIP6 -all"
+echo "v=spf1 ip4:$myIP -all"
 echo "|------------------------------------------------------------------------------------|"
 echo "|         Copy and paste this into the ANSWER field for your DKIM Keys:              |"
 echo "| Omit any text before 'default._domain..' sometimes there is an '-e' don't add that |"
