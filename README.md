@@ -18,10 +18,11 @@
   <a href="https://www.youtube.com/watch?v=Kz5WJSpwF08" target="_blank">
   <img width="500" alt="Springb0ard_view" src="https://media.treyark.com/wp-content/uploads/2023/04/4.27.23_BB-1.png">
   </a>
+  <br>
   <a href="https://treyark.substack.com/p/phase-9-use-gmail-as-a-client">
-    ## [**NEW: Instructions on using Gmail as a client**](https://treyark.substack.com/p/phase-9-use-gmail-as-a-client) 
-  <h2 style="color:yellow;">NEW: Instructions on using Gmail as a client</h2></a>
-
+  <h2 >NEW: Instructions on using Gmail as a client</h2></a>
+<h4> ## [**NEW: Instructions on using Gmail as a client**](https://treyark.substack.com/p/phase-9-use-gmail-as-a-client) </h4>
+<br>
 
   <p>Updated for 2025 on Oct. 12th 2025  <br>
    OG Springb0ard v2 Release 4/20/2023
