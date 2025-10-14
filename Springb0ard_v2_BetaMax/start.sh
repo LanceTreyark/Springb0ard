@@ -77,6 +77,7 @@ alias bootmail="sudo systemctl restart dovecot && sudo systemctl restart postfix
 alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
 alias springboard="cat /home/$sudoUser/.bash_aliases"
+alias fixbb="script /dev/null && btop"
 EOF
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
