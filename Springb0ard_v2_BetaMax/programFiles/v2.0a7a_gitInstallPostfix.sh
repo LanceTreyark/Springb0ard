@@ -117,6 +117,9 @@ echo "installing Dovecot"
 sudo apt install dovecot-common dovecot-imapd dovecot-pop3d -y 
 sudo cp -r /etc/dovecot /home/$sudoUser/
 sudo chown -R $sudoUser:$sudoUser /home/$sudoUser/dovecot
+#These 2 variables were undeclared before 10.13.25 -L
+myhostname=mail.$mailDomain
+mydomain=$mailDomain
 sudo postconf -e 'smtpd_sasl_type = dovecot'
 sudo postconf -e 'smtpd_sasl_path = private/auth'
 sudo postconf -e 'smtpd_sasl_local_domain ='
@@ -134,7 +137,7 @@ sudo postconf -e "myhostname = mail.$mailDomain"
 sudo postconf -e "mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain"
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo postconf -e 'sender_canonical_maps = regexp:/etc/postfix/sender_canonical'
-sudo postconf -e "smtpd_banner = $myhostname ESMTP $mail_name"
+sudo postconf -e "smtpd_banner = $myhostname ESMTP $myhostname"
 sudo postconf -e 'inet_protocols = ipv4'
 # Need to fix IPV6 -L 10.12.2025
 #sudo postconf -e 'inet_protocols = all'
@@ -213,12 +216,16 @@ sudo sed -i "s/ssl = yes/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 # or if thats not there do this
 sudo sed -i "s/#ssl = required/ssl = required/" /etc/dovecot/conf.d/10-ssl.conf
 
-sudo sed -i "s|ssl_server_cert_file = </etc/dovecot/private/dovecot.pem|ssl_server_cert_file = </etc/letsencrypt/live/mail.$mailDomain/fullchain.pem|" /etc/dovecot/conf.d/10-ssl.conf
-sudo sed -i "s|ssl_server_key_file = </etc/dovecot/private/dovecot.key|ssl_server_key_file = </etc/letsencrypt/live/mail.$mailDomain/privkey.pem|" /etc/dovecot/conf.d/10-ssl.conf
+#sudo sed -i "s|ssl_server_cert_file = </etc/dovecot/private/dovecot.pem|ssl_server_cert_file = </etc/letsencrypt/live/mail.$mailDomain/fullchain.pem|" /etc/dovecot/conf.d/10-ssl.conf
+#sudo sed -i "s|ssl_server_key_file = </etc/dovecot/private/dovecot.key|ssl_server_key_file = </etc/letsencrypt/live/mail.$mailDomain/privkey.pem|" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s|ssl_server_cert_file = /etc/dovecot/private/dovecot.pem|ssl_server_cert_file = /etc/letsencrypt/live/mail.$mailDomain/fullchain.pem|" /etc/dovecot/conf.d/10-ssl.conf
+sudo sed -i "s|ssl_server_key_file = /etc/dovecot/private/dovecot.key|ssl_server_key_file = /etc/letsencrypt/live/mail.$mailDomain/privkey.pem|" /etc/dovecot/conf.d/10-ssl.conf  
+
 echo ""
 
 sudo sed -i 's/^mail_driver *= *.*/mail_driver = maildir/' /etc/dovecot/conf.d/10-mail.conf
-sudo sed -i 's|^mail_home *= *.*/.*|mail_home = /home/%{user|username}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
+#sudo sed -i 's|^mail_home *= *.*/.*|mail_home = /home/%{user|username}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
+sudo sed -i 's#mail_home = /home/%{user|username}#mail_home = /home/%{user|username}/Maildir#' /etc/dovecot/conf.d/10-mail.conf
 sudo sed -i 's|^mail_path *= *.*/.*|mail_path = %{home}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
 sudo sed -i 's|^mail_inbox_path *= *.*/.*|mail_inbox_path = %{home}/Maildir|' /etc/dovecot/conf.d/10-mail.conf
 echo "Check the Dovecot configuration"
