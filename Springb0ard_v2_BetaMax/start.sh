@@ -78,9 +78,7 @@ alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
 alias springboard="cat /home/$sudoUser/.bash_aliases"
 alias fixbb="script /dev/null && btop"
-#alias addMailUser="sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/add_mail_user.sh"
 alias addMailUser="sudo bash /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/add_mail_user.sh"
-
 EOF
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
