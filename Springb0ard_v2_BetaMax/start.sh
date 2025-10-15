@@ -40,7 +40,7 @@ echo ""
 read -p "Please create a new username for your new virtual inbound email address:   " regMailUser
 #regMailUser="admin"
 echo ""
-echo "Creating new user, you will need to create password for this"
+echo "Creating sudo user, you will need to create password for $sudoUser"
 adduser $sudoUser
 echo "Adding new user to sudo group"
 usermod -aG sudo $sudoUser
@@ -78,6 +78,9 @@ alias maillog="sudo nano /var/log/mail.log"
 alias springb0ard="cat /home/$sudoUser/.bash_aliases"
 alias springboard="cat /home/$sudoUser/.bash_aliases"
 alias fixbb="script /dev/null && btop"
+#alias addMailUser="sudo sh /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/add_mail_user.sh"
+alias addMailUser="sudo bash /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/add_mail_user.sh"
+
 EOF
 echo "Enable the Alias file"
 sudo chmod +x /home/$sudoUser/.bash_aliases
@@ -120,6 +123,8 @@ cd /etc/springb0ard/
 git clone https://github.com/LanceTreyark/Springb0ard.git
 echo "Making springboard executable..."
 sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/v2.0a1a_springb0ardManager.sh
+echo "making add_mail_user.sh executable"
+sudo chmod +x /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/programFiles/add_mail_user.sh
 echo "Adding stored variables to springb0ard directory..."
 sudo cp -a /tmp/vArs/. /etc/springb0ard/Springb0ard/Springb0ard_v2_BetaMax/vArs/
 # This \/ needs to be run as the sudoUser 
