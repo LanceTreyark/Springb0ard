@@ -41,4 +41,4 @@ sb-addsudouser --Add a new Sudo user
 
 fixbb          --If BTOP fails to start, this alias runs this "script /dev/null && btop"
 
-addMailUser    --Create a new email user account
+addMailUser    --Create a new email user account.
